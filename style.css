@@ -117,54 +117,45 @@ main {
 /* Hero Section */
 .hero-section {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .hero-section h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--korean-flag-blue), var(--korean-flag-red));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
 }
 
 .subtitle {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--text-secondary);
-  max-width: 700px;
-  margin: 0 auto 1rem;
+  max-width: 600px;
+  margin: 0 auto 0.75rem;
+  line-height: 1.6;
 }
 
 .viral-tag {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #ff6b6b;
   background: #fff5f5;
-  padding: 0.5rem 1.5rem;
-  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
   display: inline-block;
-  margin-top: 1rem;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+  margin-top: 0.5rem;
 }
 
 /* Tool Container */
 .tool-container {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow: var(--shadow-lg);
-  margin-bottom: 3rem;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Upload Section */

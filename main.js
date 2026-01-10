@@ -195,6 +195,12 @@ async function initAI() {
   try {
     console.log('🤖 AI 모델 로딩 중...');
 
+    // 로딩 메시지 업데이트
+    const loadingText = document.querySelector('.loading-spinner p');
+    if (loadingText) {
+      loadingText.textContent = 'AI 모델 로딩 중... (처음 실행 시 30초 소요)';
+    }
+
     // CLIP 모델 로드 (이미지-텍스트 매칭)
     const { pipeline } = window.transformers;
     imageClassifier = await pipeline('zero-shot-image-classification',
@@ -202,10 +208,16 @@ async function initAI() {
 
     isModelLoaded = true;
     console.log('✅ AI 모델 로드 완료!');
+
+    if (loadingText) {
+      loadingText.textContent = 'AI가 패션 스타일을 분석중...';
+    }
+
+    return true;
   } catch (error) {
     console.error('❌ 모델 로드 실패:', error);
-    // 폴백: 간단한 랜덤 분석
     isModelLoaded = false;
+    return false;
   }
 }
 
@@ -283,6 +295,12 @@ async function processImage(imageDataUrl) {
   try {
     // AI 분석
     const result = await analyzeFashion(imageDataUrl);
+
+    if (result === null) {
+      // 사람 이미지가 아닌 경우
+      return;
+    }
+
     showResults(result, imageDataUrl);
   } catch (error) {
     console.error('분석 에러:', error);
@@ -306,37 +324,100 @@ async function analyzeFashion(imageDataUrl) {
 
   if (!isModelLoaded) {
     // 모델이 아직 로딩 안됐으면 로드 시도
-    await initAI();
+    const loaded = await initAI();
+    if (!loaded) {
+      // 모델 로드 실패 시 폴백
+      return randomFashionCore();
+    }
   }
 
   if (isModelLoaded && imageClassifier) {
     try {
-      // AI 분석
-      const allKeywords = Object.entries(FASHION_CORES).flatMap(([id, core]) =>
-        core.keywords.map(kw => ({ id, keyword: kw }))
-      );
+      // 1단계: 사람 이미지인지 확인
+      const personCheck = await imageClassifier(imageDataUrl, [
+        'a photo of a person wearing clothes',
+        'a photo of a human in outfit',
+        'person fashion photo',
+        'object',
+        'landscape',
+        'animal',
+        'food'
+      ]);
 
-      // 중복 제거된 키워드 목록
-      const uniqueKeywords = [...new Set(allKeywords.map(k => k.keyword))];
+      console.log('👤 사람 감지:', personCheck);
+
+      // 사람 관련 점수 합산
+      const personScore = personCheck.slice(0, 3).reduce((sum, r) => sum + r.score, 0) / 3;
+
+      if (personScore < 0.3) {
+        // 사람이 아닌 이미지
+        throw new Error('사람 이미지가 아닙니다');
+      }
+
+      // 2단계: 패션 코어 분석
+      // 더 구체적인 패션 설명 키워드 사용
+      const fashionDescriptions = {
+        'gs25-core': 'person wearing gray hoodie sweatpants slippers lazy casual comfort clothes',
+        'brain-rot-core': 'person in pajamas messy hair sleepwear indoor comfortable home clothes',
+        'exam-hell-core': 'student wearing long padding jacket glasses mask studying outfit',
+        'error-core': 'programmer wearing checkered shirt backpack tech casual office clothes',
+        'salary-slave-core': 'office worker in dull gray suit tired corporate formal attire',
+        'seongsu-wannabe': 'hipster with headphones beanie hip hop streetwear urban fashion',
+        'hongdae-disease': 'artistic person with layered clothes colorful dyed hair alternative fashion',
+        'fake-rich': 'elegant person in beige trench coat knit scarf classy refined outfit',
+        'ceo-roleplay': 'business person in black turtleneck smart watch clean jacket professional',
+        'muscle-brain': 'athletic person wearing tank top muscle fit leggings gym fitness clothes',
+        'gorpcore': 'outdoor person in windbreaker hiking boots technical vest functional clothes',
+        'blokecore': 'sporty person wearing soccer jersey football sports athletic uniform',
+        'coquette-core': 'cute person with ribbon lace pink feminine princess girly outfit',
+        'y3k-core': 'futuristic person in metallic silver clothes goggles cyberpunk outfit',
+        'vintage-beggar': 'person wearing ripped distressed old thrifted vintage worn clothes',
+        'celebrity-disease': 'mysterious person all in black mask hat sunglasses celebrity fashion',
+        'confucianism-core': 'modest person in buttoned shirt long conservative traditional formal clothes',
+        'manipulator-core': 'innocent looking person white tee jeans simple clean pure outfit',
+        'rich-unemployed': 'wealthy person in golf wear polo luxury brand logo preppy clothes',
+        'strong-unni': 'strong person leather jacket bold makeup leopard print fierce outfit'
+      };
+
+      const coreIds = Object.keys(fashionDescriptions);
+      const descriptions = Object.values(fashionDescriptions);
 
       // 이미지 분류
-      const results = await imageClassifier(imageDataUrl, uniqueKeywords);
+      const results = await imageClassifier(imageDataUrl, descriptions);
 
-      // 가장 높은 점수의 키워드 찾기
-      const topResult = results.reduce((max, r) => r.score > max.score ? r : max, results[0]);
+      console.log('🎨 패션 분석 결과:', results.slice(0, 3));
 
-      // 해당 키워드를 가진 코어 찾기
-      const matchingCore = allKeywords.find(k => k.keyword === topResult.label);
+      // 가장 높은 점수의 결과
+      const topResult = results[0];
+      const topCoreId = coreIds[descriptions.indexOf(topResult.label)];
 
-      if (matchingCore) {
-        return matchingCore.id;
+      if (topResult.score > 0.15) { // 최소 신뢰도 체크
+        console.log(`✅ 선택된 코어: ${topCoreId} (${(topResult.score * 100).toFixed(1)}%)`);
+        return topCoreId;
+      } else {
+        console.warn('신뢰도가 낮아 랜덤 선택');
+        return randomFashionCore();
       }
+
     } catch (error) {
-      console.warn('AI 분석 실패, 폴백 사용:', error);
+      console.warn('AI 분석 실패:', error.message);
+
+      if (error.message === '사람 이미지가 아닙니다') {
+        alert('사람이 나온 패션 사진을 업로드해주세요! 🙏');
+        loading.style.display = 'none';
+        return null;
+      }
+
+      return randomFashionCore();
     }
   }
 
-  // 폴백: 랜덤 선택 (SSR 제외)
+  // 모델이 없으면 랜덤
+  return randomFashionCore();
+}
+
+// 랜덤 패션 코어 선택 (SSR 제외)
+function randomFashionCore() {
   const normalCores = Object.keys(FASHION_CORES).filter(
     id => !['unicorn-core', 'alien-core', 'npc-core'].includes(id)
   );
