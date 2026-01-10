@@ -199,6 +199,13 @@ main {
   margin-top: 1rem;
 }
 
+.drag-hint {
+  font-size: 0.875rem;
+  color: var(--primary-color) !important;
+  font-weight: 600;
+  margin-top: 0.5rem !important;
+}
+
 /* Button Group */
 .button-group {
   display: flex;

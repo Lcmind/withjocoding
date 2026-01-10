@@ -295,12 +295,6 @@ async function processImage(imageDataUrl) {
   try {
     // AI 분석
     const result = await analyzeFashion(imageDataUrl);
-
-    if (result === null) {
-      // 사람 이미지가 아닌 경우
-      return;
-    }
-
     showResults(result, imageDataUrl);
   } catch (error) {
     console.error('분석 에러:', error);
@@ -333,25 +327,24 @@ async function analyzeFashion(imageDataUrl) {
 
   if (isModelLoaded && imageClassifier) {
     try {
-      // 1단계: 사람 이미지인지 확인
+      // 1단계: 사람 이미지인지 확인 (매우 관대하게)
       const personCheck = await imageClassifier(imageDataUrl, [
-        'a photo of a person wearing clothes',
-        'a photo of a human in outfit',
-        'person fashion photo',
-        'object',
-        'landscape',
-        'animal',
-        'food'
+        'a photo of a person',
+        'human',
+        'object without person',
+        'landscape scenery',
+        'food or dish'
       ]);
 
       console.log('👤 사람 감지:', personCheck);
 
-      // 사람 관련 점수 합산
-      const personScore = personCheck.slice(0, 3).reduce((sum, r) => sum + r.score, 0) / 3;
+      // 사람 관련 점수 (첫 2개 평균)
+      const personScore = (personCheck[0].score + personCheck[1].score) / 2;
 
-      if (personScore < 0.3) {
-        // 사람이 아닌 이미지
-        throw new Error('사람 이미지가 아닙니다');
+      // 매우 낮은 임계값 (0.15) - 대부분 통과
+      if (personScore < 0.15) {
+        console.warn('사람 이미지가 아닐 수 있음 (점수:', personScore, ')');
+        // 경고만 하고 계속 진행
       }
 
       // 2단계: 패션 코어 분석
@@ -401,13 +394,7 @@ async function analyzeFashion(imageDataUrl) {
 
     } catch (error) {
       console.warn('AI 분석 실패:', error.message);
-
-      if (error.message === '사람 이미지가 아닙니다') {
-        alert('사람이 나온 패션 사진을 업로드해주세요! 🙏');
-        loading.style.display = 'none';
-        return null;
-      }
-
+      // 에러 발생 시 랜덤으로 선택
       return randomFashionCore();
     }
   }
@@ -584,8 +571,68 @@ document.getElementById('copy-link')?.addEventListener('click', () => {
 window.shareOnTwitter = shareOnTwitter;
 window.shareOnFacebook = shareOnFacebook;
 
+// 드래그 앤 드롭 기능
+function setupDragAndDrop() {
+  const dropZone = document.getElementById('image-preview-container');
+
+  // 드래그 오버 시 스타일 변경
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.style.border = '3px dashed #6366f1';
+      dropZone.style.backgroundColor = 'rgba(99, 102, 241, 0.05)';
+    });
+  });
+
+  // 드래그 떠날 때 원래대로
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.style.border = '';
+      dropZone.style.backgroundColor = '';
+    });
+  });
+
+  // 드롭 시 이미지 처리
+  dropZone.addEventListener('drop', async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const file = files[0];
+
+      // 이미지 파일인지 확인
+      if (!file.type.startsWith('image/')) {
+        alert('이미지 파일만 업로드 가능합니다!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        await processImage(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // 전체 페이지에서 드래그 방지 (브라우저 기본 동작)
+  ['dragenter', 'dragover', 'drop'].forEach(eventName => {
+    document.body.addEventListener(eventName, (e) => {
+      if (e.target.id !== 'image-preview-container') {
+        e.preventDefault();
+      }
+    });
+  });
+}
+
 // 페이지 로드 시 AI 모델 초기화
 document.addEventListener('DOMContentLoaded', () => {
   console.log('🎨 패션 코어 분석 AI 시작!');
   // AI 모델은 첫 분석 시 로드 (성능 최적화)
+
+  // 드래그 앤 드롭 설정
+  setupDragAndDrop();
 });
