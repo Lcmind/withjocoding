@@ -295,6 +295,12 @@ async function processImage(imageDataUrl) {
   try {
     // AI 분석
     const result = await analyzeFashion(imageDataUrl);
+
+    if (result === null) {
+      // 사람 이미지가 아닌 경우 (이미 alert 표시됨)
+      return;
+    }
+
     showResults(result, imageDataUrl);
   } catch (error) {
     console.error('분석 에러:', error);
@@ -327,24 +333,30 @@ async function analyzeFashion(imageDataUrl) {
 
   if (isModelLoaded && imageClassifier) {
     try {
-      // 1단계: 사람 이미지인지 확인 (매우 관대하게)
+      // 1단계: 사람 이미지인지 확인
       const personCheck = await imageClassifier(imageDataUrl, [
-        'a photo of a person',
-        'human',
-        'object without person',
-        'landscape scenery',
-        'food or dish'
+        'a person wearing clothes',
+        'human in outfit',
+        'empty room',
+        'food on plate',
+        'landscape nature',
+        'object item'
       ]);
 
-      console.log('👤 사람 감지:', personCheck);
+      console.log('👤 사람 감지 결과:', personCheck.slice(0, 6));
 
       // 사람 관련 점수 (첫 2개 평균)
       const personScore = (personCheck[0].score + personCheck[1].score) / 2;
+      // 비사람 점수 (3-6번 평균)
+      const nonPersonScore = personCheck.slice(2, 6).reduce((sum, r) => sum + r.score, 0) / 4;
 
-      // 매우 낮은 임계값 (0.15) - 대부분 통과
-      if (personScore < 0.15) {
-        console.warn('사람 이미지가 아닐 수 있음 (점수:', personScore, ')');
-        // 경고만 하고 계속 진행
+      console.log(`👤 사람: ${(personScore*100).toFixed(1)}%, 비사람: ${(nonPersonScore*100).toFixed(1)}%`);
+
+      // 명확하게 사람이 아닌 경우만 차단 (비사람 점수가 사람보다 훨씬 높음)
+      if (nonPersonScore > personScore + 0.2) {
+        alert('사람이 나온 패션 사진을 업로드해주세요! 🙏\n현재 사진은 사람으로 인식되지 않습니다.');
+        loading.style.display = 'none';
+        return null;
       }
 
       // 2단계: 패션 코어 분석
