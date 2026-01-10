@@ -1,50 +1,207 @@
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
-  background-color: #f0f0f0;
 }
 
-.container {
+/* Header */
+header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 1rem 0;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
   text-align: center;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+/* Main Layout */
+main {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Generator Section (The Tool) */
+.generator-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.generator-section h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.tool-container {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+/* Lotto Balls */
 #lotto-numbers {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
-  margin: 2rem 0;
+  min-height: 60px; /* Prevent jump */
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.placeholder-text {
+  color: #ccc;
+  font-style: italic;
 }
 
 .lotto-number {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background-color: #eee;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
   font-size: 1.2rem;
   font-weight: bold;
+  color: #333;
+  border: 1px solid #ddd;
 }
 
+/* Specific ball colors based on ranges (commonly used in Korea) */
+.lotto-number[data-range="1-10"] { background: #fbc400; color: white; border: none; }
+.lotto-number[data-range="11-20"] { background: #69c8f2; color: white; border: none; }
+.lotto-number[data-range="21-30"] { background: #ff7272; color: white; border: none; }
+.lotto-number[data-range="31-40"] { background: #aaa; color: white; border: none; }
+.lotto-number[data-range="41-45"] { background: #b0d840; color: white; border: none; }
+
+/* Button */
 #generate-btn {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
   border: none;
-  border-radius: 5px;
-  background-color: #4caf50;
+  border-radius: 50px;
+  background: linear-gradient(to right, #4caf50, #45a049);
   color: white;
-  transition: background-color 0.3s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 #generate-btn:hover {
-  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+#generate-btn:active {
+  transform: translateY(0);
+}
+
+/* Article / Info Content */
+.info-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 2rem;
+}
+
+.info-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.info-content h3 {
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.5rem 0;
+  color: #444;
+}
+
+.info-content p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #aaa;
+  padding: 2rem 0;
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer-links {
+  margin-top: 1rem;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+/* Ad Container Placeholder */
+.ad-container {
+    min-height: 90px;
+    background-color: #fafafa;
+    border: 1px dashed #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .tool-container {
+    padding: 1.5rem;
+  }
+  
+  .lotto-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
 }
