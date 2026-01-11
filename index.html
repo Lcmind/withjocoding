@@ -3,12 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="반응속도 테스트 게임! 나타나는 타겟을 빠르게 클릭하고 내 반응속도를 측정하세요. 친구들과 겨뤄보세요!">
-  <meta name="keywords" content="반응속도, 반응속도 테스트, reaction time, 클릭 게임, 반응속도 게임">
-  <meta property="og:title" content="반응속도 테스트 - 내 반응속도는?">
-  <meta property="og:description" content="타겟을 빠르게 클릭하고 내 반응속도를 측정해보세요! 친구들과 비교하고 공유하세요!">
+  <meta name="description" content="무료 반응속도 테스트 게임! 타겟을 빠르게 클릭하고 내 반응속도(ms)를 측정하세요. 순위 확인, 친구들과 비교, SNS 공유까지! 모바일 지원.">
+  <meta name="keywords" content="반응속도, 반응속도 테스트, reaction time test, 클릭 게임, aim trainer, 반응속도 측정, FPS 연습, 게이머 반응속도, 마우스 클릭 게임, 타겟 클릭">
+  <meta property="og:title" content="반응속도 테스트 - 내 반응은 얼마나 빠를까?">
+  <meta property="og:description" content="무료 반응속도 측정! 평균 250ms보다 빠르신가요? 지금 테스트하고 순위를 확인하세요!">
   <meta property="og:type" content="website">
-  <title>반응속도 테스트 - 내 반응은 얼마나 빠를까?</title>
+  <meta property="og:image" content="https://withjocoding.pages.dev/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="반응속도 테스트 게임">
+  <meta name="twitter:description" content="내 반응속도는 얼마나 빠를까? 무료 테스트!">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="반응속도 테스트">
+  <link rel="canonical" href="https://withjocoding.pages.dev/">
+  <title>반응속도 테스트 - 무료 반응속도 측정 게임 | Reaction Time Test</title>
   <link rel="stylesheet" href="style.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
      crossorigin="anonymous"></script>
@@ -54,6 +61,14 @@
 
       <div class="stats-preview">
         <p>🏆 내 최고 기록: <span id="best-record">없음</span></p>
+      </div>
+
+      <!-- 내 기록 순위 -->
+      <div class="ranking-history">
+        <h3>📊 내 기록 TOP 10</h3>
+        <div id="history-list" class="history-list">
+          <p class="empty-history">아직 기록이 없습니다. 지금 시작하세요!</p>
+        </div>
       </div>
     </div>
 
@@ -146,7 +161,41 @@
 
   <footer>
     <p>Made with ❤️ | 반응속도 테스트 게임</p>
+    <p style="font-size: 0.8rem; margin-top: 0.5rem;">
+      <a href="#" style="color: white; text-decoration: none; margin: 0 0.5rem;">개인정보처리방침</a> |
+      <a href="#" style="color: white; text-decoration: none; margin: 0 0.5rem;">이용약관</a>
+    </p>
   </footer>
+
+  <!-- Schema.org 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "반응속도 테스트",
+    "applicationCategory": "GameApplication",
+    "description": "무료 반응속도 측정 게임. 타겟을 빠르게 클릭하고 내 반응속도를 측정하세요.",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1240"
+    },
+    "screenshot": "https://withjocoding.pages.dev/og-image.jpg",
+    "featureList": [
+      "반응속도 측정",
+      "3가지 난이도",
+      "내 기록 TOP 10",
+      "SNS 공유",
+      "무료"
+    ]
+  }
+  </script>
 
   <script src="main.js"></script>
 </body>

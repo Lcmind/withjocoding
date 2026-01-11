@@ -33,6 +33,7 @@ const gameArea = document.getElementById('game-area');
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {
   loadBestRecord();
+  loadHistory();
   setupModeSelection();
   setupEventListeners();
 });
@@ -247,6 +248,9 @@ function getRating(ms) {
 
 // 최고 기록 저장/로드
 function saveBestRecord(avg) {
+  // 히스토리에 추가
+  saveToHistory(avg);
+
   const best = localStorage.getItem('bestReactionTime');
   if (!best || avg < parseInt(best)) {
     localStorage.setItem('bestReactionTime', avg);
@@ -259,6 +263,75 @@ function loadBestRecord() {
   if (best) {
     document.getElementById('best-record').textContent = `${best}ms`;
   }
+}
+
+// 히스토리 저장/로드
+function saveToHistory(avg) {
+  let history = JSON.parse(localStorage.getItem('reactionHistory') || '[]');
+
+  history.push({
+    time: avg,
+    date: new Date().toISOString(),
+    mode: gameMode
+  });
+
+  // 최신 50개만 유지
+  if (history.length > 50) {
+    history = history.slice(-50);
+  }
+
+  localStorage.setItem('reactionHistory', JSON.stringify(history));
+  loadHistory();
+}
+
+function loadHistory() {
+  const history = JSON.parse(localStorage.getItem('reactionHistory') || '[]');
+  const historyList = document.getElementById('history-list');
+
+  if (history.length === 0) {
+    historyList.innerHTML = '<p class="empty-history">아직 기록이 없습니다. 지금 시작하세요!</p>';
+    return;
+  }
+
+  // 시간 순으로 정렬 (빠른 순)
+  const sortedHistory = [...history].sort((a, b) => a.time - b.time).slice(0, 10);
+
+  let html = '';
+  sortedHistory.forEach((record, index) => {
+    const date = new Date(record.date);
+    const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+    let rankClass = '';
+    let rankEmoji = '';
+    if (index === 0) {
+      rankClass = 'gold';
+      rankEmoji = '🥇';
+    } else if (index === 1) {
+      rankClass = 'silver';
+      rankEmoji = '🥈';
+    } else if (index === 2) {
+      rankClass = 'bronze';
+      rankEmoji = '🥉';
+    }
+
+    const modeEmoji = {
+      'easy': '🟢',
+      'normal': '🟡',
+      'hard': '🔴'
+    }[record.mode] || '🟡';
+
+    html += `
+      <div class="history-item ${rankClass}">
+        <div class="history-rank">${rankEmoji || `${index + 1}.`}</div>
+        <div style="flex: 1;">
+          <div class="history-time">${record.time}ms ${modeEmoji}</div>
+          <div class="history-date">${dateStr}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  historyList.innerHTML = html;
 }
 
 // SNS 공유 함수

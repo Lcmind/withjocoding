@@ -168,6 +168,73 @@ h1 {
   color: #666;
 }
 
+/* 랭킹 히스토리 */
+.ranking-history {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.ranking-history h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.history-list {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.history-rank {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #667eea;
+  min-width: 40px;
+}
+
+.history-time {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.history-date {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.history-item.gold {
+  border-left-color: #ffd700;
+}
+
+.history-item.silver {
+  border-left-color: #c0c0c0;
+}
+
+.history-item.bronze {
+  border-left-color: #cd7f32;
+}
+
+.empty-history {
+  text-align: center;
+  color: #999;
+  padding: 2rem;
+}
+
 /* 게임 화면 */
 #game-screen {
   background: #1a1a2e;
@@ -422,6 +489,14 @@ footer {
   color: white;
   background: rgba(0,0,0,0.2);
   font-size: 0.9rem;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+
+/* 게임 화면에서 footer 숨기기 */
+#game-screen.active ~ footer {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* 모바일 최적화 */
