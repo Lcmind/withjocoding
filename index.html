@@ -1,318 +1,153 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="사진 한 장으로 내 전생 직업을 AI가 분석! 왕/여왕? 기사? 마법사? 당신의 전생은 무엇이었을까요? 재밌게 알아보고 SNS에 공유하세요!">
-  <meta name="keywords" content="전생 직업, 전생 분석, AI 전생, 전생 테스트, 과거생, 전생 진단, 바이럴, 인스타그램, 재미있는 테스트">
-  <meta property="og:title" content="전생 직업 분석 AI - 내 전생은 뭐였을까?">
-  <meta property="og:description" content="사진 한 장으로 AI가 당신의 전생 직업을 진단! 왕/여왕? 기사? 마법사? 지금 바로 확인하고 친구들과 공유하세요!">
-  <meta property="og:image" content="https://withjocoding.web.app/og-image.jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="반응속도 테스트 게임! 나타나는 타겟을 빠르게 클릭하고 내 반응속도를 측정하세요. 친구들과 겨뤄보세요!">
+  <meta name="keywords" content="반응속도, 반응속도 테스트, reaction time, 클릭 게임, 반응속도 게임">
+  <meta property="og:title" content="반응속도 테스트 - 내 반응속도는?">
+  <meta property="og:description" content="타겟을 빠르게 클릭하고 내 반응속도를 측정해보세요! 친구들과 비교하고 공유하세요!">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="전생 직업 분석 AI">
-  <meta name="twitter:description" content="내 전생 직업은 무엇? AI가 얼굴로 분석해드립니다!">
-  <title>전생 직업 분석 AI - 내 전생은 뭐였을까?</title>
-  <link href='/style.css' rel='stylesheet'>
+  <title>반응속도 테스트 - 내 반응은 얼마나 빠를까?</title>
+  <link rel="stylesheet" href="style.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
      crossorigin="anonymous"></script>
-  <!-- Transformer.js - 온디바이스 AI (완전 무료!) -->
-  <script type="module">
-    import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.1';
-
-    // 브라우저 환경 설정
-    env.allowLocalModels = false;
-
-    // 글로벌 변수로 등록
-    window.transformers = { pipeline, env };
-  </script>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <span class="logo">🔮 전생 직업 분석 AI</span>
-      <nav class="main-nav">
-        <a href="#how-it-works">사용법</a>
-        <a href="#past-life-jobs">전생 직업이란?</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-    </div>
-  </header>
+  <!-- 시작 화면 -->
+  <div id="start-screen" class="screen active">
+    <div class="container">
+      <h1>🎯 반응속도 테스트</h1>
+      <p class="subtitle">나타나는 타겟을 최대한 빠르게 클릭하세요!</p>
 
-  <main>
-    <!-- Top Ad Slot -->
-    <div class="ad-container top-ad">
+      <div class="info-box">
+        <h3>게임 방법</h3>
+        <ol>
+          <li>빨간 원이 화면에 랜덤하게 나타납니다</li>
+          <li>최대한 빠르게 클릭하세요</li>
+          <li>10개의 타겟을 모두 클릭하면 결과 확인!</li>
+        </ol>
+      </div>
+
+      <div class="mode-selection">
+        <h3>난이도 선택</h3>
+        <div class="mode-buttons">
+          <button class="mode-btn" data-mode="easy">
+            <span class="mode-emoji">🟢</span>
+            <span class="mode-name">쉬움</span>
+            <span class="mode-desc">타겟 크기: 큼</span>
+          </button>
+          <button class="mode-btn active" data-mode="normal">
+            <span class="mode-emoji">🟡</span>
+            <span class="mode-name">보통</span>
+            <span class="mode-desc">타겟 크기: 중간</span>
+          </button>
+          <button class="mode-btn" data-mode="hard">
+            <span class="mode-emoji">🔴</span>
+            <span class="mode-name">어려움</span>
+            <span class="mode-desc">타겟 크기: 작음</span>
+          </button>
+        </div>
+      </div>
+
+      <button id="start-btn" class="primary-btn">게임 시작</button>
+
+      <div class="stats-preview">
+        <p>🏆 내 최고 기록: <span id="best-record">없음</span></p>
+      </div>
+    </div>
+
+    <!-- 상단 광고 -->
+    <div class="ad-container">
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-format="horizontal"
            data-ad-client="ca-pub-1247545232353663"
            data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
+
+  <!-- 게임 화면 -->
+  <div id="game-screen" class="screen">
+    <div class="game-info">
+      <div class="info-item">
+        <span class="label">타겟:</span>
+        <span id="target-count">0 / 10</span>
+      </div>
+      <div class="info-item">
+        <span class="label">평균:</span>
+        <span id="avg-time">0ms</span>
+      </div>
     </div>
 
-    <section class="hero-section">
-      <h1>🔮 전생 직업 분석 AI</h1>
-      <p class="subtitle">사진 한 장으로 AI가 당신의 전생 직업을 진단! 15가지 전생 직업 중 과거의 당신은 누구였을까요? 🔥</p>
-      <p class="viral-tag">📢 인스타 스토리 폭발각! 친구들과 비교해보세요</p>
-    </section>
-
-    <section class="tool-container">
-      <!-- Image Input Section -->
-      <div class="upload-section">
-        <div id="image-preview-container">
-          <div id="placeholder" class="upload-placeholder">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-              <circle cx="12" cy="13" r="4"></circle>
-            </svg>
-            <p>사진을 드래그하거나 버튼을 클릭하세요</p>
-            <p class="drag-hint">📤 드래그 앤 드롭 지원</p>
-          </div>
-          <img id="uploaded-image" style="display:none; max-width: 100%; border-radius: 12px;">
-          <canvas id="canvas" style="display:none;"></canvas>
-        </div>
-
-        <div class="button-group">
-          <label for="file-upload" class="upload-btn">
-            📁 사진 업로드
-            <input type="file" id="file-upload" accept="image/*" style="display:none;">
-          </label>
-          <button id="camera-btn" class="upload-btn secondary">
-            📷 카메라 촬영
-          </button>
-        </div>
-
-        <div id="loading" class="loading-spinner" style="display:none;">
-          <div class="spinner"></div>
-          <p>AI가 당신의 전생을 분석중...</p>
-          <p class="loading-subtext">잠깐만요! 과거의 기억을 되살리는 중...</p>
-        </div>
-      </div>
-
-      <!-- Results Section -->
-      <div id="results-section" class="results-section" style="display:none;">
-        <div class="result-main-card">
-          <div class="result-header">
-            <h2 id="core-name" class="core-name">--</h2>
-            <div class="core-category" id="core-category">--</div>
-          </div>
-
-          <div class="result-image-container">
-            <img id="result-image" src="" alt="분석 결과" class="result-image">
-            <div class="share-overlay">
-              <button class="instant-share-btn" id="download-result">
-                📱 스토리용 이미지 저장
-              </button>
-            </div>
-          </div>
-
-          <div class="core-description">
-            <h3>🎭 AI 진단 결과</h3>
-            <p id="core-description-text" class="description-text">--</p>
-          </div>
-
-          <div class="learning-items">
-            <h4>✨ 전생 특징</h4>
-            <div id="style-features" class="features-list">--</div>
-          </div>
-
-          <div class="roast-section">
-            <h4>📖 전생 이야기</h4>
-            <p id="roast-text" class="roast-text">--</p>
-          </div>
-        </div>
-
-        <div class="share-section">
-          <h3>🚀 친구들에게 자랑하기</h3>
-          <div class="share-buttons-grid">
-            <button class="share-btn kakao" id="share-kakao">
-              💬 카카오톡 공유
-            </button>
-            <button class="share-btn instagram" id="share-instagram">
-              📷 인스타그램 스토리
-            </button>
-            <button class="share-btn twitter" onclick="shareOnTwitter()">
-              🐦 트위터 공유
-            </button>
-            <button class="share-btn facebook" onclick="shareOnFacebook()">
-              📘 페이스북 공유
-            </button>
-            <button class="share-btn link" id="copy-link">
-              🔗 링크 복사
-            </button>
-          </div>
-        </div>
-
-        <button id="try-again-btn" class="try-again-btn">🔄 다시 분석하기</button>
-      </div>
-    </section>
-
-    <!-- Middle Ad Slot -->
-    <div class="ad-container middle-ad">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-format="rectangle"
-           data-ad-client="ca-pub-1247545232353663"
-           data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+    <div id="game-area">
+      <div id="instruction-text">준비하세요...</div>
+      <div id="target" class="target"></div>
+      <div id="click-effect" class="click-effect"></div>
     </div>
+  </div>
 
-    <!-- Content Section -->
-    <article class="info-content">
-      <section id="how-it-works">
-        <h2>🔍 어떻게 작동하나요?</h2>
-        <div class="steps-container">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h4>사진 업로드</h4>
-            <p>얼굴이 나온 사진을 업로드하거나 카메라로 셀카를 촬영하세요.</p>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <h4>AI 분석</h4>
-            <p>온디바이스 AI가 얼굴 특징, 표정, 분위기를 종합 분석합니다.</p>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <h4>전생 직업 진단</h4>
-            <p>15가지 전생 직업 중 당신의 과거와 재밌는 이야기를 받아보세요!</p>
-          </div>
-        </div>
-      </section>
+  <!-- 결과 화면 -->
+  <div id="result-screen" class="screen">
+    <div class="container">
+      <h1>🎯 결과</h1>
 
-      <section id="past-life-jobs">
-        <h2>🔮 전생 직업이란?</h2>
-        <p>
-          AI가 당신의 얼굴 특징과 표정을 분석하여 과거생에서 어떤 직업을 가졌는지 추측합니다.
-          15가지 전생 직업으로 당신의 과거를 재밌고 감동적으로 알려드립니다!
-        </p>
-        <div class="cores-preview">
-          <div class="core-category-box">
-            <h4>👑 왕족/귀족</h4>
-            <p>왕/여왕, 귀족, 영주 - 당당하고 우아한 리더</p>
-          </div>
-          <div class="core-category-box">
-            <h4>⚔️ 전사/무인</h4>
-            <p>기사, 궁수, 검투사 - 용맹하고 강인한 전사</p>
-          </div>
-          <div class="core-category-box">
-            <h4>🔮 지성/신비</h4>
-            <p>마법사, 현자/학자, 점성술사 - 지혜롭고 신비로운 현자</p>
-          </div>
-          <div class="core-category-box">
-            <h4>🎭 예술/자유</h4>
-            <p>음유시인, 궁중화가, 모험가 - 자유롭고 창의적인 예술가</p>
-          </div>
-          <div class="core-category-box">
-            <h4>🕵️ 특수</h4>
-            <p>스파이, 대상인, 성직자 - 특별한 능력의 전문가</p>
-          </div>
-        </div>
-        <p class="note">
-          🎲 <strong>히든 결과:</strong> SSR 등급 3종이 숨어있습니다! (신/시간여행자/기록말소)
-          운이 좋으면 초특급 결과를 받을 수도 있어요!
-        </p>
-      </section>
-
-      <section id="faq">
-        <h2>❓ 자주 묻는 질문</h2>
-
-        <div class="faq-item">
-          <h4>Q. AI 분석이 정확한가요?</h4>
-          <p>A. 온디바이스 AI가 얼굴 특징을 분석하지만 100% 정확하지는 않습니다! 재미와 엔터테인먼트 목적으로 즐겨주세요. 진지하게 받아들이면 다칩니다 😅</p>
+      <div class="result-card">
+        <div class="result-main">
+          <div class="result-label">평균 반응속도</div>
+          <div class="result-value" id="final-avg">0ms</div>
+          <div class="result-rating" id="rating-text">측정 중...</div>
         </div>
 
-        <div class="faq-item">
-          <h4>Q. 사진이 서버에 저장되나요?</h4>
-          <p>A. 절대 아니요! 모든 AI 분석은 100% 여러분의 브라우저에서만 실행됩니다. 사진은 서버로 전송되지 않으며 어디에도 저장되지 않아요. 완전히 프라이버시가 보호됩니다! 🔒</p>
+        <div class="result-details">
+          <div class="detail-item">
+            <span class="detail-label">⚡ 최고 기록</span>
+            <span class="detail-value" id="best-time">0ms</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">🐌 최저 기록</span>
+            <span class="detail-value" id="worst-time">0ms</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">🎯 정확도</span>
+            <span class="detail-value" id="accuracy">100%</span>
+          </div>
         </div>
 
-        <div class="faq-item">
-          <h4>Q. 어떤 사진을 올려야 잘 분석되나요?</h4>
-          <p>A. 얼굴이 잘 나온 사진이 가장 좋습니다! 얼굴 표정과 특징이 명확할수록 AI가 더 정확하게 분석할 수 있어요. 정면 셀카나 증명사진 같은 사진을 추천합니다!</p>
-        </div>
+        <div class="ranking" id="ranking-message"></div>
+      </div>
 
-        <div class="faq-item">
-          <h4>Q. SSR 히든 결과는 어떻게 받나요?</h4>
-          <p>A. 순전히 운입니다! 🎲 약 9% 확률로 히든 결과(신/시간여행자/기록말소)가 나옵니다. 여러 번 시도해보세요. 친구들과 누가 더 재밌는 결과를 받는지 겨뤄보는 것도 재미있어요!</p>
-        </div>
+      <div class="result-actions">
+        <button id="retry-btn" class="primary-btn">다시 도전</button>
+        <button id="share-btn" class="secondary-btn">결과 공유</button>
+      </div>
 
-        <div class="faq-item">
-          <h4>Q. 왜 무료인가요?</h4>
-          <p>A. 온디바이스 AI를 사용하기 때문에 서버 비용이 들지 않아요! 그리고 광고 수익으로 운영됩니다. 광고 차단기는 잠시 꺼주시면 감사하겠습니다 🙏</p>
-        </div>
-      </section>
-
-      <section class="cta-section">
-        <h3>🎯 재밌으셨나요?</h3>
-        <p>친구들과 공유해서 누가 더 웃긴 결과를 받는지 겨뤄보세요! 인스타 스토리 폭발각입니다 🔥</p>
+      <div class="share-popup" id="share-popup">
+        <h3>공유하기</h3>
         <div class="share-buttons">
-          <button class="share-btn twitter" onclick="shareOnTwitter()">🐦 Twitter에 공유</button>
-          <button class="share-btn facebook" onclick="shareOnFacebook()">📘 Facebook에 공유</button>
+          <button class="share-btn twitter" onclick="shareTwitter()">🐦 Twitter</button>
+          <button class="share-btn facebook" onclick="shareFacebook()">📘 Facebook</button>
+          <button class="share-btn" onclick="copyLink()">🔗 링크 복사</button>
         </div>
-      </section>
-    </article>
+      </div>
 
-    <!-- Bottom Ad Slot -->
-    <div class="ad-container bottom-ad">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-format="autorelaxed"
-           data-ad-client="ca-pub-1247545232353663"
-           data-full-width-responsive="true"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+      <!-- 하단 광고 -->
+      <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-1247545232353663"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
     </div>
-  </main>
+  </div>
 
   <footer>
-    <div class="footer-content">
-      <p>&copy; 2026 전생 직업 분석 AI. All rights reserved.</p>
-      <p class="disclaimer">본 서비스는 재미와 엔터테인먼트 목적으로만 제공됩니다. AI 분석 결과는 참고용이며, 진지하게 받아들이지 마세요!</p>
-      <p class="privacy-note">🔒 모든 분석은 온디바이스로 이루어지며, 사진은 서버에 전송되거나 저장되지 않습니다.</p>
-      <div class="footer-links">
-        <a href="#past-life-jobs">전생 직업이란?</a>
-        <a href="#faq">FAQ</a>
-        <a href="#how-it-works">사용법</a>
-      </div>
-    </div>
+    <p>Made with ❤️ | 반응속도 테스트 게임</p>
   </footer>
 
-  <!-- 구조화 데이터 (Schema.org) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "전생 직업 분석 AI",
-    "applicationCategory": "EntertainmentApplication",
-    "description": "사진 한 장으로 AI가 당신의 전생 직업을 15가지 중에서 진단합니다. 온디바이스 AI로 완전 무료!",
-    "operatingSystem": "Web Browser",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "KRW"
-    },
-    "featureList": [
-      "온디바이스 AI 얼굴 분석",
-      "15가지 전생 직업 진단",
-      "SNS 공유 기능",
-      "완전 무료",
-      "프라이버시 보호"
-    ],
-    "screenshot": "https://withjocoding.web.app/og-image.jpg",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "2350"
-    }
-  }
-  </script>
-
-  <script defer type="text/javascript" src="/main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
