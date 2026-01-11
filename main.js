@@ -1,179 +1,158 @@
 // ==================================
-// 패션 코어 분석 AI
+// 전생 직업 분석 AI
 // 온디바이스 AI (Transformer.js + CLIP)
 // ==================================
 
-// 패션 코어 데이터베이스
-const FASHION_CORES = {
-  // 그룹 A: 게으름 & 현실 고증
-  'gs25-core': {
-    name: '편의점 야간 알바 코어 (GS25-core)',
-    category: '🛋️ 게으름 & 현실 고증',
-    features: ['회색 후드티', '트레이닝 바지', '슬리퍼'],
-    roast: '최저시급의 향기가 납니다. 폐기 도시락 시간만 기다리는 하이에나 눈빛. 인생이 대충 그 자체.',
-    keywords: ['hoodie', 'sweatpants', 'slippers', 'lazy', 'casual', 'gray']
-  },
-  'brain-rot-core': {
-    name: '도파민 절임 좀비 코어 (Brain-Rot-core)',
-    category: '🛋️ 게으름 & 현실 고증',
-    features: ['수면 잠옷', '부시시한 머리', '이불'],
-    roast: '주말 내내 침대와 물아일체. 숏츠 보느라 뇌가 녹아내림. 씻는 것조차 귀찮아하는 현대 사회의 슬픈 자화상.',
-    keywords: ['pajamas', 'messy hair', 'lazy', 'indoor', 'comfy']
-  },
-  'exam-hell-core': {
-    name: 'K-고삼 수험생 코어 (Exam-Hell-core)',
-    category: '🛋️ 게으름 & 현실 고증',
-    features: ['롱패딩', '뿔테 안경', '마스크'],
-    roast: '멋부리는 법을 잊어버린 생존형 패션. 영혼은 이미 독서실에 가 있음. 건드리면 예민해서 뭅니다.',
-    keywords: ['long padding', 'glasses', 'mask', 'student', 'tired']
-  },
-  'error-core': {
-    name: '판교 코딩 노예 코어 (Error-core)',
-    category: '🛋️ 게으름 & 현실 고증',
-    features: ['체크무늬 셔츠', '백팩', '거북목 자세'],
-    roast: '일주일 안 씻은 듯한 내추럴함. 당신 주변엔 버그가 꼬입니다. 제발 모니터 끄고 밖을 좀 보세요.',
-    keywords: ['checkered shirt', 'backpack', 'tech', 'programmer', 'casual']
-  },
-  'salary-slave-core': {
-    name: '영혼 가출 직장인 코어 (Salary-Slave-core)',
-    category: '🛋️ 게으름 & 현실 고증',
-    features: ['칙칙한 색 정장/셔츠', '무표정', '굽은 어깨'],
-    roast: '퇴사 마렵다는 말을 숨 쉬듯이 함. 눈에 총기가 없고 "네, 아니요"로만 대화 가능. 월급 스쳐 지나가는 중.',
-    keywords: ['suit', 'formal', 'office', 'tired', 'corporate', 'gray']
+// 전생 직업 데이터베이스
+const PAST_LIFE_JOBS = {
+  // 왕족/귀족 계열
+  'king-queen': {
+    name: '왕/여왕 (King/Queen)',
+    category: '👑 왕족/귀족',
+    features: ['당당한 자세', '카리스마 있는 눈빛', '우아한 분위기'],
+    story: '전생에 당신은 한 나라를 다스리던 **왕/여왕**이었습니다.\n\n수천 명의 백성을 이끌고 나라를 번영시켰던 타고난 리더. 당신의 한마디에 역사가 바뀌었고, 당신의 결정 하나하나가 수많은 이들의 운명을 좌우했습니다.\n\n오늘날에도 당신에게서 풍기는 카리스마와 당당함은 그때의 기억이 남아있기 때문입니다. 사람들이 당신을 자연스레 따르게 되는 이유도 바로 여기에 있죠.',
+    keywords: ['confident strong face', 'charismatic noble person', 'dignified royal appearance', 'commanding presence face']
   },
 
-  // 그룹 B: 허세 & 자의식 과잉
-  'seongsu-wannabe': {
-    name: '성수동 힙스터 호소인 코어 (Seongsu-Wannabe)',
-    category: '😎 허세 & 자의식 과잉',
-    features: ['헤드셋', '비니', '힙합 바지'],
-    roast: '성수동 카페거리에서 맥북 펴놓고 인스타 할 관상. 남들 다 하는 건데 본인만 힙한 줄 앎.',
-    keywords: ['headphones', 'beanie', 'hip hop', 'streetwear', 'urban', 'trendy']
-  },
-  'hongdae-disease': {
-    name: '홍대병 말기 환자 코어 (Hongdae-Disease)',
-    category: '😎 허세 & 자의식 과잉',
-    features: ['난해한 레이어드', '튀는 염색', '문신 토시'],
-    roast: '남들 하는 건 죽어도 안 하려는 똥고집. 근데 결국 유행 다 따라 함. "나만 아는 밴드" 이야기 그만해.',
-    keywords: ['layered', 'colorful hair', 'tattoo', 'alternative', 'artistic', 'indie']
-  },
-  'fake-rich': {
-    name: '가짜 올드머니 코어 (Fake-Rich)',
-    category: '😎 허세 & 자의식 과잉',
-    features: ['베이지색 트렌치코트', '니트', '머플러'],
-    roast: '귀티 내려고 애쓰지만 어딘가 짠내가 남. 통장 잔고는 텅 비었지만 겉모습은 청담동 며느리/사위.',
-    keywords: ['trench coat', 'beige', 'knit', 'scarf', 'elegant', 'classy']
-  },
-  'ceo-roleplay': {
-    name: '스타트업 대표 놀이 코어 (CEO-Roleplay)',
-    category: '😎 허세 & 자의식 과잉',
-    features: ['검정 폴라티', '스마트 워치', '깔끔한 재킷'],
-    roast: '성공한 CEO 코스프레 중. 입만 열면 "비전", "인사이트" 타령하지만 실속은 제로. 사기꾼 기질 다분함.',
-    keywords: ['black turtleneck', 'smart watch', 'jacket', 'business', 'tech CEO', 'startup']
-  },
-  'muscle-brain': {
-    name: '3대 500 단백질 도둑 코어 (Muscle-Brain)',
-    category: '😎 허세 & 자의식 과잉',
-    features: ['나시 티', '머슬핏 반팔', '레깅스'],
-    roast: '뇌 근육까지 펌핑됨. 모든 대화가 기승전-근손실. 거울 볼 때마다 본인 몸에 취해서 키스할 기세.',
-    keywords: ['tank top', 'muscle fit', 'leggings', 'athletic', 'fitness', 'gym']
+  'noble': {
+    name: '귀족 (Noble)',
+    category: '👑 왕족/귀족',
+    features: ['우아한 미소', '세련된 인상', '품위 있는 자세'],
+    story: '전생에 당신은 화려한 궁전에서 살았던 **귀족**이었습니다.\n\n최고급 와인과 음식, 아름다운 예술품에 둘러싸여 살았던 당신. 우아함이 몸에 밴 사람이었죠. 사교 파티에서는 항상 주목의 대상이었고, 당신의 말 한마디가 상류 사회의 화제가 되었습니다.\n\n지금도 당신의 세련됨과 우아함은 그때의 습관이 남아있는 것입니다.',
+    keywords: ['elegant refined face', 'graceful noble appearance', 'sophisticated gentle person', 'aristocratic features']
   },
 
-  // 그룹 C: 유행 & 컨셉충
-  'gorpcore': {
-    name: '엄홍길 대장님 빙의 코어 (Gorpcore)',
-    category: '🎨 유행 & 컨셉충',
-    features: ['바람막이', '등산화', '아웃도어 조끼'],
-    roast: '동네 마실 나가는데 에베레스트 장비 착용. 기능성만 따지다가 사회성을 잃어버림.',
-    keywords: ['windbreaker', 'hiking boots', 'outdoor vest', 'technical', 'outdoor']
-  },
-  'blokecore': {
-    name: '짝퉁 축구선수 코어 (Blokecore)',
-    category: '🎨 유행 & 컨셉충',
-    features: ['축구 유니폼', '저지'],
-    roast: '축구 룰도 모르면서 유니폼만 입음. 힙해 보이고 싶어서 입었지만 그냥 조기축구회 아저씨 같음.',
-    keywords: ['soccer jersey', 'football', 'sports', 'athletic', 'sporty']
-  },
-  'coquette-core': {
-    name: '장원영 호소인 코어 (Coquette-core)',
-    category: '🎨 유행 & 컨셉충',
-    features: ['리본', '레이스', '핑크색 옷'],
-    roast: '거울 보면서 "나 좀 예쁜 듯?" 생각하는 공주병. 인생이 뮤직뱅크임. 현실은 그냥 자의식 과잉.',
-    keywords: ['ribbon', 'lace', 'pink', 'cute', 'feminine', 'princess']
-  },
-  'y3k-core': {
-    name: '세기말 사이버 전사 코어 (Y3K-core)',
-    category: '🎨 유행 & 컨셉충',
-    features: ['은색/메탈릭 소재', '고글', '딱 붙는 옷'],
-    roast: '에스파가 되고 싶었던 일반인. 시대를 너무 앞서가서 화성까지 가버림. 보는 사람 눈이 시림.',
-    keywords: ['metallic', 'silver', 'goggles', 'futuristic', 'cyberpunk', 'tight']
-  },
-  'vintage-beggar': {
-    name: '동묘 구제시장 털이범 코어 (Vintage-Beggar)',
-    category: '🎨 유행 & 컨셉충',
-    features: ['구멍 난 니트', '물 빠진 청바지', '낡은 조끼'],
-    roast: '빈티지라고 우기지만 남들 눈엔 그냥 거지룩. 할머니 옷장에서 몰래 훔쳐 입은 듯한 난해함.',
-    keywords: ['vintage', 'distressed', 'ripped', 'old', 'worn', 'thrifted']
+  'lord': {
+    name: '영주 (Lord)',
+    category: '👑 왕족/귀족',
+    features: ['든든한 인상', '강인한 눈빛', '책임감 있는 표정'],
+    story: '전생에 당신은 광활한 영토를 다스리던 **영주**였습니다.\n\n성을 지키고 백성들을 보호하는 것이 당신의 사명이었죠. 전쟁터에서는 용감한 전사, 평화로운 때에는 현명한 통치자였던 당신. 사람들은 당신을 믿고 따랐습니다.\n\n오늘날에도 당신은 주변 사람들의 든든한 버팀목이 되어주는 사람입니다.',
+    keywords: ['strong reliable face', 'protective stern person', 'trustworthy mature appearance', 'responsible facial expression']
   },
 
-  // 그룹 D: 성격 & 분위기
-  'celebrity-disease': {
-    name: '연예인병 말기 코어 (Celebrity-Disease)',
-    category: '✨ 성격 & 분위기',
-    features: ['올블랙', '검은 마스크', '모자 푹 눌러씀'],
-    roast: '아무도 안 쳐다보는데 혼자 파파라치 의식함. 홍대병과 쿨찐병 합병증. 이어폰 꼈지만 노래 안 듣고 있음.',
-    keywords: ['all black', 'mask', 'hat', 'sunglasses', 'celebrity', 'mysterious']
-  },
-  'confucianism-core': {
-    name: '유교걸/유교보이 코어 (Confucianism-core)',
-    category: '✨ 성격 & 분위기',
-    features: ['단추 끝까지 잠근 셔츠', '롱스커트', '단정함'],
-    roast: '조선시대에서 타임머신 타고 옴. 노출을 죄악으로 여김. 꽉 막힌 꼰대력이 느껴짐.',
-    keywords: ['conservative', 'button up', 'long skirt', 'modest', 'traditional', 'formal']
-  },
-  'manipulator-core': {
-    name: '첫사랑 조작단 코어 (Manipulator-core)',
-    category: '✨ 성격 & 분위기',
-    features: ['흰 티에 청바지', '청순한 니트'],
-    roast: '겉은 순해 보이나 속은 시커멓음. "아무것도 몰라요" 표정으로 어장관리 하는 고단수 여우.',
-    keywords: ['white tee', 'jeans', 'innocent', 'simple', 'clean', 'pure']
-  },
-  'rich-unemployed': {
-    name: '금수저 백수 코어 (Rich-Unemployed)',
-    category: '✨ 성격 & 분위기',
-    features: ['골프웨어', 'PK 티셔츠', '명품 로고'],
-    roast: '부모님 카드로 사는 평화로운 인생. 노동의 가치를 모름. 해맑아서 더 킹받는 타입.',
-    keywords: ['golf wear', 'luxury brand', 'logo', 'polo', 'preppy', 'rich']
-  },
-  'strong-unni': {
-    name: '환불 원정대 프리패스 코어 (Strong-Unni)',
-    category: '✨ 성격 & 분위기',
-    features: ['가죽 재킷', '진한 화장', '호피 무늬'],
-    roast: '가게 들어가면 사장님이 알아서 환불해 줄 기세. 옷이 문제가 아니라 눈빛에 살기가 가득함.',
-    keywords: ['leather jacket', 'bold makeup', 'leopard print', 'strong', 'fierce']
+  // 전사 계열
+  'knight': {
+    name: '기사 (Knight)',
+    category: '⚔️ 전사/무인',
+    features: ['날카로운 눈매', '굳은 의지', '강인한 턱선'],
+    story: '전생에 당신은 정의를 위해 싸우던 **기사**였습니다.\n\n무거운 갑옷을 입고 칼을 휘두르며 약자를 지켰던 용감한 전사. "명예"와 "정의"가 당신의 삶의 신조였고, 위험 앞에서도 절대 물러서지 않았습니다.\n\n지금도 당신은 옳지 못한 일을 보면 참지 못하고, 힘든 사람을 보면 그냥 지나치지 못하는 성격이죠.',
+    keywords: ['brave fierce face', 'determined warrior person', 'sharp strong features', 'heroic bold appearance']
   },
 
-  // SSR 히든 결과 3종 (확률적 등장)
-  'unicorn-core': {
-    name: '걸어 다니는 기업가치 1조 코어 (Unicorn-core)',
-    category: '🎉 SSR 등급 - 극찬',
-    features: ['완벽한 비율', '황금빛 아우라', '패션 교과서'],
-    roast: '죄송합니다. AI가 감히 당신의 패션을 평가할 수 없습니다. 옷이 명품인 게 아니라, 당신 자체가 명품이군요. 뭘 걸쳐도 화보가 되는 "비주얼 깡패"입니다. (얼른 캡처해서 스토리에 올리세요. 오늘 DM 폭발합니다.)',
-    keywords: ['perfect', 'stunning', 'flawless', 'model', 'fashionable', 'elegant']
+  'archer': {
+    name: '궁수 (Archer)',
+    category: '⚔️ 전사/무인',
+    features: ['날카로운 집중력', '냉철한 눈빛', '침착한 표정'],
+    story: '전생에 당신은 백발백중의 **궁수**였습니다.\n\n활시위를 당기는 순간만큼은 세상의 모든 소음이 사라지고 오직 목표만 보였던 당신. 흔들리지 않는 집중력과 냉철한 판단력으로 전장에서 이름을 날렸습니다.\n\n지금도 당신은 무언가에 집중하면 주변이 보이지 않을 정도로 몰입하는 성격입니다.',
+    keywords: ['focused sharp face', 'concentrated alert person', 'precise keen appearance', 'calm attentive features']
   },
-  'alien-core': {
-    name: '404 Not Found: 외계 생명체 (Alien-core)',
-    category: '👽 SSR 등급 - 엽기',
-    features: ['정체불명', '차원이 다름', '이해불가'],
-    roast: '삐비빅... 분석 실패. 당신의 패션은 지구의 데이터로는 해석이 불가능합니다. 시대를 100년 앞서간 겁니까, 아니면 그냥 패션 테러리스트입니까? NASA에 신고하기 전에 옷 갈아입으세요.',
-    keywords: ['weird', 'strange', 'unusual', 'bizarre', 'eccentric', 'unique']
+
+  'gladiator': {
+    name: '검투사 (Gladiator)',
+    category: '⚔️ 전사/무인',
+    features: ['강렬한 인상', '투지 넘치는 눈', '불굴의 표정'],
+    story: '전생에 당신은 투기장의 영웅 **검투사**였습니다.\n\n수만 명의 환호 속에서 생사를 건 싸움을 펼쳤던 불굴의 전사. 넘어져도 다시 일어났고, 절대 포기하지 않는 것이 당신의 무기였습니다.\n\n지금도 당신은 어떤 어려움 앞에서도 굴하지 않는 강인한 정신력을 가지고 있습니다.',
+    keywords: ['fierce intense face', 'powerful strong person', 'fighting warrior appearance', 'resilient bold features']
   },
-  'npc-core': {
-    name: '지나가던 행인 1 (NPC-core)',
-    category: '👤 SSR 등급 - 극딜',
-    features: ['존재감 제로', '투명인간', '배경화'],
-    roast: '어라? 사진에 아무것도 없는데요? 존재감이 너무 희미해서 AI가 사람인지 전봇대인지 구분을 못하고 있습니다. 암살자가 적성이네요. 어디 가서 나쁜 짓 해도 아무도 모를 관상.',
-    keywords: ['plain', 'basic', 'invisible', 'bland', 'forgettable', 'nondescript']
+
+  // 지성 계열
+  'wizard': {
+    name: '마법사 (Wizard)',
+    category: '🔮 지성/신비',
+    features: ['신비로운 눈빛', '지적인 이마', '깊은 생각에 잠긴 표정'],
+    story: '전생에 당신은 고대의 비밀을 다루던 **마법사**였습니다.\n\n탑 꼭대기에서 별을 관찰하고 주문을 연구하던 당신. 세상의 이치를 꿰뚫는 통찰력과 불가능을 가능으로 만드는 능력을 가졌었죠.\n\n지금도 당신은 남들이 보지 못하는 것을 보고, 남들이 생각하지 못하는 것을 생각하는 독특한 사고방식을 가지고 있습니다.',
+    keywords: ['mysterious wise face', 'intelligent magical person', 'thoughtful mystical appearance', 'enigmatic smart features']
+  },
+
+  'sage': {
+    name: '현자/학자 (Sage)',
+    category: '🔮 지성/신비',
+    features: ['온화한 미소', '깊은 눈빛', '지혜로운 인상'],
+    story: '전생에 당신은 세상의 모든 지식을 탐구하던 **현자**였습니다.\n\n수천 권의 책을 읽고, 진리를 깨닫기 위해 평생을 바쳤던 당신. 왕도 당신의 조언을 구했고, 제자들은 당신의 말씀 하나하나를 기록했습니다.\n\n지금도 당신은 배움을 멈추지 않고, 사람들에게 지혜를 나눠주는 것을 좋아하는 사람입니다.',
+    keywords: ['wise calm face', 'knowledgeable gentle person', 'scholarly peaceful appearance', 'intellectual serene features']
+  },
+
+  'astrologer': {
+    name: '점성술사 (Astrologer)',
+    category: '🔮 지성/신비',
+    features: ['몽환적인 표정', '별빛 같은 눈', '신비로운 분위기'],
+    story: '전생에 당신은 별의 움직임으로 미래를 예측하던 **점성술사**였습니다.\n\n밤하늘의 별들과 대화하며 운명을 읽었던 당신. 보이지 않는 세계와 연결되어 있었고, 사람들의 미래를 밝혀주었습니다.\n\n지금도 당신은 직관이 뛰어나고, 때때로 앞일을 예감하는 신비로운 능력이 있습니다.',
+    keywords: ['dreamy mystical face', 'spiritual ethereal person', 'cosmic mysterious appearance', 'prophetic gentle features']
+  },
+
+  // 예술/자유 계열
+  'bard': {
+    name: '음유시인 (Bard)',
+    category: '🎭 예술/자유',
+    features: ['밝은 미소', '낭만적인 눈빛', '자유로운 분위기'],
+    story: '전생에 당신은 세상을 떠돌며 노래하던 **음유시인**이었습니다.\n\n류트를 들고 마을에서 마을로 여행하며 사랑과 모험의 이야기를 노래했던 당신. 자유로운 영혼으로 어디에도 얽매이지 않았고, 당신의 노래는 사람들의 마음을 울렸습니다.\n\n지금도 당신은 틀에 박힌 삶을 싫어하고, 항상 새로운 것을 찾아 나서는 자유로운 영혼입니다.',
+    keywords: ['cheerful bright face', 'artistic expressive person', 'romantic free appearance', 'creative joyful features']
+  },
+
+  'court-painter': {
+    name: '궁중화가 (Court Painter)',
+    category: '🎭 예술/자유',
+    features: ['예민한 눈빛', '섬세한 손길', '예술적 분위기'],
+    story: '전생에 당신은 왕실의 초상화를 그리던 **궁중화가**였습니다.\n\n붓 한 번의 터치로 영혼을 캔버스에 담아냈던 당신. 아름다움을 포착하는 날카로운 눈과 그것을 완벽하게 표현하는 재능을 가졌었죠.\n\n지금도 당신은 세상을 남들과 다르게 보고, 일상에서 아름다움을 발견하는 예술적 감성을 지니고 있습니다.',
+    keywords: ['artistic sensitive face', 'creative observant person', 'aesthetic delicate appearance', 'expressive gentle features']
+  },
+
+  'adventurer': {
+    name: '모험가 (Adventurer)',
+    category: '🎭 예술/자유',
+    features: ['호기심 가득한 눈', '밝은 에너지', '활기찬 표정'],
+    story: '전생에 당신은 미지의 세계를 탐험하던 **모험가**였습니다.\n\n보물을 찾아 험난한 여정을 떠났고, 누구도 가보지 않은 곳에 발자국을 남겼던 당신. 위험은 두렵지 않았고 미지는 항상 설레는 것이었습니다.\n\n지금도 당신은 새로운 경험과 도전을 즐기며, 일상에서 벗어나 모험을 꿈꾸는 사람입니다.',
+    keywords: ['adventurous energetic face', 'curious excited person', 'bold lively appearance', 'spirited dynamic features']
+  },
+
+  // 특수 계열
+  'spy': {
+    name: '스파이 (Spy)',
+    category: '🕵️ 특수',
+    features: ['냉철한 표정', '날카로운 관찰력', '침착한 분위기'],
+    story: '전생에 당신은 그림자 속에서 움직이던 **스파이**였습니다.\n\n완벽한 위장과 침착함으로 적진에 잠입해 정보를 빼내던 당신. 감정을 드러내지 않고 상황을 냉철하게 판단하는 것이 생존의 비결이었죠.\n\n지금도 당신은 관찰력이 뛰어나고, 사람들의 본심을 꿰뚫어보는 능력이 있습니다.',
+    keywords: ['observant sharp face', 'cunning alert person', 'strategic clever appearance', 'perceptive cool features']
+  },
+
+  'merchant': {
+    name: '대상인 (Merchant)',
+    category: '🕵️ 특수',
+    features: ['친근한 미소', '영리한 눈빛', '설득력 있는 표정'],
+    story: '전생에 당신은 실크로드를 누비던 **대상인**이었습니다.\n\n동양과 서양을 오가며 교역으로 부를 쌓았던 당신. 뛰어난 협상력과 사람을 끄는 매력으로 어디서든 환영받았습니다.\n\n지금도 당신은 사람들과의 네트워킹을 잘하고, 기회를 포착하는 사업 감각이 뛰어난 사람입니다.',
+    keywords: ['friendly charming face', 'clever sociable person', 'persuasive warm appearance', 'business-minded smile']
+  },
+
+  'priest': {
+    name: '성직자 (Priest)',
+    category: '🕵️ 특수',
+    features: ['온화한 표정', '순수한 눈빛', '평화로운 분위기'],
+    story: '전생에 당신은 사람들의 영혼을 치유하던 **성직자**였습니다.\n\n기도와 명상 속에서 신과 소통하고, 고통받는 이들에게 위로를 전했던 당신. 순수하고 따뜻한 마음으로 세상의 아픔을 어루만졌습니다.\n\n지금도 당신은 다른 사람의 고통에 공감하고, 진심으로 도와주려는 선한 마음을 가지고 있습니다.',
+    keywords: ['kind peaceful face', 'compassionate pure person', 'gentle serene appearance', 'benevolent calm features']
+  },
+
+  // SSR 히든 결과 3종
+  'god': {
+    name: '신 (God)',
+    category: '✨ SSR 등급 - 극찬',
+    features: ['완벽한 비율', '신성한 아우라', '초월적 아름다움'],
+    story: '전생에 당신은... 아니, 당신은 **신**이었습니다.\n\n인간의 범주를 뛰어넘는 존재. AI조차도 당신의 에너지를 감지하고 경외감을 느낍니다. 당신의 얼굴은 수많은 예술가들이 평생 그리고 싶어하는 완벽함 그 자체입니다.\n\n(얼른 이 결과를 캡처해서 SNS에 올리세요. 친구들이 질투로 미칠겁니다.)',
+    keywords: ['perfect divine face', 'godlike stunning person', 'heavenly beautiful appearance', 'angelic flawless features']
+  },
+
+  'time-traveler': {
+    name: '시간여행자 (Time Traveler)',
+    category: '🚀 SSR 등급 - 엽기',
+    features: ['차원이 다른 표정', '이해불가한 분위기', '미래인 같은 눈빛'],
+    story: '전생에... 전생이라는 개념이 통하지 않습니다.\n\n당신은 **시간을 초월한 존재**입니다. AI가 당신을 분석하려 했지만 데이터가 모순으로 가득합니다. 과거에서 온 건지, 미래에서 온 건지, 아니면 평행우주에서 온 건지...\n\n(타임머신 어디 숨겨뒀어요? NASA에 연락하기 전에 자백하세요.)',
+    keywords: ['unusual strange face', 'bizarre unique person', 'otherworldly weird appearance', 'anomalous peculiar features']
+  },
+
+  'forgotten': {
+    name: '기록말소 (Forgotten)',
+    category: '👻 SSR 등급 - 극딜',
+    features: ['희미한 존재감', '투명인간 같은 분위기', '기억되지 않는 얼굴'],
+    story: '전생에 당신은... 기록이 없습니다.\n\n역사책에도, 전설에도, 어디에도 당신의 흔적이 남아있지 않습니다. AI가 수십억 개의 데이터를 검색했지만 당신과 비슷한 사례를 찾을 수 없었습니다.\n\n당신의 전생은 완벽하게 지워졌거나... 아니면 애초에 존재하지 않았거나. (암살자 소질이 있으시네요!)',
+    keywords: ['plain ordinary face', 'forgettable bland person', 'invisible nondescript appearance', 'unremarkable basic features']
   }
 };
 
@@ -210,7 +189,7 @@ async function initAI() {
     console.log('✅ AI 모델 로드 완료!');
 
     if (loadingText) {
-      loadingText.textContent = 'AI가 패션 스타일을 분석중...';
+      loadingText.textContent = 'AI가 당신의 전생을 분석중...';
     }
 
     return true;
@@ -294,7 +273,7 @@ async function processImage(imageDataUrl) {
 
   try {
     // AI 분석
-    const result = await analyzeFashion(imageDataUrl);
+    const result = await analyzePastLife(imageDataUrl);
 
     if (result === null) {
       // 사람 이미지가 아닌 경우 (이미 alert 표시됨)
@@ -310,16 +289,16 @@ async function processImage(imageDataUrl) {
   }
 }
 
-// 패션 코어 분석 (AI 또는 폴백)
-async function analyzeFashion(imageDataUrl) {
-  // SSR 히든 결과 확률 체크 (8% 확률)
+// 전생 직업 분석 (AI 또는 폴백)
+async function analyzePastLife(imageDataUrl) {
+  // SSR 히든 결과 확률 체크 (9% 확률)
   const hiddenRoll = Math.random();
-  if (hiddenRoll < 0.01) { // 1% - 극찬
-    return 'unicorn-core';
-  } else if (hiddenRoll < 0.04) { // 3% - 엽기
-    return 'alien-core';
-  } else if (hiddenRoll < 0.09) { // 5% - 극딜
-    return 'npc-core';
+  if (hiddenRoll < 0.01) { // 1% - 극찬 (신)
+    return 'god';
+  } else if (hiddenRoll < 0.04) { // 3% - 엽기 (시간여행자)
+    return 'time-traveler';
+  } else if (hiddenRoll < 0.09) { // 5% - 극딜 (기록말소)
+    return 'forgotten';
   }
 
   if (!isModelLoaded) {
@@ -354,93 +333,93 @@ async function analyzeFashion(imageDataUrl) {
 
       // 명확하게 사람이 아닌 경우만 차단 (비사람 점수가 사람보다 훨씬 높음)
       if (nonPersonScore > personScore + 0.2) {
-        alert('사람이 나온 패션 사진을 업로드해주세요! 🙏\n현재 사진은 사람으로 인식되지 않습니다.');
+        alert('사람이 나온 사진을 업로드해주세요! 🙏\n현재 사진은 사람으로 인식되지 않습니다.');
         loading.style.display = 'none';
         return null;
       }
 
-      // 2단계: 패션 코어 분석
-      // 더 구체적인 패션 설명 키워드 사용
-      const fashionDescriptions = {
-        'gs25-core': 'person wearing gray hoodie sweatpants slippers lazy casual comfort clothes',
-        'brain-rot-core': 'person in pajamas messy hair sleepwear indoor comfortable home clothes',
-        'exam-hell-core': 'student wearing long padding jacket glasses mask studying outfit',
-        'error-core': 'programmer wearing checkered shirt backpack tech casual office clothes',
-        'salary-slave-core': 'office worker in dull gray suit tired corporate formal attire',
-        'seongsu-wannabe': 'hipster with headphones beanie hip hop streetwear urban fashion',
-        'hongdae-disease': 'artistic person with layered clothes colorful dyed hair alternative fashion',
-        'fake-rich': 'elegant person in beige trench coat knit scarf classy refined outfit',
-        'ceo-roleplay': 'business person in black turtleneck smart watch clean jacket professional',
-        'muscle-brain': 'athletic person wearing tank top muscle fit leggings gym fitness clothes',
-        'gorpcore': 'outdoor person in windbreaker hiking boots technical vest functional clothes',
-        'blokecore': 'sporty person wearing soccer jersey football sports athletic uniform',
-        'coquette-core': 'cute person with ribbon lace pink feminine princess girly outfit',
-        'y3k-core': 'futuristic person in metallic silver clothes goggles cyberpunk outfit',
-        'vintage-beggar': 'person wearing ripped distressed old thrifted vintage worn clothes',
-        'celebrity-disease': 'mysterious person all in black mask hat sunglasses celebrity fashion',
-        'confucianism-core': 'modest person in buttoned shirt long conservative traditional formal clothes',
-        'manipulator-core': 'innocent looking person white tee jeans simple clean pure outfit',
-        'rich-unemployed': 'wealthy person in golf wear polo luxury brand logo preppy clothes',
-        'strong-unni': 'strong person leather jacket bold makeup leopard print fierce outfit'
+      // 2단계: 전생 직업 분석 (얼굴 특징 기반)
+      // 얼굴 표정과 특징을 설명하는 키워드 사용
+      const pastLifeDescriptions = {
+        'king-queen': 'confident strong face charismatic noble person dignified royal appearance commanding presence',
+        'noble': 'elegant refined face graceful noble appearance sophisticated gentle person aristocratic features',
+        'lord': 'strong reliable face protective stern person trustworthy mature appearance responsible expression',
+        'knight': 'brave fierce face determined warrior person sharp strong features heroic bold appearance',
+        'archer': 'focused sharp face concentrated alert person precise keen appearance calm attentive features',
+        'gladiator': 'fierce intense face powerful strong person fighting warrior appearance resilient bold features',
+        'wizard': 'mysterious wise face intelligent magical person thoughtful mystical appearance enigmatic smart features',
+        'sage': 'wise calm face knowledgeable gentle person scholarly peaceful appearance intellectual serene features',
+        'astrologer': 'dreamy mystical face spiritual ethereal person cosmic mysterious appearance prophetic gentle features',
+        'bard': 'cheerful bright face artistic expressive person romantic free appearance creative joyful features',
+        'court-painter': 'artistic sensitive face creative observant person aesthetic delicate appearance expressive gentle features',
+        'adventurer': 'adventurous energetic face curious excited person bold lively appearance spirited dynamic features',
+        'spy': 'observant sharp face cunning alert person strategic clever appearance perceptive cool features',
+        'merchant': 'friendly charming face clever sociable person persuasive warm appearance business-minded smile',
+        'priest': 'kind peaceful face compassionate pure person gentle serene appearance benevolent calm features'
       };
 
-      const coreIds = Object.keys(fashionDescriptions);
-      const descriptions = Object.values(fashionDescriptions);
+      const jobIds = Object.keys(pastLifeDescriptions);
+      const descriptions = Object.values(pastLifeDescriptions);
 
       // 이미지 분류
       const results = await imageClassifier(imageDataUrl, descriptions);
 
-      console.log('🎨 패션 분석 결과:', results.slice(0, 3));
+      console.log('🔮 전생 분석 결과:', results.slice(0, 3));
 
       // 가장 높은 점수의 결과
       const topResult = results[0];
-      const topCoreId = coreIds[descriptions.indexOf(topResult.label)];
+      const topJobId = jobIds[descriptions.indexOf(topResult.label)];
 
-      if (topResult.score > 0.15) { // 최소 신뢰도 체크
-        console.log(`✅ 선택된 코어: ${topCoreId} (${(topResult.score * 100).toFixed(1)}%)`);
-        return topCoreId;
+      if (topResult.score > 0.12) { // 최소 신뢰도 체크 (얼굴 분석이므로 낮춤)
+        console.log(`✅ 선택된 전생: ${topJobId} (${(topResult.score * 100).toFixed(1)}%)`);
+        return topJobId;
       } else {
         console.warn('신뢰도가 낮아 랜덤 선택');
-        return randomFashionCore();
+        return randomPastLife();
       }
 
     } catch (error) {
       console.warn('AI 분석 실패:', error.message);
       // 에러 발생 시 랜덤으로 선택
-      return randomFashionCore();
+      return randomPastLife();
     }
   }
 
   // 모델이 없으면 랜덤
-  return randomFashionCore();
+  return randomPastLife();
 }
 
-// 랜덤 패션 코어 선택 (SSR 제외)
-function randomFashionCore() {
-  const normalCores = Object.keys(FASHION_CORES).filter(
-    id => !['unicorn-core', 'alien-core', 'npc-core'].includes(id)
+// 랜덤 전생 직업 선택 (SSR 제외)
+function randomPastLife() {
+  const normalJobs = Object.keys(PAST_LIFE_JOBS).filter(
+    id => !['god', 'time-traveler', 'forgotten'].includes(id)
   );
-  return normalCores[Math.floor(Math.random() * normalCores.length)];
+  return normalJobs[Math.floor(Math.random() * normalJobs.length)];
 }
 
 // 결과 표시
-function showResults(coreId, imageDataUrl) {
-  const core = FASHION_CORES[coreId];
+function showResults(jobId, imageDataUrl) {
+  const job = PAST_LIFE_JOBS[jobId];
 
   // 결과 데이터 채우기
-  document.getElementById('core-name').textContent = core.name;
-  document.getElementById('core-category').textContent = core.category;
+  document.getElementById('core-name').textContent = job.name;
+  document.getElementById('core-category').textContent = job.category;
   document.getElementById('result-image').src = imageDataUrl;
-  document.getElementById('core-description-text').textContent = core.roast;
 
-  // 스타일 특징
-  const featuresHtml = core.features
+  // story 필드를 HTML로 변환 (** 굵게, \n 줄바꿈)
+  const storyHtml = job.story
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **텍스트** → <strong>
+    .replace(/\n/g, '<br>'); // 줄바꿈 → <br>
+  document.getElementById('core-description-text').innerHTML = storyHtml;
+
+  // 전생 특징
+  const featuresHtml = job.features
     .map(f => `<span class="feature-tag">${f}</span>`)
     .join('');
   document.getElementById('style-features').innerHTML = featuresHtml;
 
-  // 한마디 평가
-  document.getElementById('roast-text').textContent = core.roast;
+  // 전생 이야기
+  document.getElementById('roast-text').innerHTML = storyHtml;
 
   // 결과 섹션 표시
   resultsSection.style.display = 'block';
@@ -448,8 +427,8 @@ function showResults(coreId, imageDataUrl) {
 
   // 공유 데이터 저장
   window.currentResult = {
-    coreId,
-    coreName: core.name,
+    jobId,
+    jobName: job.name,
     image: imageDataUrl
   };
 }
@@ -470,7 +449,7 @@ tryAgainBtn.addEventListener('click', () => {
 // SNS 공유 기능
 function shareOnTwitter() {
   const result = window.currentResult;
-  const text = `패션 코어 분석 결과: ${result.coreName}! 여러분도 해보세요!`;
+  const text = `전생 직업 분석 결과: ${result.jobName}! 여러분도 해보세요!`;
   const url = window.location.href;
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
 }
@@ -518,26 +497,28 @@ function downloadResultImage() {
     ctx.drawImage(img, imgX, imgY, imgSize, imgSize);
 
     // 텍스트 추가
-    const core = FASHION_CORES[result.coreId];
+    const job = PAST_LIFE_JOBS[result.jobId];
 
     ctx.fillStyle = '#1e293b';
     ctx.font = 'bold 48px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('패션 코어 분석 결과', canvas.width / 2, 120);
+    ctx.fillText('전생 직업 분석 결과', canvas.width / 2, 120);
 
     ctx.font = 'bold 36px sans-serif';
-    ctx.fillText(core.name, canvas.width / 2, 1100);
+    ctx.fillText(job.name, canvas.width / 2, 1100);
 
     ctx.font = '28px sans-serif';
     ctx.fillStyle = '#64748b';
-    wrapText(ctx, core.roast, canvas.width / 2, 1180, 900, 40);
+    // story의 첫 두 문장만 표시
+    const shortStory = job.story.split('\n\n')[0].replace(/\*\*/g, '');
+    wrapText(ctx, shortStory, canvas.width / 2, 1180, 900, 40);
 
     // 다운로드
     canvas.toBlob(blob => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'fashion-core-result.png';
+      a.download = 'past-life-result.png';
       a.click();
       URL.revokeObjectURL(url);
     });
@@ -642,7 +623,7 @@ function setupDragAndDrop() {
 
 // 페이지 로드 시 AI 모델 초기화
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🎨 패션 코어 분석 AI 시작!');
+  console.log('🔮 전생 직업 분석 AI 시작!');
   // AI 모델은 첫 분석 시 로드 (성능 최적화)
 
   // 드래그 앤 드롭 설정
