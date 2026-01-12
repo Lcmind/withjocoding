@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - FPS Reaction Time Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#667eea',
+            secondary: '#764ba2',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-primary to-secondary p-4 md:p-8">
+  <!-- 언어 선택 -->
+  <div class="fixed top-4 right-4 z-50">
+    <select id="language-selector" class="px-4 py-2 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-2 border-white/50 cursor-pointer hover:bg-white transition-all">
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="pt">🇧🇷 Português</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl font-bold text-primary mb-6" id="title">Terms of Service</h1>
+
+      <div class="space-y-6 text-gray-700" id="content">
+        <!-- 영어 (기본) -->
+        <div class="lang-content" data-lang="en">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">1. Acceptance of Terms</h2>
+          <p>By accessing and using FPS Reaction Time Test, you accept and agree to be bound by the terms and provisions of this agreement.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">2. Use License</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>This service is provided free of charge for personal, non-commercial use</li>
+            <li>You may not modify, copy, distribute, transmit, display, or create derivative works from this service</li>
+            <li>You may not reverse engineer or attempt to extract the source code</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">3. User Conduct</h2>
+          <p>You agree not to:</p>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>Use automated tools or bots to play the game</li>
+            <li>Attempt to manipulate or falsify game results</li>
+            <li>Use the service for any illegal or unauthorized purpose</li>
+            <li>Interfere with or disrupt the service or servers</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">4. Disclaimer</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>The service is provided "as is" without warranties of any kind</li>
+            <li>We do not guarantee accuracy of reaction time measurements</li>
+            <li>Results are for entertainment purposes only, not medical diagnosis</li>
+            <li>We are not responsible for any decisions made based on game results</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">5. Limitation of Liability</h2>
+          <p>In no event shall FPS Reaction Time Test or its developers be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the service.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">6. Advertisements</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>The service displays advertisements via Google AdSense</li>
+            <li>We are not responsible for third-party advertisement content</li>
+            <li>Clicking on ads is at your own discretion and risk</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">7. Intellectual Property</h2>
+          <p>All content, features, and functionality are owned by FPS Reaction Time Test and are protected by international copyright and trademark laws.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">8. Changes to Terms</h2>
+          <p>We reserve the right to modify these terms at any time. Continued use of the service after changes constitutes acceptance of the new terms.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">9. Termination</h2>
+          <p>We may terminate or suspend access to our service immediately, without prior notice, for any reason, including breach of these terms.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">10. Governing Law</h2>
+          <p>These terms shall be governed by and construed in accordance with international laws, without regard to its conflict of law provisions.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">11. Contact</h2>
+          <p>Questions about the Terms of Service should be sent to us via GitHub Issues.</p>
+        </div>
+
+        <!-- 한국어 -->
+        <div class="lang-content hidden" data-lang="ko">
+          <p class="text-sm text-gray-500">최종 업데이트: 2026년 1월 12일</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">1. 약관 동의</h2>
+          <p>FPS 반응속도 테스트에 접근하고 사용함으로써 귀하는 본 약관의 조항에 구속되는 것에 동의합니다.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">2. 사용 허가</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>이 서비스는 개인적, 비상업적 사용을 위해 무료로 제공됩니다</li>
+            <li>이 서비스를 수정, 복사, 배포, 전송, 표시하거나 파생 저작물을 만들 수 없습니다</li>
+            <li>리버스 엔지니어링하거나 소스 코드를 추출하려고 시도할 수 없습니다</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">3. 사용자 행동</h2>
+          <p>다음을 하지 않기로 동의합니다:</p>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>자동화 도구나 봇을 사용하여 게임을 플레이</li>
+            <li>게임 결과를 조작하거나 위조하려는 시도</li>
+            <li>불법적이거나 무단 목적으로 서비스 사용</li>
+            <li>서비스 또는 서버를 방해하거나 중단</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">4. 면책 조항</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>서비스는 어떠한 종류의 보증 없이 "있는 그대로" 제공됩니다</li>
+            <li>반응속도 측정의 정확성을 보장하지 않습니다</li>
+            <li>결과는 오락 목적으로만 제공되며 의학적 진단이 아닙니다</li>
+            <li>게임 결과를 기반으로 한 결정에 대해 책임지지 않습니다</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">5. 책임 제한</h2>
+          <p>FPS 반응속도 테스트 또는 개발자는 서비스 사용으로 인한 간접적, 부수적, 특별, 결과적 또는 징벌적 손해에 대해 책임지지 않습니다.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">6. 광고</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>서비스는 Google AdSense를 통해 광고를 표시합니다</li>
+            <li>제3자 광고 콘텐츠에 대해 책임지지 않습니다</li>
+            <li>광고 클릭은 귀하의 재량과 위험으로 이루어집니다</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">7. 지적 재산권</h2>
+          <p>모든 콘텐츠, 기능 및 기능성은 FPS 반응속도 테스트 소유이며 국제 저작권 및 상표법으로 보호됩니다.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">8. 약관 변경</h2>
+          <p>언제든지 이 약관을 수정할 권리를 보유합니다. 변경 후 서비스를 계속 사용하면 새 약관에 동의하는 것으로 간주됩니다.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">9. 종료</h2>
+          <p>이 약관 위반을 포함한 모든 이유로 사전 통지 없이 즉시 서비스에 대한 액세스를 종료하거나 일시 중지할 수 있습니다.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">10. 준거법</h2>
+          <p>이 약관은 법률 충돌 조항에 관계없이 국제법에 따라 규율되고 해석됩니다.</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">11. 문의</h2>
+          <p>이용약관에 대한 질문은 GitHub Issues를 통해 보내주세요.</p>
+        </div>
+
+        <!-- 일본어 -->
+        <div class="lang-content hidden" data-lang="ja">
+          <p class="text-sm text-gray-500">最終更新日：2026年1月12日</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">1. 利用規約の同意</h2>
+          <p>FPS反応速度テストにアクセスして使用することにより、本規約の条項に拘束されることに同意したものとみなされます。</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">2. 使用許可</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>このサービスは個人的、非商業的使用のために無料で提供されます</li>
+            <li>このサービスを変更、コピー、配布、送信、表示、または派生物を作成することはできません</li>
+            <li>リバースエンジニアリングまたはソースコードの抽出を試みることはできません</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">3. ユーザー行動</h2>
+          <p>以下を行わないことに同意します：</p>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>自動化ツールやボットを使用してゲームをプレイ</li>
+            <li>ゲーム結果を操作または偽造しようとする試み</li>
+            <li>不法または無許可の目的でサービスを使用</li>
+            <li>サービスまたはサーバーを妨害または中断</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">4. 免責事項</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>サービスはいかなる種類の保証もなく「現状のまま」提供されます</li>
+            <li>反応速度測定の正確性を保証しません</li>
+            <li>結果は娯楽目的のみであり、医学的診断ではありません</li>
+            <li>ゲーム結果に基づいて行われた決定について責任を負いません</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">5. 責任の制限</h2>
+          <p>FPS反応速度テストまたはその開発者は、サービスの使用から生じる間接的、偶発的、特別、結果的、または懲罰的損害について責任を負いません。</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">6. 広告</h2>
+          <ul class="list-disc list-inside ml-4 space-y-2">
+            <li>サービスはGoogle AdSenseを介して広告を表示します</li>
+            <li>第三者の広告コンテンツについて責任を負いません</li>
+            <li>広告のクリックはお客様の裁量とリスクで行われます</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">7. 知的財産権</h2>
+          <p>すべてのコンテンツ、機能、および機能性はFPS反応速度テストが所有し、国際著作権および商標法によって保護されています。</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">8. 規約の変更</h2>
+          <p>いつでもこれらの規約を変更する権利を留保します。変更後もサービスを継続して使用すると、新しい規約に同意したものとみなされます。</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">9. 終了</h2>
+          <p>これらの規約違反を含むあらゆる理由で、事前通知なしに即座にサービスへのアクセスを終了または一時停止することができます。</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">10. 準拠法</h2>
+          <p>これらの規約は、法律の抵触規定に関係なく、国際法に従って規律され解釈されます。</p>
+
+          <h2 class="text-2xl font-bold text-gray-900 mt-6 mb-3">11. お問い合わせ</h2>
+          <p>利用規約に関する質問は、GitHub Issuesを通じてお送りください。</p>
+        </div>
+
+        <!-- 다른 언어들은 영어 버전 표시 -->
+        <div class="lang-content hidden" data-lang="zh">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+
+        <div class="lang-content hidden" data-lang="es">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+
+        <div class="lang-content hidden" data-lang="fr">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+
+        <div class="lang-content hidden" data-lang="de">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+
+        <div class="lang-content hidden" data-lang="pt">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+
+        <div class="lang-content hidden" data-lang="ru">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+
+        <div class="lang-content hidden" data-lang="ar">
+          <p class="text-sm text-gray-500">Last Updated: January 12, 2026</p>
+          <p class="italic text-gray-600 mb-4">Translation coming soon. English version displayed below:</p>
+          <div class="opacity-75">
+            <p>By using FPS Reaction Time Test, you agree to these terms. The service is provided free for personal use. Results are for entertainment only, not medical diagnosis. We display Google AdSense advertisements. All content is protected by copyright.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+        <a href="index.html" class="text-primary hover:underline font-bold">← Back to Game</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // URL에서 언어 감지
+    function detectLanguage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      if (urlLang) return urlLang;
+
+      const savedLang = localStorage.getItem('preferredLanguage');
+      if (savedLang) return savedLang;
+
+      const browserLang = (navigator.language || navigator.userLanguage).split('-')[0];
+      return browserLang || 'en';
+    }
+
+    let currentLang = detectLanguage();
+
+    function updateLanguage() {
+      // 언어 선택자 업데이트
+      document.getElementById('language-selector').value = currentLang;
+
+      // 모든 언어 콘텐츠 숨기기
+      document.querySelectorAll('.lang-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+
+      // 현재 언어 콘텐츠 표시
+      const currentContent = document.querySelector(`.lang-content[data-lang="${currentLang}"]`);
+      if (currentContent) {
+        currentContent.classList.remove('hidden');
+      } else {
+        // 기본값은 영어
+        document.querySelector('.lang-content[data-lang="en"]').classList.remove('hidden');
+      }
+
+      // HTML lang 속성 및 dir 업데이트
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+      // 제목 업데이트
+      const titles = {
+        ko: '이용약관',
+        en: 'Terms of Service',
+        ja: '利用規約',
+        zh: '服务条款',
+        es: 'Términos de Servicio',
+        fr: 'Conditions d\'Utilisation',
+        de: 'Nutzungsbedingungen',
+        pt: 'Termos de Serviço',
+        ru: 'Условия Использования',
+        ar: 'شروط الخدمة'
+      };
+      document.getElementById('title').textContent = titles[currentLang] || 'Terms of Service';
+      document.title = `${titles[currentLang] || 'Terms of Service'} - FPS Reaction Time Test`;
+    }
+
+    // 언어 선택자 이벤트
+    document.getElementById('language-selector').addEventListener('change', (e) => {
+      currentLang = e.target.value;
+      localStorage.setItem('preferredLanguage', currentLang);
+
+      // URL 업데이트
+      const url = new URL(window.location);
+      url.searchParams.set('lang', currentLang);
+      window.history.replaceState({}, '', url);
+
+      updateLanguage();
+    });
+
+    // 초기화
+    updateLanguage();
+  </script>
+</body>
+</html>

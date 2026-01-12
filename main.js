@@ -1,9 +1,9 @@
 // ==========================================
-// 반응속도 테스트 게임
+// FPS 반응속도 테스트 게임
 // ==========================================
 
 // 게임 상태
-let gameMode = 'normal';  // easy, normal, hard
+let gameMode = 'normal';
 let targetCount = 0;
 let maxTargets = 10;
 let reactionTimes = [];
@@ -29,22 +29,68 @@ const target = document.getElementById('target');
 const clickEffect = document.getElementById('click-effect');
 const instructionText = document.getElementById('instruction-text');
 const gameArea = document.getElementById('game-area');
+const footer = document.getElementById('footer');
+const languageSelector = document.getElementById('language-selector');
 
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {
+  // 언어 초기화
+  languageSelector.value = currentLang;
+  updateUILanguage();
+
   loadBestRecord();
   loadHistory();
   setupModeSelection();
   setupEventListeners();
+
+  // AdSense 광고 로드
+  if (window.adsbygoogle) {
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.log('AdSense not loaded yet');
+    }
+  }
 });
+
+// 언어 전환
+languageSelector.addEventListener('change', (e) => {
+  setLanguage(e.target.value);
+});
+
+// UI 언어 업데이트 함수
+function updateUILanguage() {
+  // data-i18n 속성을 가진 모든 요소 업데이트
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const translation = t(key);
+
+    if (Array.isArray(translation)) {
+      el.textContent = translation.join(' ');
+    } else {
+      el.textContent = translation;
+    }
+  });
+
+  // 최고 기록 다시 로드
+  loadBestRecord();
+  loadHistory();
+}
+
+// 전역으로 노출
+window.updateUILanguage = updateUILanguage;
 
 // 난이도 선택
 function setupModeSelection() {
   const modeBtns = document.querySelectorAll('.mode-btn');
   modeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      modeBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      modeBtns.forEach(b => {
+        b.classList.remove('active', 'border-primary', 'bg-gradient-to-br', 'from-primary', 'to-secondary', 'text-white', 'shadow-lg');
+        b.classList.add('border-gray-300');
+      });
+      btn.classList.remove('border-gray-300');
+      btn.classList.add('active', 'border-primary', 'bg-gradient-to-br', 'from-primary', 'to-secondary', 'text-white', 'shadow-lg');
       gameMode = btn.dataset.mode;
     });
   });
@@ -60,7 +106,7 @@ function setupEventListeners() {
 
   shareBtn.addEventListener('click', () => {
     const popup = document.getElementById('share-popup');
-    popup.classList.toggle('show');
+    popup.classList.toggle('hidden');
   });
 
   // 타겟 클릭
@@ -87,6 +133,10 @@ function startGame() {
   hideScreen(startScreen);
   showScreen(gameScreen);
 
+  // Footer 숨기기
+  footer.style.opacity = '0';
+  footer.style.pointerEvents = 'none';
+
   // 카운트다운
   showInstruction('3');
   setTimeout(() => {
@@ -94,7 +144,7 @@ function startGame() {
     setTimeout(() => {
       showInstruction('1');
       setTimeout(() => {
-        showInstruction('시작!');
+        showInstruction(t('start'));
         setTimeout(() => {
           hideInstruction();
           spawnTarget();
@@ -113,10 +163,10 @@ function spawnTarget() {
 
   const settings = modeSettings[gameMode];
 
-  // 랜덤 위치 계산 (화면 가장자리 피하기)
+  // 랜덤 위치 계산
   const margin = settings.size;
   const maxX = window.innerWidth - margin * 2;
-  const maxY = window.innerHeight - margin * 2 - 100; // 상단 UI 공간 확보
+  const maxY = window.innerHeight - margin * 2 - 100;
 
   const randomX = Math.random() * maxX + margin;
   const randomY = Math.random() * maxY + margin + 100;
@@ -129,7 +179,8 @@ function spawnTarget() {
 
   // 타겟 표시
   setTimeout(() => {
-    target.classList.add('show');
+    target.classList.remove('opacity-0', 'scale-0');
+    target.classList.add('opacity-100', 'scale-100', 'target-pulse');
     isTargetVisible = true;
     targetAppearTime = Date.now();
   }, getRandomDelay(settings.delay[0], settings.delay[1]));
@@ -146,7 +197,8 @@ function onTargetClick(e) {
   reactionTimes.push(reactionTime);
 
   // 타겟 제거
-  target.classList.remove('show');
+  target.classList.remove('opacity-100', 'scale-100', 'target-pulse');
+  target.classList.add('opacity-0', 'scale-0');
   isTargetVisible = false;
 
   // 클릭 효과
@@ -164,12 +216,16 @@ function onTargetClick(e) {
 function showClickEffect(x, y, isHit) {
   clickEffect.style.left = `${x - 50}px`;
   clickEffect.style.top = `${y - 50}px`;
-  clickEffect.style.borderColor = isHit ? '#00ff00' : '#ff0000';
+  clickEffect.className = `absolute w-24 h-24 border-4 rounded-full pointer-events-none ${isHit ? 'border-green-500' : 'border-red-500'}`;
 
-  // 애니메이션 재시작
-  clickEffect.classList.remove('hit');
-  void clickEffect.offsetWidth; // 리플로우 트리거
-  clickEffect.classList.add('hit');
+  // 애니메이션
+  clickEffect.classList.remove('opacity-0', 'scale-0');
+  clickEffect.classList.add('hit-effect-anim');
+
+  setTimeout(() => {
+    clickEffect.classList.add('opacity-0', 'scale-0');
+    clickEffect.classList.remove('hit-effect-anim');
+  }, 500);
 }
 
 // 게임 정보 업데이트
@@ -186,6 +242,11 @@ function updateGameInfo() {
 function endGame() {
   hideScreen(gameScreen);
   showScreen(resultScreen);
+
+  // Footer 다시 표시
+  footer.style.opacity = '1';
+  footer.style.pointerEvents = 'auto';
+
   displayResults();
 }
 
@@ -215,53 +276,58 @@ function displayResults() {
 function getRating(ms) {
   if (ms < 150) {
     return {
-      text: '🏆 프로게이머 급!',
-      message: '상위 1%의 괴물 반응속도입니다!'
+      text: t('rating.proGamer'),
+      message: t('rankingMsg.proGamer')
     };
   } else if (ms < 200) {
     return {
-      text: '⚡ 매우 빠름!',
-      message: '상위 5% 수준입니다. 대단해요!'
+      text: t('rating.veryFast'),
+      message: t('rankingMsg.veryFast')
     };
   } else if (ms < 250) {
     return {
-      text: '🎯 빠름',
-      message: '상위 15% 수준입니다. 훌륭합니다!'
+      text: t('rating.fast'),
+      message: t('rankingMsg.fast')
     };
   } else if (ms < 300) {
     return {
-      text: '👍 평균 이상',
-      message: '상위 30% 수준입니다. 괜찮아요!'
+      text: t('rating.aboveAvg'),
+      message: t('rankingMsg.aboveAvg')
     };
   } else if (ms < 400) {
     return {
-      text: '😊 평균',
-      message: '평균 수준입니다. 연습하면 더 빨라질 거예요!'
+      text: t('rating.average'),
+      message: t('rankingMsg.average')
     };
   } else {
     return {
-      text: '🐌 느림',
-      message: '연습이 필요합니다. 다시 도전해보세요!'
+      text: t('rating.slow'),
+      message: t('rankingMsg.slow')
     };
   }
 }
 
 // 최고 기록 저장/로드
 function saveBestRecord(avg) {
-  // 히스토리에 추가
   saveToHistory(avg);
 
   const best = localStorage.getItem('bestReactionTime');
   if (!best || avg < parseInt(best)) {
     localStorage.setItem('bestReactionTime', avg);
-    document.getElementById('best-record').textContent = `${avg}ms`;
+    const bestRecordEl = document.getElementById('best-record');
+    bestRecordEl.textContent = `${avg}ms`;
+    bestRecordEl.removeAttribute('data-i18n');
   }
 }
 
 function loadBestRecord() {
   const best = localStorage.getItem('bestReactionTime');
+  const bestRecordEl = document.getElementById('best-record');
   if (best) {
-    document.getElementById('best-record').textContent = `${best}ms`;
+    bestRecordEl.textContent = `${best}ms`;
+    bestRecordEl.removeAttribute('data-i18n');
+  } else {
+    bestRecordEl.textContent = t('none');
   }
 }
 
@@ -289,11 +355,11 @@ function loadHistory() {
   const historyList = document.getElementById('history-list');
 
   if (history.length === 0) {
-    historyList.innerHTML = '<p class="empty-history">아직 기록이 없습니다. 지금 시작하세요!</p>';
+    historyList.innerHTML = `<p class="text-center text-gray-500 py-8">${t('noRecordsYet')}</p>`;
     return;
   }
 
-  // 시간 순으로 정렬 (빠른 순)
+  // 시간 순으로 정렬
   const sortedHistory = [...history].sort((a, b) => a.time - b.time).slice(0, 10);
 
   let html = '';
@@ -301,17 +367,18 @@ function loadHistory() {
     const date = new Date(record.date);
     const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
 
-    let rankClass = '';
-    let rankEmoji = '';
+    let borderColor = 'border-primary';
+    let rankDisplay = `${index + 1}.`;
+
     if (index === 0) {
-      rankClass = 'gold';
-      rankEmoji = '🥇';
+      borderColor = 'border-yellow-400';
+      rankDisplay = '🥇';
     } else if (index === 1) {
-      rankClass = 'silver';
-      rankEmoji = '🥈';
+      borderColor = 'border-gray-400';
+      rankDisplay = '🥈';
     } else if (index === 2) {
-      rankClass = 'bronze';
-      rankEmoji = '🥉';
+      borderColor = 'border-orange-600';
+      rankDisplay = '🥉';
     }
 
     const modeEmoji = {
@@ -321,11 +388,11 @@ function loadHistory() {
     }[record.mode] || '🟡';
 
     html += `
-      <div class="history-item ${rankClass}">
-        <div class="history-rank">${rankEmoji || `${index + 1}.`}</div>
-        <div style="flex: 1;">
-          <div class="history-time">${record.time}ms ${modeEmoji}</div>
-          <div class="history-date">${dateStr}</div>
+      <div class="flex items-center justify-between p-3 mb-2 bg-white rounded-lg border-l-4 ${borderColor}">
+        <div class="font-bold text-lg text-primary min-w-[40px]">${rankDisplay}</div>
+        <div class="flex-1 mx-4">
+          <div class="font-bold text-lg">${record.time}ms ${modeEmoji}</div>
+          <div class="text-sm text-gray-500">${dateStr}</div>
         </div>
       </div>
     `;
@@ -337,45 +404,57 @@ function loadHistory() {
 // SNS 공유 함수
 function shareTwitter() {
   const avg = document.getElementById('final-avg').textContent;
-  const text = `반응속도 테스트 결과: ${avg}! 나는 얼마나 빠를까? 🎯`;
-  const url = window.location.href;
+  const text = t('shareText').replace('{time}', avg);
+  const url = window.location.href.split('?')[0];
   window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
 }
 
 function shareFacebook() {
-  const url = window.location.href;
+  const url = window.location.href.split('?')[0];
   window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
 }
 
+function shareInstagram() {
+  // Instagram은 직접 공유 불가, 링크 복사
+  copyLink();
+  alert('Instagram에서는 링크가 복사되었습니다. 스토리나 게시물에 붙여넣기 하세요!');
+}
+
 function copyLink() {
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    alert('링크가 복사되었습니다!');
+  const url = window.location.href.split('?')[0];
+  navigator.clipboard.writeText(url).then(() => {
+    alert(t('linkCopied'));
   });
 }
 
 // 유틸리티 함수
 function showScreen(screen) {
+  screen.classList.remove('hidden');
   screen.classList.add('active');
 }
 
 function hideScreen(screen) {
+  screen.classList.add('hidden');
   screen.classList.remove('active');
 }
 
 function showInstruction(text) {
   instructionText.textContent = text;
-  instructionText.classList.add('show');
+  instructionText.classList.remove('opacity-0');
+  instructionText.classList.add('opacity-100');
 }
 
 function hideInstruction() {
-  instructionText.classList.remove('show');
+  instructionText.classList.remove('opacity-100');
+  instructionText.classList.add('opacity-0');
 }
 
 function getRandomDelay(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-// 글로벌 함수 등록 (HTML onclick용)
+// 글로벌 함수 등록
 window.shareTwitter = shareTwitter;
 window.shareFacebook = shareFacebook;
+window.shareInstagram = shareInstagram;
 window.copyLink = copyLink;

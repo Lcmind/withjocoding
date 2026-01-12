@@ -1,169 +1,293 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="무료 반응속도 테스트 게임! 타겟을 빠르게 클릭하고 내 반응속도(ms)를 측정하세요. 순위 확인, 친구들과 비교, SNS 공유까지! 모바일 지원.">
-  <meta name="keywords" content="반응속도, 반응속도 테스트, reaction time test, 클릭 게임, aim trainer, 반응속도 측정, FPS 연습, 게이머 반응속도, 마우스 클릭 게임, 타겟 클릭">
-  <meta property="og:title" content="반응속도 테스트 - 내 반응은 얼마나 빠를까?">
-  <meta property="og:description" content="무료 반응속도 측정! 평균 250ms보다 빠르신가요? 지금 테스트하고 순위를 확인하세요!">
+  <meta name="description" content="Free FPS Reaction Time Test! Click targets fast and measure your reaction speed (ms). Essential for gamers, SNS sharing, world ranking!">
+  <meta name="keywords" content="FPS reaction time, reaction speed test, gamer reaction test, aim trainer, click game, FPS practice, mouse reaction speed">
+  <meta property="og:title" content="FPS Reaction Time Test">
+  <meta property="og:description" content="Free FPS Reaction Time Test! How fast are your reflexes? Test now!">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://withjocoding.pages.dev/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="반응속도 테스트 게임">
-  <meta name="twitter:description" content="내 반응속도는 얼마나 빠를까? 무료 테스트!">
+  <meta name="twitter:title" content="FPS Reaction Time Test">
+  <meta name="twitter:description" content="How fast are your reflexes? Free test!">
   <meta name="robots" content="index, follow">
-  <meta name="author" content="반응속도 테스트">
+  <meta name="author" content="FPS Reaction Time Test">
   <link rel="canonical" href="https://withjocoding.pages.dev/">
-  <title>반응속도 테스트 - 무료 반응속도 측정 게임 | Reaction Time Test</title>
-  <link rel="stylesheet" href="style.css">
+  <title>FPS Reaction Time Test - Free FPS Reaction Speed Test | Gamer Test</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#667eea',
+            secondary: '#764ba2',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
      crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      cursor: crosshair;
+    }
+    .game-screen-active {
+      cursor: crosshair;
+    }
+    @keyframes pulse-target {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .target-pulse {
+      animation: pulse-target 1s ease-in-out infinite;
+    }
+    @keyframes hit-effect {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    .hit-effect-anim {
+      animation: hit-effect 0.5s ease-out;
+    }
+    /* RTL 지원 */
+    [dir="rtl"] {
+      text-align: right;
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen bg-gradient-to-br from-primary to-secondary overflow-x-hidden">
+
+  <!-- 언어 선택 (고정 위치) -->
+  <div class="fixed top-4 right-4 z-50">
+    <select id="language-selector" class="px-4 py-2 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-2 border-white/50 cursor-pointer hover:bg-white transition-all">
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="pt">🇧🇷 Português</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="ar">🇸🇦 العربية</option>
+    </select>
+  </div>
+
   <!-- 시작 화면 -->
-  <div id="start-screen" class="screen active">
-    <div class="container">
-      <h1>🎯 반응속도 테스트</h1>
-      <p class="subtitle">나타나는 타겟을 최대한 빠르게 클릭하세요!</p>
+  <div id="start-screen" class="screen active min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <div class="max-w-4xl w-full">
 
-      <div class="info-box">
-        <h3>게임 방법</h3>
-        <ol>
-          <li>빨간 원이 화면에 랜덤하게 나타납니다</li>
-          <li>최대한 빠르게 클릭하세요</li>
-          <li>10개의 타겟을 모두 클릭하면 결과 확인!</li>
-        </ol>
+      <!-- 상단 광고 -->
+      <div class="mb-6 flex justify-center">
+        <ins class="adsbygoogle block"
+             style="display:block"
+             data-ad-format="horizontal"
+             data-ad-client="ca-pub-1247545232353663"
+             data-full-width-responsive="true"></ins>
       </div>
 
-      <div class="mode-selection">
-        <h3>난이도 선택</h3>
-        <div class="mode-buttons">
-          <button class="mode-btn" data-mode="easy">
-            <span class="mode-emoji">🟢</span>
-            <span class="mode-name">쉬움</span>
-            <span class="mode-desc">타겟 크기: 큼</span>
-          </button>
-          <button class="mode-btn active" data-mode="normal">
-            <span class="mode-emoji">🟡</span>
-            <span class="mode-name">보통</span>
-            <span class="mode-desc">타겟 크기: 중간</span>
-          </button>
-          <button class="mode-btn" data-mode="hard">
-            <span class="mode-emoji">🔴</span>
-            <span class="mode-name">어려움</span>
-            <span class="mode-desc">타겟 크기: 작음</span>
-          </button>
-        </div>
-      </div>
+      <!-- 메인 카드 -->
+      <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+        <h1 class="text-4xl md:text-6xl font-bold text-center text-primary mb-4" data-i18n="title">
+          🎯 FPS Reaction Time Test
+        </h1>
+        <p class="text-lg md:text-xl text-center text-gray-600 mb-8" data-i18n="subtitle">
+          Click the targets as fast as you can!
+        </p>
 
-      <button id="start-btn" class="primary-btn">게임 시작</button>
-
-      <div class="stats-preview">
-        <p>🏆 내 최고 기록: <span id="best-record">없음</span></p>
-      </div>
-
-      <!-- 내 기록 순위 -->
-      <div class="ranking-history">
-        <h3>📊 내 기록 TOP 10</h3>
-        <div id="history-list" class="history-list">
-          <p class="empty-history">아직 기록이 없습니다. 지금 시작하세요!</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 상단 광고 -->
-    <div class="ad-container">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-format="horizontal"
-           data-ad-client="ca-pub-1247545232353663"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-  </div>
-
-  <!-- 게임 화면 -->
-  <div id="game-screen" class="screen">
-    <div class="game-info">
-      <div class="info-item">
-        <span class="label">타겟:</span>
-        <span id="target-count">0 / 10</span>
-      </div>
-      <div class="info-item">
-        <span class="label">평균:</span>
-        <span id="avg-time">0ms</span>
-      </div>
-    </div>
-
-    <div id="game-area">
-      <div id="instruction-text">준비하세요...</div>
-      <div id="target" class="target"></div>
-      <div id="click-effect" class="click-effect"></div>
-    </div>
-  </div>
-
-  <!-- 결과 화면 -->
-  <div id="result-screen" class="screen">
-    <div class="container">
-      <h1>🎯 결과</h1>
-
-      <div class="result-card">
-        <div class="result-main">
-          <div class="result-label">평균 반응속도</div>
-          <div class="result-value" id="final-avg">0ms</div>
-          <div class="result-rating" id="rating-text">측정 중...</div>
+        <!-- 게임 방법 -->
+        <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+          <h3 class="text-xl font-bold text-primary mb-4" data-i18n="gameMethod">How to Play</h3>
+          <ol class="list-decimal list-inside space-y-2 text-gray-700">
+            <li data-i18n="gameMethodDesc.0">Red circles appear randomly on screen</li>
+            <li data-i18n="gameMethodDesc.1">Click them as fast as possible</li>
+            <li data-i18n="gameMethodDesc.2">Complete 10 targets to see your results!</li>
+          </ol>
         </div>
 
-        <div class="result-details">
-          <div class="detail-item">
-            <span class="detail-label">⚡ 최고 기록</span>
-            <span class="detail-value" id="best-time">0ms</span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">🐌 최저 기록</span>
-            <span class="detail-value" id="worst-time">0ms</span>
-          </div>
-          <div class="detail-item">
-            <span class="detail-label">🎯 정확도</span>
-            <span class="detail-value" id="accuracy">100%</span>
+        <!-- 난이도 선택 -->
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-center mb-4" data-i18n="difficultySelect">Select Difficulty</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button class="mode-btn border-2 border-gray-300 rounded-xl p-6 hover:border-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-mode="easy">
+              <div class="text-4xl mb-2">🟢</div>
+              <div class="font-bold text-lg mb-1" data-i18n="easy">Easy</div>
+              <div class="text-sm text-gray-500"><span data-i18n="targetSize">Target Size</span>: <span data-i18n="large">Large</span></div>
+            </button>
+            <button class="mode-btn active border-2 border-primary bg-gradient-to-br from-primary to-secondary text-white rounded-xl p-6 shadow-lg" data-mode="normal">
+              <div class="text-4xl mb-2">🟡</div>
+              <div class="font-bold text-lg mb-1" data-i18n="normal">Normal</div>
+              <div class="text-sm opacity-90"><span data-i18n="targetSize">Target Size</span>: <span data-i18n="medium">Medium</span></div>
+            </button>
+            <button class="mode-btn border-2 border-gray-300 rounded-xl p-6 hover:border-primary hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-mode="hard">
+              <div class="text-4xl mb-2">🔴</div>
+              <div class="font-bold text-lg mb-1" data-i18n="hard">Hard</div>
+              <div class="text-sm text-gray-500"><span data-i18n="targetSize">Target Size</span>: <span data-i18n="small">Small</span></div>
+            </button>
           </div>
         </div>
 
-        <div class="ranking" id="ranking-message"></div>
-      </div>
+        <!-- 시작 버튼 -->
+        <button id="start-btn" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-xl md:text-2xl py-4 md:py-6 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+          <span data-i18n="startGame">Start Game</span>
+        </button>
 
-      <div class="result-actions">
-        <button id="retry-btn" class="primary-btn">다시 도전</button>
-        <button id="share-btn" class="secondary-btn">결과 공유</button>
-      </div>
+        <!-- 최고 기록 -->
+        <div class="mt-6 text-center text-gray-600">
+          <p>🏆 <span data-i18n="myBestRecord">My Best Record</span>: <span id="best-record" data-i18n="none">None</span></p>
+        </div>
 
-      <div class="share-popup" id="share-popup">
-        <h3>공유하기</h3>
-        <div class="share-buttons">
-          <button class="share-btn twitter" onclick="shareTwitter()">🐦 Twitter</button>
-          <button class="share-btn facebook" onclick="shareFacebook()">📘 Facebook</button>
-          <button class="share-btn" onclick="copyLink()">🔗 링크 복사</button>
+        <!-- 내 기록 TOP 10 -->
+        <div class="mt-8">
+          <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
+          <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
+            <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
+          </div>
         </div>
       </div>
 
       <!-- 하단 광고 -->
-      <div class="ad-container">
-        <ins class="adsbygoogle"
+      <div class="mt-6 flex justify-center">
+        <ins class="adsbygoogle block"
              style="display:block"
-             data-ad-format="autorelaxed"
+             data-ad-format="horizontal"
              data-ad-client="ca-pub-1247545232353663"
              data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
     </div>
   </div>
 
-  <footer>
-    <p>Made with ❤️ | 반응속도 테스트 게임</p>
-    <p style="font-size: 0.8rem; margin-top: 0.5rem;">
-      <a href="#" style="color: white; text-decoration: none; margin: 0 0.5rem;">개인정보처리방침</a> |
-      <a href="#" style="color: white; text-decoration: none; margin: 0 0.5rem;">이용약관</a>
+  <!-- 게임 화면 -->
+  <div id="game-screen" class="screen hidden min-h-screen bg-gray-900 relative">
+    <!-- 게임 정보 -->
+    <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-10">
+      <div class="flex gap-8 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full">
+        <div class="text-white text-lg">
+          <span class="opacity-80" data-i18n="target">Target</span>: <span id="target-count" class="font-bold">0 / 10</span>
+        </div>
+        <div class="text-white text-lg">
+          <span class="opacity-80" data-i18n="average">Average</span>: <span id="avg-time" class="font-bold">0ms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 게임 영역 -->
+    <div id="game-area" class="w-screen h-screen relative overflow-hidden">
+      <div id="instruction-text" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-5xl font-bold text-center pointer-events-none opacity-0 transition-opacity duration-300" data-i18n="preparing">
+        Get ready...
+      </div>
+      <div id="target" class="absolute w-20 h-20 bg-gradient-to-br from-red-500 to-red-700 rounded-full opacity-0 transform scale-0 transition-all duration-200 shadow-2xl border-4 border-white/30"></div>
+      <div id="click-effect" class="absolute w-24 h-24 border-4 border-green-500 rounded-full pointer-events-none opacity-0 transform scale-0"></div>
+    </div>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="result-screen" class="screen hidden min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <div class="max-w-4xl w-full">
+
+      <!-- 결과 카드 -->
+      <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+        <h1 class="text-4xl md:text-5xl font-bold text-center text-primary mb-8">
+          🎯 <span data-i18n="result">Result</span>
+        </h1>
+
+        <!-- 메인 결과 -->
+        <div class="bg-gradient-to-br from-primary to-secondary text-white rounded-2xl p-8 mb-6">
+          <div class="text-center mb-6">
+            <div class="text-lg opacity-90 mb-2" data-i18n="avgReactionSpeed">Average Reaction Speed</div>
+            <div id="final-avg" class="text-6xl md:text-7xl font-bold mb-4">0ms</div>
+            <div id="rating-text" class="text-2xl md:text-3xl" data-i18n="measuring">Measuring...</div>
+          </div>
+
+          <!-- 상세 정보 -->
+          <div class="grid grid-cols-3 gap-4 mt-8">
+            <div class="bg-white/20 rounded-xl p-4">
+              <div class="text-sm opacity-90 mb-1">⚡ <span data-i18n="bestTime">Best Time</span></div>
+              <div id="best-time" class="text-2xl font-bold">0ms</div>
+            </div>
+            <div class="bg-white/20 rounded-xl p-4">
+              <div class="text-sm opacity-90 mb-1">🐌 <span data-i18n="worstTime">Worst Time</span></div>
+              <div id="worst-time" class="text-2xl font-bold">0ms</div>
+            </div>
+            <div class="bg-white/20 rounded-xl p-4">
+              <div class="text-sm opacity-90 mb-1">🎯 <span data-i18n="accuracy">Accuracy</span></div>
+              <div id="accuracy" class="text-2xl font-bold">100%</div>
+            </div>
+          </div>
+
+          <!-- 랭킹 메시지 -->
+          <div id="ranking-message" class="mt-6 text-center text-lg bg-white/20 rounded-xl p-4"></div>
+        </div>
+
+        <!-- 액션 버튼 -->
+        <div class="flex flex-wrap gap-4 justify-center mb-6">
+          <button id="retry-btn" class="flex-1 min-w-[200px] bg-gradient-to-r from-primary to-secondary text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+            <span data-i18n="retryChallenge">Try Again</span>
+          </button>
+          <button id="share-btn" class="flex-1 min-w-[200px] bg-white text-primary border-2 border-primary font-bold text-xl py-4 rounded-full hover:bg-primary hover:text-white transition-all duration-300">
+            <span data-i18n="shareResult">Share Result</span>
+          </button>
+        </div>
+
+        <!-- 공유 팝업 -->
+        <div id="share-popup" class="hidden mt-6 bg-gray-50 rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-center mb-4" data-i18n="shareTitle">Share</h3>
+          <div class="flex flex-wrap gap-3 justify-center">
+            <button onclick="shareTwitter()" class="bg-blue-400 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-lg transition-all duration-300 hover:-translate-y-1">
+              🐦 Twitter
+            </button>
+            <button onclick="shareFacebook()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg transition-all duration-300 hover:-translate-y-1">
+              📘 Facebook
+            </button>
+            <button onclick="shareInstagram()" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-6 py-3 rounded-lg transition-all duration-300 hover:-translate-y-1">
+              📷 Instagram
+            </button>
+            <button onclick="copyLink()" class="bg-gray-700 hover:bg-gray-800 text-white font-bold px-6 py-3 rounded-lg transition-all duration-300 hover:-translate-y-1">
+              🔗 <span data-i18n="copyLink">Copy Link</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 광고 -->
+      <div class="mt-6 flex justify-center">
+        <ins class="adsbygoogle block"
+             style="display:block; min-height:250px;"
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-1247545232353663"
+             data-full-width-responsive="true"></ins>
+      </div>
+
+      <!-- 사이드 광고 (데스크톱) -->
+      <div class="hidden lg:block fixed left-4 top-1/2 transform -translate-y-1/2">
+        <ins class="adsbygoogle block"
+             style="display:block; width:160px; height:600px;"
+             data-ad-client="ca-pub-1247545232353663"
+             data-ad-slot="auto"></ins>
+      </div>
+      <div class="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2">
+        <ins class="adsbygoogle block"
+             style="display:block; width:160px; height:600px;"
+             data-ad-client="ca-pub-1247545232353663"
+             data-ad-slot="auto"></ins>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="footer" class="fixed bottom-0 w-full py-4 text-center text-white bg-black/20 backdrop-blur-sm transition-opacity duration-300">
+    <p><span data-i18n="madeWith">Made with ❤️</span> | <span data-i18n="gameTitle">FPS Reaction Time Test Game</span></p>
+    <p class="text-sm mt-2">
+      <a href="privacy.html" class="text-white hover:underline mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
+      <a href="terms.html" class="text-white hover:underline mx-2" data-i18n="termsOfService">Terms of Service</a>
     </p>
   </footer>
 
@@ -172,14 +296,14 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "반응속도 테스트",
+    "name": "FPS Reaction Time Test",
     "applicationCategory": "GameApplication",
-    "description": "무료 반응속도 측정 게임. 타겟을 빠르게 클릭하고 내 반응속도를 측정하세요.",
+    "description": "Free FPS Reaction Time Test. Click targets fast and measure your reaction speed.",
     "operatingSystem": "Any",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "KRW"
+      "priceCurrency": "USD"
     },
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -188,15 +312,24 @@
     },
     "screenshot": "https://withjocoding.pages.dev/og-image.jpg",
     "featureList": [
-      "반응속도 측정",
-      "3가지 난이도",
-      "내 기록 TOP 10",
-      "SNS 공유",
-      "무료"
-    ]
+      "Reaction Time Test",
+      "3 Difficulty Levels",
+      "Top 10 Records",
+      "SNS Sharing",
+      "Free"
+    ],
+    "inLanguage": ["en", "ko", "ja", "zh", "es", "fr", "de", "pt", "ru", "ar"]
   }
   </script>
 
+  <!-- AdSense 초기화 -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <!-- 번역 시스템 -->
+  <script src="translations.js"></script>
+  <!-- 게임 로직 -->
   <script src="main.js"></script>
 </body>
 </html>
