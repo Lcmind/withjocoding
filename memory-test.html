@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Memory Test Game! Test your memory skills with card matching. Multiple difficulty levels, track your records!">
+  <title>Memory Test - Card Matching Game | Brain Training</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#667eea',
+            secondary: '#764ba2',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
+     crossorigin="anonymous"></script>
+
+  <style>
+    .card {
+      perspective: 1000px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600">
+
+  <!-- 언어 선택 -->
+  <div class="fixed top-4 right-4 z-50">
+    <select id="language-selector" class="px-4 py-2 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-2 border-white/50 cursor-pointer hover:bg-white transition-all">
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en">🇺🇸 English</option>
+    </select>
+  </div>
+
+  <!-- 홈으로 돌아가기 -->
+  <div class="fixed top-4 left-4 z-50">
+    <a href="index.html" class="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg hover:bg-white transition-all text-gray-700 font-bold">
+      ← <span data-i18n="backHome">Home</span>
+    </a>
+  </div>
+
+  <!-- 시작 화면 -->
+  <div id="start-screen" class="screen active min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- 상단 광고 -->
+    <div class="mb-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; max-height:90px;"
+           data-ad-format="horizontal"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-blue-600 mb-4">
+        🧠 <span data-i18n="title">Memory Test</span>
+      </h1>
+      <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Match all cards in the shortest time!</p>
+
+      <!-- 난이도 선택 -->
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDifficulty">Select Difficulty</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all" data-difficulty="easy">
+            <div class="text-3xl mb-2">😊</div>
+            <div class="font-bold text-lg" data-i18n="easy">Easy</div>
+            <div class="text-sm text-gray-500">4x3 (6 pairs)</div>
+          </button>
+          <button class="difficulty-btn active border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
+            <div class="text-3xl mb-2">🤔</div>
+            <div class="font-bold text-lg" data-i18n="normal">Normal</div>
+            <div class="text-sm opacity-90">4x4 (8 pairs)</div>
+          </button>
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all" data-difficulty="hard">
+            <div class="text-3xl mb-2">🤯</div>
+            <div class="font-bold text-lg" data-i18n="hard">Hard</div>
+            <div class="text-sm text-gray-500">6x4 (12 pairs)</div>
+          </button>
+        </div>
+      </div>
+
+      <button id="start-btn" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+        <span data-i18n="startGame">Start Game</span>
+      </button>
+
+      <div class="mt-6 text-center text-gray-600">
+        <p>🏆 <span data-i18n="bestRecord">Best Record</span>: <span id="best-record">--</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 게임 화면 -->
+  <div id="game-screen" class="screen hidden min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- 게임 정보 -->
+    <div class="mb-4 flex gap-4 bg-white/90 backdrop-blur-md px-6 py-3 rounded-full shadow-lg">
+      <div class="text-gray-700 font-bold">
+        ⏱️ <span id="time-display">0:00</span>
+      </div>
+      <div class="text-gray-700 font-bold">
+        🔄 <span id="moves-display">0</span> <span data-i18n="moves">moves</span>
+      </div>
+    </div>
+
+    <!-- 카드 그리드 -->
+    <div id="card-grid" class="grid gap-3 mb-4"></div>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="result-screen" class="screen hidden min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl font-bold text-center text-blue-600 mb-8">
+        🎉 <span data-i18n="complete">Complete!</span>
+      </h1>
+
+      <div class="bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-2xl p-8 mb-6">
+        <div class="text-center">
+          <div class="text-lg opacity-90 mb-2" data-i18n="yourTime">Your Time</div>
+          <div id="final-time" class="text-5xl font-bold mb-4">0:00</div>
+          <div id="final-moves" class="text-xl">0 moves</div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 mb-6">
+        <button id="retry-btn" class="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <span data-i18n="playAgain">Play Again</span>
+        </button>
+        <button id="home-btn" class="flex-1 bg-white text-blue-600 border-2 border-blue-600 font-bold text-xl py-4 rounded-full hover:bg-blue-600 hover:text-white transition-all">
+          <span data-i18n="backHome">Home</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 하단 광고 -->
+    <div class="mt-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; min-height:250px;"
+           data-ad-format="autorelaxed"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full py-6 text-center text-white bg-gray-900">
+    <p class="mb-2">Made with ❤️ | Memory Test</p>
+    <p class="text-sm">
+      <a href="privacy.html" class="text-white hover:underline mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
+      <a href="terms.html" class="text-white hover:underline mx-2" data-i18n="termsOfService">Terms of Service</a>
+    </p>
+  </footer>
+
+  <!-- AdSense 초기화 -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <script>
+    // 번역
+    const translations = {
+      ko: {
+        title: '기억력 테스트',
+        subtitle: '모든 카드를 최단 시간에 맞춰보세요!',
+        selectDifficulty: '난이도 선택',
+        easy: '쉬움',
+        normal: '보통',
+        hard: '어려움',
+        startGame: '게임 시작',
+        bestRecord: '최고 기록',
+        moves: '이동',
+        complete: '완료!',
+        yourTime: '소요 시간',
+        playAgain: '다시 하기',
+        backHome: '홈으로'
+      },
+      en: {
+        title: 'Memory Test',
+        subtitle: 'Match all cards in the shortest time!',
+        selectDifficulty: 'Select Difficulty',
+        easy: 'Easy',
+        normal: 'Normal',
+        hard: 'Hard',
+        startGame: 'Start Game',
+        bestRecord: 'Best Record',
+        moves: 'moves',
+        complete: 'Complete!',
+        yourTime: 'Your Time',
+        playAgain: 'Play Again',
+        backHome: 'Home'
+      }
+    };
+
+    let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+    const languageSelector = document.getElementById('language-selector');
+    languageSelector.value = currentLang;
+
+    function t(key) {
+      return translations[currentLang][key] || key;
+    }
+
+    function updateLanguage() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+      });
+    }
+
+    languageSelector.addEventListener('change', (e) => {
+      currentLang = e.target.value;
+      localStorage.setItem('preferredLanguage', currentLang);
+      updateLanguage();
+    });
+
+    updateLanguage();
+
+    // 게임 로직
+    let difficulty = 'normal';
+    let cards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let startTime = 0;
+    let timerInterval = null;
+
+    // 이모지 풀 (매번 랜덤)
+    const emojiPool = ['🍎', '🍌', '🍇', '🍊', '🍓', '🍒', '🍑', '🥝', '🥑', '🍍', '🥥', '🍉', '🍈', '🍋', '🥭', '🫐', '🍏', '🍐', '🥕', '🌽', '🥦', '🥒', '🌶️', '🫑', '🥬', '🧄', '🧅', '🍄', '🥜', '🌰'];
+
+    const difficultySettings = {
+      easy: { pairs: 6, cols: 4 },
+      normal: { pairs: 8, cols: 4 },
+      hard: { pairs: 12, cols: 6 }
+    };
+
+    // 난이도 선택
+    document.querySelectorAll('.difficulty-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.difficulty-btn').forEach(b => {
+          b.classList.remove('active', 'border-blue-500', 'bg-gradient-to-br', 'from-blue-500', 'to-purple-600', 'text-white', 'shadow-lg');
+          b.classList.add('border-gray-300');
+        });
+        btn.classList.remove('border-gray-300');
+        btn.classList.add('active', 'border-blue-500', 'bg-gradient-to-br', 'from-blue-500', 'to-purple-600', 'text-white', 'shadow-lg');
+        difficulty = btn.dataset.difficulty;
+      });
+    });
+
+    document.getElementById('start-btn').addEventListener('click', startGame);
+    document.getElementById('retry-btn').addEventListener('click', () => {
+      hideScreen(document.getElementById('result-screen'));
+      showScreen(document.getElementById('start-screen'));
+    });
+    document.getElementById('home-btn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    function startGame() {
+      hideScreen(document.getElementById('start-screen'));
+      showScreen(document.getElementById('game-screen'));
+
+      initGame();
+    }
+
+    function initGame() {
+      const settings = difficultySettings[difficulty];
+      cards = [];
+      flippedCards = [];
+      matchedPairs = 0;
+      moves = 0;
+      startTime = Date.now();
+
+      // 랜덤 이모지 선택
+      const shuffledEmojis = [...emojiPool].sort(() => Math.random() - 0.5);
+      const selectedEmojis = shuffledEmojis.slice(0, settings.pairs);
+
+      // 카드 생성 (각 이모지 2개씩)
+      const cardValues = [...selectedEmojis, ...selectedEmojis];
+      cardValues.sort(() => Math.random() - 0.5);
+
+      cards = cardValues.map((emoji, index) => ({
+        id: index,
+        emoji: emoji,
+        flipped: false,
+        matched: false
+      }));
+
+      renderCards();
+      startTimer();
+      updateMoves();
+    }
+
+    function renderCards() {
+      const settings = difficultySettings[difficulty];
+      const grid = document.getElementById('card-grid');
+      grid.innerHTML = '';
+      grid.className = `grid gap-3 mb-4`;
+      grid.style.gridTemplateColumns = `repeat(${settings.cols}, minmax(0, 1fr))`;
+
+      cards.forEach(card => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'card cursor-pointer aspect-square';
+        cardEl.innerHTML = `
+          <div class="card-inner w-full h-full">
+            <div class="card-front bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
+              <div class="text-4xl">❓</div>
+            </div>
+            <div class="card-back bg-white shadow-lg">
+              <div class="text-5xl">${card.emoji}</div>
+            </div>
+          </div>
+        `;
+
+        cardEl.addEventListener('click', () => flipCard(card, cardEl));
+        grid.appendChild(cardEl);
+      });
+    }
+
+    function flipCard(card, cardEl) {
+      if (card.flipped || card.matched || flippedCards.length >= 2) return;
+
+      card.flipped = true;
+      cardEl.classList.add('flipped');
+      flippedCards.push({ card, cardEl });
+
+      if (flippedCards.length === 2) {
+        moves++;
+        updateMoves();
+        checkMatch();
+      }
+    }
+
+    function checkMatch() {
+      const [first, second] = flippedCards;
+
+      if (first.card.emoji === second.card.emoji) {
+        // 매치!
+        first.card.matched = true;
+        second.card.matched = true;
+        matchedPairs++;
+        flippedCards = [];
+
+        if (matchedPairs === difficultySettings[difficulty].pairs) {
+          setTimeout(endGame, 500);
+        }
+      } else {
+        // 불일치
+        setTimeout(() => {
+          first.card.flipped = false;
+          second.card.flipped = false;
+          first.cardEl.classList.remove('flipped');
+          second.cardEl.classList.remove('flipped');
+          flippedCards = [];
+        }, 1000);
+      }
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+        document.getElementById('time-display').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function updateMoves() {
+      document.getElementById('moves-display').textContent = moves;
+    }
+
+    function endGame() {
+      stopTimer();
+      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+      document.getElementById('final-time').textContent = timeStr;
+      document.getElementById('final-moves').textContent = `${moves} ${t('moves')}`;
+
+      // 최고 기록 저장
+      const key = `memoryBest_${difficulty}`;
+      const best = localStorage.getItem(key);
+      if (!best || elapsed < parseInt(best)) {
+        localStorage.setItem(key, elapsed);
+      }
+
+      hideScreen(document.getElementById('game-screen'));
+      showScreen(document.getElementById('result-screen'));
+    }
+
+    function showScreen(screen) {
+      screen.classList.remove('hidden');
+      screen.classList.add('active');
+    }
+
+    function hideScreen(screen) {
+      screen.classList.add('hidden');
+      screen.classList.remove('active');
+    }
+
+    // 최고 기록 로드
+    function loadBestRecord() {
+      const key = `memoryBest_${difficulty}`;
+      const best = localStorage.getItem(key);
+      if (best) {
+        const minutes = Math.floor(best / 60);
+        const seconds = best % 60;
+        document.getElementById('best-record').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      } else {
+        document.getElementById('best-record').textContent = '--';
+      }
+    }
+
+    loadBestRecord();
+  </script>
+</body>
+</html>

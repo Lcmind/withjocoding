@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Typing Speed Test! Measure your typing speed (WPM) and accuracy. Random texts every time!">
+  <title>Typing Speed Test - Measure Your Typing Speed | WPM Test</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#667eea',
+            secondary: '#764ba2',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
+     crossorigin="anonymous"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-500 to-teal-600">
+
+  <!-- 언어 선택 -->
+  <div class="fixed top-4 right-4 z-50">
+    <select id="language-selector" class="px-4 py-2 rounded-lg bg-white shadow-lg cursor-pointer">
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en">🇺🇸 English</option>
+    </select>
+  </div>
+
+  <!-- 홈으로 돌아가기 -->
+  <div class="fixed top-4 left-4 z-50">
+    <a href="index.html" class="px-4 py-2 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all text-gray-700 font-bold">
+      ← <span data-i18n="backHome">Home</span>
+    </a>
+  </div>
+
+  <!-- 시작 화면 -->
+  <div id="start-screen" class="screen active min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- 상단 광고 -->
+    <div class="mb-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; max-height:90px;"
+           data-ad-format="horizontal"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-green-600 mb-4">
+        ⚡ <span data-i18n="title">Typing Speed Test</span>
+      </h1>
+      <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Test your typing speed and accuracy!</p>
+
+      <!-- 시간 선택 -->
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDuration">Select Duration</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <button class="duration-btn border-2 border-gray-300 rounded-xl p-4 hover:border-green-500 hover:shadow-lg transition-all" data-duration="30">
+            <div class="font-bold text-2xl">30</div>
+            <div class="text-sm text-gray-500" data-i18n="seconds">seconds</div>
+          </button>
+          <button class="duration-btn active border-2 border-green-500 bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-xl p-4 shadow-lg" data-duration="60">
+            <div class="font-bold text-2xl">60</div>
+            <div class="text-sm opacity-90" data-i18n="seconds">seconds</div>
+          </button>
+          <button class="duration-btn border-2 border-gray-300 rounded-xl p-4 hover:border-green-500 hover:shadow-lg transition-all" data-duration="120">
+            <div class="font-bold text-2xl">120</div>
+            <div class="text-sm text-gray-500" data-i18n="seconds">seconds</div>
+          </button>
+        </div>
+      </div>
+
+      <button id="start-btn" class="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+        <span data-i18n="startTest">Start Test</span>
+      </button>
+
+      <div class="mt-6 text-center text-gray-600">
+        <p>🏆 <span data-i18n="bestRecord">Best Record</span>: <span id="best-record">-- WPM</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 게임 화면 -->
+  <div id="game-screen" class="screen hidden min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-3xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <!-- 타이머 -->
+      <div class="text-center mb-6">
+        <div class="text-5xl font-bold text-green-600" id="timer-display">60</div>
+        <div class="text-gray-500" data-i18n="secondsLeft">seconds left</div>
+      </div>
+
+      <!-- 텍스트 표시 -->
+      <div id="text-display" class="text-2xl leading-relaxed mb-6 p-6 bg-gray-50 rounded-2xl min-h-[200px] font-mono">
+        <!-- 텍스트가 여기에 표시됩니다 -->
+      </div>
+
+      <!-- 입력 필드 -->
+      <input type="text" id="typing-input" class="w-full text-2xl p-4 border-4 border-green-500 rounded-xl focus:outline-none focus:border-teal-600 font-mono" placeholder="Start typing..." autocomplete="off" disabled>
+
+      <!-- 통계 -->
+      <div class="grid grid-cols-2 gap-4 mt-6">
+        <div class="bg-green-50 rounded-xl p-4 text-center">
+          <div class="text-gray-600 text-sm" data-i18n="wpm">WPM</div>
+          <div id="wpm-display" class="text-3xl font-bold text-green-600">0</div>
+        </div>
+        <div class="bg-teal-50 rounded-xl p-4 text-center">
+          <div class="text-gray-600 text-sm" data-i18n="accuracy">Accuracy</div>
+          <div id="accuracy-display" class="text-3xl font-bold text-teal-600">100%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="result-screen" class="screen hidden min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl font-bold text-center text-green-600 mb-8">
+        🎉 <span data-i18n="complete">Complete!</span>
+      </h1>
+
+      <div class="bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-2xl p-8 mb-6">
+        <div class="text-center mb-6">
+          <div class="text-lg opacity-90 mb-2" data-i18n="yourSpeed">Your Typing Speed</div>
+          <div id="final-wpm" class="text-6xl font-bold">0</div>
+          <div class="text-2xl mt-2">WPM</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/20 rounded-xl p-4 text-center">
+            <div class="text-sm opacity-90" data-i18n="accuracy">Accuracy</div>
+            <div id="final-accuracy" class="text-2xl font-bold">100%</div>
+          </div>
+          <div class="bg-white/20 rounded-xl p-4 text-center">
+            <div class="text-sm opacity-90" data-i18n="cpm">CPM</div>
+            <div id="final-cpm" class="text-2xl font-bold">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <button id="retry-btn" class="flex-1 bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <span data-i18n="tryAgain">Try Again</span>
+        </button>
+        <button id="home-btn" class="flex-1 bg-white text-green-600 border-2 border-green-600 font-bold text-xl py-4 rounded-full hover:bg-green-600 hover:text-white transition-all">
+          <span data-i18n="backHome">Home</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 하단 광고 -->
+    <div class="mt-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; min-height:250px;"
+           data-ad-format="autorelaxed"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full py-6 text-center text-white bg-gray-900">
+    <p class="mb-2">Made with ❤️ | Typing Speed Test</p>
+    <p class="text-sm">
+      <a href="privacy.html" class="text-white hover:underline mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
+      <a href="terms.html" class="text-white hover:underline mx-2" data-i18n="termsOfService">Terms of Service</a>
+    </p>
+  </footer>
+
+  <!-- AdSense 초기화 -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <script>
+    // 번역
+    const translations = {
+      ko: {
+        title: '타이핑 속도 테스트',
+        subtitle: '타이핑 속도와 정확도를 측정하세요!',
+        selectDuration: '시간 선택',
+        seconds: '초',
+        startTest: '테스트 시작',
+        bestRecord: '최고 기록',
+        secondsLeft: '초 남음',
+        wpm: '분당 타수',
+        accuracy: '정확도',
+        complete: '완료!',
+        yourSpeed: '타이핑 속도',
+        cpm: '분당 글자수',
+        tryAgain: '다시 하기',
+        backHome: '홈으로',
+        privacyPolicy: '개인정보처리방침',
+        termsOfService: '이용약관'
+      },
+      en: {
+        title: 'Typing Speed Test',
+        subtitle: 'Test your typing speed and accuracy!',
+        selectDuration: 'Select Duration',
+        seconds: 'seconds',
+        startTest: 'Start Test',
+        bestRecord: 'Best Record',
+        secondsLeft: 'seconds left',
+        wpm: 'WPM',
+        accuracy: 'Accuracy',
+        complete: 'Complete!',
+        yourSpeed: 'Your Typing Speed',
+        cpm: 'CPM',
+        tryAgain: 'Try Again',
+        backHome: 'Home',
+        privacyPolicy: 'Privacy Policy',
+        termsOfService: 'Terms of Service'
+      }
+    };
+
+    // 랜덤 텍스트 (언어별)
+    const textPool = {
+      ko: [
+        '빠른 갈색 여우가 게으른 개를 뛰어넘습니다. 연습은 완벽을 만듭니다. 꾸준함이 중요합니다.',
+        '프로그래밍은 문제를 해결하는 예술입니다. 코드는 생각을 표현하는 언어입니다.',
+        '인생은 자전거를 타는 것과 같습니다. 균형을 유지하려면 계속 움직여야 합니다.',
+        '성공의 비결은 시작하는 것입니다. 완벽할 때까지 기다리지 마세요.',
+        '오늘의 나는 어제의 나보다 나아져야 합니다. 작은 진보라도 진보입니다.',
+        '독서는 마음의 양식입니다. 책은 우리를 새로운 세계로 안내합니다.',
+        '음악은 영혼의 언어입니다. 음악을 통해 우리는 하나가 됩니다.',
+        '여행은 새로운 경험을 쌓는 최고의 방법입니다. 세상은 넓고 아름답습니다.'
+      ],
+      en: [
+        'The quick brown fox jumps over the lazy dog. Practice makes perfect. Consistency is key to improvement.',
+        'Programming is the art of solving problems. Code is the language of thoughts and ideas.',
+        'Life is like riding a bicycle. To keep your balance you must keep moving forward.',
+        'The secret of getting ahead is getting started. Do not wait until everything is perfect.',
+        'Be better today than you were yesterday. Small progress is still progress and matters.',
+        'Reading is food for the mind. Books transport us to new worlds and perspectives.',
+        'Music is the language of the soul. Through music we connect and become one.',
+        'Travel is the best way to gain new experiences. The world is vast and beautiful.'
+      ]
+    };
+
+    let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+    const languageSelector = document.getElementById('language-selector');
+    languageSelector.value = currentLang;
+
+    function t(key) {
+      return translations[currentLang][key] || key;
+    }
+
+    function updateLanguage() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+      });
+    }
+
+    languageSelector.addEventListener('change', (e) => {
+      currentLang = e.target.value;
+      localStorage.setItem('preferredLanguage', currentLang);
+      updateLanguage();
+    });
+
+    updateLanguage();
+
+    // 게임 변수
+    let duration = 60;
+    let timeLeft = 60;
+    let timerInterval = null;
+    let targetText = '';
+    let typedText = '';
+    let correctChars = 0;
+    let totalChars = 0;
+    let startTime = 0;
+
+    // 버튼 이벤트
+    document.querySelectorAll('.duration-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.duration-btn').forEach(b => {
+          b.classList.remove('active', 'border-green-500', 'bg-gradient-to-br', 'from-green-500', 'to-teal-600', 'text-white', 'shadow-lg');
+          b.classList.add('border-gray-300');
+        });
+        btn.classList.remove('border-gray-300');
+        btn.classList.add('active', 'border-green-500', 'bg-gradient-to-br', 'from-green-500', 'to-teal-600', 'text-white', 'shadow-lg');
+        duration = parseInt(btn.dataset.duration);
+      });
+    });
+
+    document.getElementById('start-btn').addEventListener('click', startGame);
+    document.getElementById('retry-btn').addEventListener('click', () => {
+      hideScreen(document.getElementById('result-screen'));
+      showScreen(document.getElementById('start-screen'));
+    });
+    document.getElementById('home-btn').addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    function startGame() {
+      hideScreen(document.getElementById('start-screen'));
+      showScreen(document.getElementById('game-screen'));
+
+      initGame();
+    }
+
+    function initGame() {
+      // 랜덤 텍스트 선택
+      const texts = textPool[currentLang];
+      targetText = texts[Math.floor(Math.random() * texts.length)];
+
+      timeLeft = duration;
+      typedText = '';
+      correctChars = 0;
+      totalChars = 0;
+
+      // 텍스트 표시
+      renderText();
+
+      // 타이머 시작
+      document.getElementById('timer-display').textContent = timeLeft;
+      document.getElementById('typing-input').value = '';
+      document.getElementById('typing-input').disabled = false;
+      document.getElementById('typing-input').focus();
+
+      startTime = Date.now();
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer-display').textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          endGame();
+        }
+      }, 1000);
+
+      // 입력 이벤트
+      const input = document.getElementById('typing-input');
+      input.addEventListener('input', handleTyping);
+    }
+
+    function renderText() {
+      const display = document.getElementById('text-display');
+      display.innerHTML = '';
+
+      for (let i = 0; i < targetText.length; i++) {
+        const span = document.createElement('span');
+        span.textContent = targetText[i];
+        span.className = 'text-gray-400';
+
+        if (i < typedText.length) {
+          if (typedText[i] === targetText[i]) {
+            span.className = 'text-green-600';
+          } else {
+            span.className = 'text-red-600 bg-red-100';
+          }
+        } else if (i === typedText.length) {
+          span.className = 'text-gray-800 bg-yellow-200';
+        }
+
+        display.appendChild(span);
+      }
+    }
+
+    function handleTyping(e) {
+      typedText = e.target.value;
+      totalChars = typedText.length;
+
+      // 정확한 글자 수 계산
+      correctChars = 0;
+      for (let i = 0; i < typedText.length && i < targetText.length; i++) {
+        if (typedText[i] === targetText[i]) {
+          correctChars++;
+        }
+      }
+
+      renderText();
+      updateStats();
+
+      // 완료 체크
+      if (typedText === targetText) {
+        endGame();
+      }
+    }
+
+    function updateStats() {
+      const elapsed = (Date.now() - startTime) / 1000 / 60; // 분 단위
+      const wpm = Math.round((correctChars / 5) / elapsed);
+      const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+
+      document.getElementById('wpm-display').textContent = wpm;
+      document.getElementById('accuracy-display').textContent = accuracy + '%';
+    }
+
+    function endGame() {
+      clearInterval(timerInterval);
+      document.getElementById('typing-input').disabled = true;
+
+      const elapsed = (Date.now() - startTime) / 1000 / 60;
+      const wpm = Math.round((correctChars / 5) / elapsed);
+      const cpm = Math.round(correctChars / elapsed);
+      const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+
+      document.getElementById('final-wpm').textContent = wpm;
+      document.getElementById('final-cpm').textContent = cpm;
+      document.getElementById('final-accuracy').textContent = accuracy + '%';
+
+      // 최고 기록 저장
+      const key = `typingBest_${duration}`;
+      const best = localStorage.getItem(key);
+      if (!best || wpm > parseInt(best)) {
+        localStorage.setItem(key, wpm);
+      }
+
+      hideScreen(document.getElementById('game-screen'));
+      showScreen(document.getElementById('result-screen'));
+    }
+
+    function showScreen(screen) {
+      screen.classList.remove('hidden');
+      screen.classList.add('active');
+    }
+
+    function hideScreen(screen) {
+      screen.classList.add('hidden');
+      screen.classList.remove('active');
+    }
+
+    function loadBestRecord() {
+      const key = `typingBest_${duration}`;
+      const best = localStorage.getItem(key);
+      document.getElementById('best-record').textContent = best ? `${best} WPM` : '-- WPM';
+    }
+
+    loadBestRecord();
+  </script>
+</body>
+</html>

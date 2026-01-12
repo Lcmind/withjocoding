@@ -1,0 +1,304 @@
+// 번역
+const translations = {
+  ko: {
+    title: '조준 트레이너',
+    subtitle: '조준 정확도와 속도를 향상시키세요!',
+    selectDifficulty: '난이도 선택',
+    easy: '쉬움',
+    normal: '보통',
+    hard: '어려움',
+    startTraining: '훈련 시작',
+    bestAccuracy: '최고 정확도',
+    targets: '타겟',
+    accuracy: '정확도',
+    combo: '콤보',
+    results: '결과',
+    finalAccuracy: '최종 정확도',
+    avgTime: '평균 시간',
+    maxCombo: '최대 콤보',
+    score: '점수',
+    trainAgain: '다시 훈련',
+    backHome: '홈으로',
+    privacyPolicy: '개인정보처리방침',
+    termsOfService: '이용약관'
+  },
+  en: {
+    title: 'Aim Trainer',
+    subtitle: 'Improve your aim precision and speed!',
+    selectDifficulty: 'Select Difficulty',
+    easy: 'Easy',
+    normal: 'Normal',
+    hard: 'Hard',
+    startTraining: 'Start Training',
+    bestAccuracy: 'Best Accuracy',
+    targets: 'Targets',
+    accuracy: 'Accuracy',
+    combo: 'Combo',
+    results: 'Results',
+    finalAccuracy: 'Final Accuracy',
+    avgTime: 'Avg Time',
+    maxCombo: 'Max Combo',
+    score: 'Score',
+    trainAgain: 'Train Again',
+    backHome: 'Home',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service'
+  }
+};
+
+let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+const languageSelector = document.getElementById('language-selector');
+languageSelector.value = currentLang;
+
+function t(key) {
+  return translations[currentLang][key] || key;
+}
+
+function updateLanguage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+}
+
+languageSelector.addEventListener('change', (e) => {
+  currentLang = e.target.value;
+  localStorage.setItem('preferredLanguage', currentLang);
+  updateLanguage();
+});
+
+updateLanguage();
+
+// 게임 로직
+let difficulty = 'normal';
+let targetCount = 0;
+const maxTargets = 30;
+let hits = 0;
+let misses = 0;
+let combo = 0;
+let maxCombo = 0;
+let reactionTimes = [];
+let targetAppearTime = 0;
+let isTargetVisible = false;
+
+const difficultySettings = {
+  easy: { size: 100, delay: [1000, 1500], lifetime: 2000 },
+  normal: { size: 70, delay: [500, 1000], lifetime: 1500 },
+  hard: { size: 50, delay: [300, 700], lifetime: 1000 }
+};
+
+const target = document.getElementById('target');
+const clickEffect = document.getElementById('click-effect');
+const gameArea = document.getElementById('game-area');
+
+// 난이도 선택
+document.querySelectorAll('.difficulty-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.difficulty-btn').forEach(b => {
+      b.classList.remove('active', 'border-orange-500', 'bg-gradient-to-br', 'from-orange-500', 'to-red-600', 'text-white', 'shadow-lg');
+      b.classList.add('border-gray-300');
+    });
+    btn.classList.remove('border-gray-300');
+    btn.classList.add('active', 'border-orange-500', 'bg-gradient-to-br', 'from-orange-500', 'to-red-600', 'text-white', 'shadow-lg');
+    difficulty = btn.dataset.difficulty;
+  });
+});
+
+document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('retry-btn').addEventListener('click', () => {
+  hideScreen(document.getElementById('result-screen'));
+  showScreen(document.getElementById('start-screen'));
+});
+document.getElementById('home-btn').addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+
+function startGame() {
+  hideScreen(document.getElementById('start-screen'));
+  showScreen(document.getElementById('game-screen'));
+
+  initGame();
+}
+
+function initGame() {
+  targetCount = 0;
+  hits = 0;
+  misses = 0;
+  combo = 0;
+  maxCombo = 0;
+  reactionTimes = [];
+  isTargetVisible = false;
+
+  updateGameInfo();
+  spawnTarget();
+
+  // 빗나간 클릭 감지
+  gameArea.onclick = (e) => {
+    if (e.target !== target && isTargetVisible) {
+      misses++;
+      combo = 0;
+      updateGameInfo();
+      showClickEffect(e.clientX, e.clientY, false);
+    }
+  };
+}
+
+function spawnTarget() {
+  if (targetCount >= maxTargets) {
+    endGame();
+    return;
+  }
+
+  const settings = difficultySettings[difficulty];
+  const margin = settings.size;
+  const maxX = window.innerWidth - margin * 2;
+  const maxY = window.innerHeight - margin * 2 - 100;
+
+  const randomX = Math.random() * maxX + margin;
+  const randomY = Math.random() * maxY + margin + 100;
+
+  // 타겟 설정
+  target.style.left = `${randomX}px`;
+  target.style.top = `${randomY}px`;
+  target.style.width = `${settings.size}px`;
+  target.style.height = `${settings.size}px`;
+  target.className = 'absolute rounded-full transition-all duration-200 shadow-2xl border-4 border-white/30 bg-gradient-to-br from-orange-500 to-red-600';
+
+  // 랜덤 색상 (매번 다름)
+  const colors = [
+    'from-orange-500 to-red-600',
+    'from-red-500 to-pink-600',
+    'from-yellow-500 to-orange-600',
+    'from-purple-500 to-pink-600',
+    'from-blue-500 to-purple-600'
+  ];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  target.classList.add('bg-gradient-to-br', ...randomColor.split(' '));
+
+  // 타겟 표시
+  setTimeout(() => {
+    target.classList.remove('opacity-0', 'scale-0');
+    target.classList.add('opacity-100', 'scale-100', 'target-pulse');
+    isTargetVisible = true;
+    targetAppearTime = Date.now();
+
+    // 일정 시간 후 자동 사라짐 (미스 처리)
+    setTimeout(() => {
+      if (isTargetVisible) {
+        missTarget();
+      }
+    }, settings.lifetime);
+  }, getRandomDelay(settings.delay[0], settings.delay[1]));
+
+  // 타겟 클릭
+  target.onclick = (e) => {
+    if (!isTargetVisible) return;
+    e.stopPropagation();
+
+    const reactionTime = Date.now() - targetAppearTime;
+    reactionTimes.push(reactionTime);
+    hits++;
+    combo++;
+    if (combo > maxCombo) maxCombo = combo;
+
+    hideTarget();
+    showClickEffect(e.clientX, e.clientY, true);
+    updateGameInfo();
+
+    targetCount++;
+    setTimeout(() => spawnTarget(), 200);
+  };
+}
+
+function missTarget() {
+  if (!isTargetVisible) return;
+
+  misses++;
+  combo = 0;
+  hideTarget();
+  updateGameInfo();
+
+  targetCount++;
+  setTimeout(() => spawnTarget(), 500);
+}
+
+function hideTarget() {
+  isTargetVisible = false;
+  target.classList.remove('opacity-100', 'scale-100', 'target-pulse');
+  target.classList.add('opacity-0', 'scale-0');
+}
+
+function showClickEffect(x, y, isHit) {
+  clickEffect.style.left = `${x - 50}px`;
+  clickEffect.style.top = `${y - 50}px`;
+  clickEffect.className = `absolute w-24 h-24 border-4 rounded-full pointer-events-none ${isHit ? 'border-green-500' : 'border-red-500'}`;
+
+  clickEffect.classList.remove('opacity-0', 'scale-0');
+  clickEffect.classList.add('hit-effect-anim');
+
+  setTimeout(() => {
+    clickEffect.classList.add('opacity-0', 'scale-0');
+    clickEffect.classList.remove('hit-effect-anim');
+  }, 400);
+}
+
+function updateGameInfo() {
+  document.getElementById('target-count').textContent = `${targetCount} / ${maxTargets}`;
+
+  const totalShots = hits + misses;
+  const accuracy = totalShots > 0 ? Math.round((hits / totalShots) * 100) : 100;
+  document.getElementById('accuracy-display').textContent = `${accuracy}%`;
+
+  document.getElementById('combo-display').textContent = `x${combo}`;
+  if (combo >= 5) {
+    document.getElementById('combo-display').classList.add('text-yellow-400');
+  } else {
+    document.getElementById('combo-display').classList.remove('text-yellow-400');
+  }
+}
+
+function endGame() {
+  const totalShots = hits + misses;
+  const accuracy = totalShots > 0 ? Math.round((hits / totalShots) * 100) : 100;
+  const avgTime = reactionTimes.length > 0
+    ? Math.round(reactionTimes.reduce((a, b) => a + b) / reactionTimes.length)
+    : 0;
+  const score = Math.round(hits * 100 * (1 + combo / 10));
+
+  document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+  document.getElementById('avg-time').textContent = `${avgTime}ms`;
+  document.getElementById('max-combo').textContent = `x${maxCombo}`;
+  document.getElementById('final-score').textContent = score;
+
+  // 최고 기록 저장
+  const key = `aimBest_${difficulty}`;
+  const best = localStorage.getItem(key);
+  if (!best || accuracy > parseInt(best)) {
+    localStorage.setItem(key, accuracy);
+  }
+
+  hideScreen(document.getElementById('game-screen'));
+  showScreen(document.getElementById('result-screen'));
+}
+
+function getRandomDelay(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function showScreen(screen) {
+  screen.classList.remove('hidden');
+  screen.classList.add('active');
+}
+
+function hideScreen(screen) {
+  screen.classList.add('hidden');
+  screen.classList.remove('active');
+}
+
+function loadBestRecord() {
+  const key = `aimBest_${difficulty}`;
+  const best = localStorage.getItem(key);
+  document.getElementById('best-record').textContent = best ? `${best}%` : '--%';
+}
+
+loadBestRecord();
