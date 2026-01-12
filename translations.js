@@ -62,7 +62,16 @@ const translations = {
     },
     shareText: "FPS 반응속도 테스트 결과: {time}! 나는 얼마나 빠를까? 🎯",
     metaDescription: "무료 FPS 반응속도 테스트! 타겟을 빠르게 클릭하고 내 반응속도(ms)를 측정하세요. 게이머 필수 테스트, SNS 공유, 세계 랭킹!",
-    metaKeywords: "FPS 반응속도, 반응속도 테스트, reaction time test, 게이머 반응속도, aim trainer, 클릭 게임, FPS 연습, 마우스 반응속도"
+    metaKeywords: "FPS 반응속도, 반응속도 테스트, reaction time test, 게이머 반응속도, aim trainer, 클릭 게임, FPS 연습, 마우스 반응속도",
+    otherGames: "다른 게임",
+    memoryTest: "기억력 테스트",
+    memoryTestDesc: "당신의 기억력을 테스트하세요",
+    typingSpeed: "타이핑 속도",
+    typingSpeedDesc: "타이핑 속도를 측정하세요",
+    aimTrainer: "조준 트레이너",
+    aimTrainerDesc: "조준 정확도를 향상시키세요",
+    mathChallenge: "수학 챌린지",
+    mathChallengeDesc: "빠른 수학 계산"
   },
   en: {
     title: "FPS Reaction Time Test",
@@ -123,7 +132,16 @@ const translations = {
     },
     shareText: "FPS Reaction Test: {time}! How fast are you? 🎯",
     metaDescription: "Free FPS Reaction Time Test! Click targets fast and measure your reaction speed (ms). Essential for gamers, SNS sharing, world ranking!",
-    metaKeywords: "FPS reaction time, reaction speed test, gamer reaction test, aim trainer, click game, FPS practice, mouse reaction speed"
+    metaKeywords: "FPS reaction time, reaction speed test, gamer reaction test, aim trainer, click game, FPS practice, mouse reaction speed",
+    otherGames: "Other Games",
+    memoryTest: "Memory Test",
+    memoryTestDesc: "Test your memory skills",
+    typingSpeed: "Typing Speed",
+    typingSpeedDesc: "Test your typing speed",
+    aimTrainer: "Aim Trainer",
+    aimTrainerDesc: "Improve your aim precision",
+    mathChallenge: "Math Challenge",
+    mathChallengeDesc: "Quick math calculations"
   },
   ja: {
     title: "FPS反応速度テスト",
@@ -184,7 +202,16 @@ const translations = {
     },
     shareText: "FPS反応速度テスト結果: {time}！あなたはどれくらい速い？ 🎯",
     metaDescription: "無料FPS反応速度テスト！ターゲットを素早くクリックして反応速度(ms)を測定。ゲーマー必須テスト、SNSシェア、世界ランキング！",
-    metaKeywords: "FPS反応速度, 反応速度テスト, ゲーマー反応テスト, エイムトレーナー, クリックゲーム, FPS練習"
+    metaKeywords: "FPS反応速度, 反応速度テスト, ゲーマー反応テスト, エイムトレーナー, クリックゲーム, FPS練習",
+    otherGames: "他のゲーム",
+    memoryTest: "記憶力テスト",
+    memoryTestDesc: "記憶力をテストしてください",
+    typingSpeed: "タイピング速度",
+    typingSpeedDesc: "タイピング速度を測定",
+    aimTrainer: "エイムトレーナー",
+    aimTrainerDesc: "照準精度を向上させる",
+    mathChallenge: "数学チャレンジ",
+    mathChallengeDesc: "素早い数学計算"
   },
   zh: {
     title: "FPS反应速度测试",
@@ -245,7 +272,16 @@ const translations = {
     },
     shareText: "FPS反应速度测试结果：{time}！你有多快？🎯",
     metaDescription: "免费FPS反应速度测试！快速点击目标并测量反应速度(ms)。玩家必备测试，SNS分享，世界排名！",
-    metaKeywords: "FPS反应速度, 反应速度测试, 玩家反应测试, 瞄准训练器, 点击游戏, FPS练习"
+    metaKeywords: "FPS反应速度, 反应速度测试, 玩家反应测试, 瞄准训练器, 点击游戏, FPS练习",
+    otherGames: "其他游戏",
+    memoryTest: "记忆力测试",
+    memoryTestDesc: "测试你的记忆力",
+    typingSpeed: "打字速度",
+    typingSpeedDesc: "测试打字速度",
+    aimTrainer: "瞄准训练器",
+    aimTrainerDesc: "提高瞄准精度",
+    mathChallenge: "数学挑战",
+    mathChallengeDesc: "快速数学计算"
   },
   es: {
     title: "Test de Tiempo de Reacción FPS",
