@@ -322,19 +322,19 @@
       const settings = difficultySettings[difficulty];
       const grid = document.getElementById('card-grid');
       grid.innerHTML = '';
-      grid.className = `grid gap-3 mb-4`;
-      grid.style.gridTemplateColumns = `repeat(${settings.cols}, minmax(0, 1fr))`;
+      grid.className = `grid gap-6 mb-4 max-w-4xl mx-auto`;
+      grid.style.gridTemplateColumns = `repeat(${settings.cols}, minmax(100px, 1fr))`;
 
       cards.forEach(card => {
         const cardEl = document.createElement('div');
-        cardEl.className = 'card cursor-pointer aspect-square';
+        cardEl.className = 'card cursor-pointer aspect-square min-w-[100px] min-h-[100px]';
         cardEl.innerHTML = `
           <div class="card-inner w-full h-full">
-            <div class="card-front bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
-              <div class="text-4xl">❓</div>
+            <div class="card-front bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg rounded-2xl">
+              <div class="text-6xl md:text-7xl">🎴</div>
             </div>
-            <div class="card-back bg-white shadow-lg">
-              <div class="text-5xl">${card.emoji}</div>
+            <div class="card-back bg-white shadow-lg rounded-2xl border-4 border-blue-400">
+              <div class="text-6xl md:text-7xl">${card.emoji}</div>
             </div>
           </div>
         `;

@@ -113,6 +113,7 @@ document.querySelectorAll('.problems-btn').forEach(btn => {
     btn.classList.remove('border-gray-300');
     btn.classList.add('active', 'border-yellow-500', 'bg-gradient-to-br', 'from-yellow-500', 'to-orange-600', 'text-white', 'shadow-lg');
     problemCount = parseInt(btn.dataset.problems);
+    loadBestRecord();
   });
 });
 
