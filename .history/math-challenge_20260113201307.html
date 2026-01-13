@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free Math Challenge! Test your mental calculation speed. Perfect for brain training!">
-  <title>Math Challenge - Mental Calculation Speed Training</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#667eea',
-            secondary: '#764ba2',
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
-     crossorigin="anonymous"></script>
+</script>
 
   <style>
     @keyframes shake {
@@ -34,6 +9,15 @@
     .shake {
       animation: shake 0.3s ease-in-out;
     }
+    @keyframes correct-flash {
+      0%, 100% { background-color: transparent; }
+      50% { background-color: rgba(34, 197, 94, 0.2); }
+    }
+    .correct-flash {
+      animation: correct-flash 0.5s ease-in-out;
+    }
+    /* Use global .screen rules from style.css for consistent layout */
+  </style>
     @keyframes correct-flash {
       0%, 100% { background-color: transparent; }
       50% { background-color: rgba(34, 197, 94, 0.2); }
@@ -94,16 +78,6 @@
       </h1>
       <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Test your mental calculation speed!</p>
 
-      <!-- 게임 방법 -->
-      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
-        <h3 class="text-xl font-bold text-yellow-600 mb-4" data-i18n="gameMethod">How to Play</h3>
-        <ol class="list-decimal list-inside space-y-2 text-gray-700">
-          <li data-i18n="mathMethodDesc.0">Math problems appear on screen</li>
-          <li data-i18n="mathMethodDesc.1">Choose the correct answer quickly</li>
-          <li data-i18n="mathMethodDesc.2">Complete all problems to see your speed!</li>
-        </ol>
-      </div>
-
       <!-- 난이도 선택 -->
       <div class="mb-8">
         <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDifficulty">Select Difficulty</h3>
@@ -148,44 +122,6 @@
 
       <div class="mt-6 text-center text-gray-600">
         <p>🏆 <span data-i18n="bestTime">Best Time</span>: <span id="best-record">--</span></p>
-      </div>
-
-      <!-- 내 기록 TOP 10 -->
-      <div class="mt-8">
-        <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
-        <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
-          <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
-        </div>
-      </div>
-
-      <!-- 다른 게임 섹션 -->
-      <div class="mt-8 border-t border-gray-200 pt-8">
-        <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🎯</div>
-            <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
-            <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
-          </a>
-
-          <a href="memory-test.html" class="block bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🧠</div>
-            <div class="font-bold text-lg mb-2" data-i18n="memoryTest">Memory Test</div>
-            <div class="text-sm opacity-90" data-i18n="memoryTestDesc">Test your memory skills</div>
-          </a>
-
-          <a href="typing-speed.html" class="block bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">⚡</div>
-            <div class="font-bold text-lg mb-2" data-i18n="typingSpeed">Typing Speed</div>
-            <div class="text-sm opacity-90" data-i18n="typingSpeedDesc">Test your typing speed</div>
-          </a>
-
-          <a href="aim-trainer.html" class="block bg-gradient-to-br from-orange-500 to-red-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🎯</div>
-            <div class="font-bold text-lg mb-2" data-i18n="aimTrainer">Aim Trainer</div>
-            <div class="text-sm opacity-90" data-i18n="aimTrainerDesc">Improve your aim precision</div>
-          </a>
-        </div>
       </div>
     </div>
   </div>

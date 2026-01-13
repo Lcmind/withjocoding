@@ -59,31 +59,21 @@
       </h1>
       <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Test your typing speed and accuracy!</p>
 
-      <!-- 게임 방법 -->
-      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
-        <h3 class="text-xl font-bold text-green-600 mb-4" data-i18n="gameMethod">How to Play</h3>
-        <ol class="list-decimal list-inside space-y-2 text-gray-700">
-          <li data-i18n="typingMethodDesc.0">Text appears on screen</li>
-          <li data-i18n="typingMethodDesc.1">Type as fast and accurately as possible</li>
-          <li data-i18n="typingMethodDesc.2">Your WPM and accuracy are calculated!</li>
-        </ol>
-      </div>
-
-      <!-- 시간 선택 -->
+      <!-- 난이도 선택 (글자수 기준) -->
       <div class="mb-8">
-        <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDuration">Select Duration</h3>
+        <h3 class="text-xl font-bold text-center mb-4">Select Difficulty</h3>
         <div class="grid grid-cols-3 gap-4">
-          <button class="duration-btn border-2 border-gray-300 rounded-xl p-4 hover:border-green-500 hover:shadow-lg transition-all" data-duration="30">
-            <div class="font-bold text-2xl">30</div>
-            <div class="text-sm text-gray-500" data-i18n="seconds">seconds</div>
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-4 hover:border-green-500 hover:shadow-lg transition-all" data-chars="80">
+            <div class="font-bold text-2xl">Easy</div>
+            <div class="text-sm text-gray-500">~80 chars</div>
           </button>
-          <button class="duration-btn active border-2 border-green-500 bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-xl p-4 shadow-lg" data-duration="60">
-            <div class="font-bold text-2xl">60</div>
-            <div class="text-sm opacity-90" data-i18n="seconds">seconds</div>
+          <button class="difficulty-btn active border-2 border-green-500 bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-xl p-4 shadow-lg" data-chars="160">
+            <div class="font-bold text-2xl">Normal</div>
+            <div class="text-sm opacity-90">~160 chars</div>
           </button>
-          <button class="duration-btn border-2 border-gray-300 rounded-xl p-4 hover:border-green-500 hover:shadow-lg transition-all" data-duration="120">
-            <div class="font-bold text-2xl">120</div>
-            <div class="text-sm text-gray-500" data-i18n="seconds">seconds</div>
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-4 hover:border-green-500 hover:shadow-lg transition-all" data-chars="320">
+            <div class="font-bold text-2xl">Hard</div>
+            <div class="text-sm text-gray-500">~320 chars</div>
           </button>
         </div>
       </div>
@@ -94,44 +84,6 @@
 
       <div class="mt-6 text-center text-gray-600">
         <p>🏆 <span data-i18n="bestRecord">Best Record</span>: <span id="best-record">-- WPM</span></p>
-      </div>
-
-      <!-- 내 기록 TOP 10 -->
-      <div class="mt-8">
-        <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
-        <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
-          <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
-        </div>
-      </div>
-
-      <!-- 다른 게임 섹션 -->
-      <div class="mt-8 border-t border-gray-200 pt-8">
-        <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🎯</div>
-            <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
-            <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
-          </a>
-
-          <a href="memory-test.html" class="block bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🧠</div>
-            <div class="font-bold text-lg mb-2" data-i18n="memoryTest">Memory Test</div>
-            <div class="text-sm opacity-90" data-i18n="memoryTestDesc">Test your memory skills</div>
-          </a>
-
-          <a href="aim-trainer.html" class="block bg-gradient-to-br from-orange-500 to-red-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🎯</div>
-            <div class="font-bold text-lg mb-2" data-i18n="aimTrainer">Aim Trainer</div>
-            <div class="text-sm opacity-90" data-i18n="aimTrainerDesc">Improve your aim precision</div>
-          </a>
-
-          <a href="math-challenge.html" class="block bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🔢</div>
-            <div class="font-bold text-lg mb-2" data-i18n="mathChallenge">Math Challenge</div>
-            <div class="text-sm opacity-90" data-i18n="mathChallengeDesc">Quick math calculations</div>
-          </a>
-        </div>
       </div>
     </div>
   </div>
@@ -315,26 +267,27 @@
 
     updateLanguage();
 
-    // 게임 변수
-    let duration = 60;
-    let timeLeft = 60;
-    let timerInterval = null;
+    // 게임 변수 (문자수 기반)
+    let targetChars = 160; // default normal
+    let elapsedInterval = null;
     let targetText = '';
     let typedText = '';
     let correctChars = 0;
     let totalChars = 0;
     let startTime = 0;
+    let endTime = 0;
 
-    // 버튼 이벤트
-    document.querySelectorAll('.duration-btn').forEach(btn => {
+    // 버튼 이벤트 (난이도: 문자수 기준)
+    document.querySelectorAll('.difficulty-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.duration-btn').forEach(b => {
+        document.querySelectorAll('.difficulty-btn').forEach(b => {
           b.classList.remove('active', 'border-green-500', 'bg-gradient-to-br', 'from-green-500', 'to-teal-600', 'text-white', 'shadow-lg');
           b.classList.add('border-gray-300');
         });
         btn.classList.remove('border-gray-300');
         btn.classList.add('active', 'border-green-500', 'bg-gradient-to-br', 'from-green-500', 'to-teal-600', 'text-white', 'shadow-lg');
-        duration = parseInt(btn.dataset.duration);
+        targetChars = parseInt(btn.dataset.chars);
+        loadBestRecord();
       });
     });
 
@@ -355,11 +308,15 @@
     }
 
     function initGame() {
-      // 랜덤 텍스트 선택
+      // 텍스트를 targetChars 이상으로 조합
       const texts = textPool[currentLang];
-      targetText = texts[Math.floor(Math.random() * texts.length)];
+      targetText = '';
+      while (targetText.length < targetChars) {
+        const piece = texts[Math.floor(Math.random() * texts.length)];
+        if (targetText.length > 0) targetText += ' ';
+        targetText += piece;
+      }
 
-      timeLeft = duration;
       typedText = '';
       correctChars = 0;
       totalChars = 0;
@@ -367,21 +324,18 @@
       // 텍스트 표시
       renderText();
 
-      // 타이머 시작
-      document.getElementById('timer-display').textContent = timeLeft;
+      // 초기 문자 카운트 표시
+      document.getElementById('timer-display').textContent = targetText.length - typedText.length;
       document.getElementById('typing-input').value = '';
       document.getElementById('typing-input').disabled = false;
       document.getElementById('typing-input').focus();
 
+      // 시작 시간
       startTime = Date.now();
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer-display').textContent = timeLeft;
-
-        if (timeLeft <= 0) {
-          endGame();
-        }
-      }, 1000);
+      if (elapsedInterval) clearInterval(elapsedInterval);
+      elapsedInterval = setInterval(() => {
+        // reserved for optional live updates
+      }, 500);
 
       // 입력 이벤트
       const input = document.getElementById('typing-input');
@@ -427,7 +381,11 @@
       updateStats();
 
       // 완료 체크
-      if (typedText === targetText) {
+      const left = Math.max(targetText.length - typedText.length, 0);
+      document.getElementById('timer-display').textContent = left;
+      if (typedText.length >= targetText.length) {
+        // Trim any extra characters and finalize
+        typedText = typedText.slice(0, targetText.length);
         endGame();
       }
     }

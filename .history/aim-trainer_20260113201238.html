@@ -42,7 +42,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-orange-500 to-red-600 overflow-hidden">
+<body class="min-h-screen bg-gradient-to-br from-primary to-secondary overflow-x-hidden">
 
   <!-- 언어 선택 -->
   <div class="fixed top-4 right-4 z-50">
@@ -71,20 +71,10 @@
     </div>
 
     <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
-      <h1 class="text-4xl md:text-5xl font-bold text-center text-orange-600 mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold text-center text-primary mb-4">
         🎯 <span data-i18n="title">Aim Trainer</span>
       </h1>
       <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Improve your aim precision and speed!</p>
-
-      <!-- 게임 방법 -->
-      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
-        <h3 class="text-xl font-bold text-orange-600 mb-4" data-i18n="gameMethod">How to Play</h3>
-        <ol class="list-decimal list-inside space-y-2 text-gray-700">
-          <li data-i18n="aimMethodDesc.0">Targets appear randomly on screen</li>
-          <li data-i18n="aimMethodDesc.1">Click them as fast as possible</li>
-          <li data-i18n="aimMethodDesc.2">Improve your accuracy and speed!</li>
-        </ol>
-      </div>
 
       <!-- 난이도 선택 -->
       <div class="mb-8">
@@ -95,7 +85,7 @@
             <div class="font-bold text-lg" data-i18n="easy">Easy</div>
             <div class="text-sm text-gray-500">Large & Slow</div>
           </button>
-          <button class="difficulty-btn active border-2 border-orange-500 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
+          <button class="difficulty-btn active border-2 border-primary bg-gradient-to-br from-primary to-secondary text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
             <div class="text-3xl mb-2">🎯</div>
             <div class="font-bold text-lg" data-i18n="normal">Normal</div>
             <div class="text-sm opacity-90">Medium & Fast</div>
@@ -108,50 +98,12 @@
         </div>
       </div>
 
-      <button id="start-btn" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+      <button id="start-btn" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
         <span data-i18n="startTraining">Start Training</span>
       </button>
 
       <div class="mt-6 text-center text-gray-600">
         <p>🏆 <span data-i18n="bestAccuracy">Best Accuracy</span>: <span id="best-record">--%</span></p>
-      </div>
-
-      <!-- 내 기록 TOP 10 -->
-      <div class="mt-8">
-        <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
-        <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
-          <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
-        </div>
-      </div>
-
-      <!-- 다른 게임 섹션 -->
-      <div class="mt-8 border-t border-gray-200 pt-8">
-        <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🎯</div>
-            <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
-            <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
-          </a>
-
-          <a href="memory-test.html" class="block bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🧠</div>
-            <div class="font-bold text-lg mb-2" data-i18n="memoryTest">Memory Test</div>
-            <div class="text-sm opacity-90" data-i18n="memoryTestDesc">Test your memory skills</div>
-          </a>
-
-          <a href="typing-speed.html" class="block bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">⚡</div>
-            <div class="font-bold text-lg mb-2" data-i18n="typingSpeed">Typing Speed</div>
-            <div class="text-sm opacity-90" data-i18n="typingSpeedDesc">Test your typing speed</div>
-          </a>
-
-          <a href="math-challenge.html" class="block bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <div class="text-3xl mb-2">🔢</div>
-            <div class="font-bold text-lg mb-2" data-i18n="mathChallenge">Math Challenge</div>
-            <div class="text-sm opacity-90" data-i18n="mathChallengeDesc">Quick math calculations</div>
-          </a>
-        </div>
       </div>
     </div>
   </div>
