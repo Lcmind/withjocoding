@@ -59,6 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const languageSelector = document.getElementById('language-selector');
   if (languageSelector) languageSelector.value = currentLang;
 
+  // 게임 로직 변수 선언 (최상단으로 이동)
+  let difficulty = 'normal';
+  let problemCount = 20;
+  let currentProblem = 0;
+  let correctAnswers = 0;
+  let wrongAnswers = 0;
+  let startTime = 0;
+  let correctAnswer = 0;
+
   function t(key) {
     return translations[currentLang][key] || key;
   }
@@ -85,15 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   updateLanguage();
 
-  // 게임 로직
-  let difficulty = 'normal';
-  let problemCount = 20;
-  let currentProblem = 0;
-  let correctAnswers = 0;
-  let wrongAnswers = 0;
-  let startTime = 0;
-  let correctAnswer = 0;
-
+  // 변수 선언 제거 (상단으로 이동됨)
   const difficultySettings = {
     easy: { min: 1, max: 10 },
     normal: { min: 1, max: 50 },
