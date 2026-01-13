@@ -67,14 +67,6 @@
     <select id="language-selector" class="px-4 py-2 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-2 border-white/50 cursor-pointer hover:bg-white transition-all">
       <option value="ko">🇰🇷 한국어</option>
       <option value="en">🇺🇸 English</option>
-      <option value="ja">🇯🇵 日本語</option>
-      <option value="zh">🇨🇳 中文</option>
-      <option value="es">🇪🇸 Español</option>
-      <option value="fr">🇫🇷 Français</option>
-      <option value="de">🇩🇪 Deutsch</option>
-      <option value="pt">🇧🇷 Português</option>
-      <option value="ru">🇷🇺 Русский</option>
-      <option value="ar">🇸🇦 العربية</option>
     </select>
   </div>
 
@@ -83,100 +75,48 @@
     <div class="max-w-4xl w-full">
 
       <!-- 상단 광고 -->
-      <div class="mb-6 flex justify-center">
-        <ins class="adsbygoogle block"
-             style="display:block; max-height:90px;"
-             data-ad-format="horizontal"
-             data-ad-client="ca-pub-1247545232353663"
-             data-full-width-responsive="true"></ins>
+    <div class="mb-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; max-height:90px;"
+           data-ad-format="horizontal"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-primary mb-4">
+        🧠 <span data-i18n="title">Memory Test</span>
+      </h1>
+      <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Match all cards in the shortest time!</p>
+
+      <!-- 난이도 선택 -->
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDifficulty">Select Difficulty</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all" data-difficulty="easy">
+            <div class="text-3xl mb-2">😊</div>
+            <div class="font-bold text-lg" data-i18n="easy">Easy</div>
+            <div class="text-sm text-gray-500">4x3 (6 pairs)</div>
+          </button>
+          <button class="difficulty-btn active border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
+            <div class="text-3xl mb-2">🤔</div>
+            <div class="font-bold text-lg" data-i18n="normal">Normal</div>
+            <div class="text-sm opacity-90">4x4 (8 pairs)</div>
+          </button>
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all" data-difficulty="hard">
+            <div class="text-3xl mb-2">🤯</div>
+            <div class="font-bold text-lg" data-i18n="hard">Hard</div>
+            <div class="text-sm text-gray-500">6x4 (12 pairs)</div>
+          </button>
+        </div>
       </div>
 
-      <!-- 메인 카드 -->
-      <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10">
-        <h1 class="text-4xl md:text-6xl font-bold text-center text-blue-600 mb-4">
-          🧠 <span data-i18n="title">Memory Test</span>
-        </h1>
-        <p class="text-lg md:text-xl text-center text-gray-600 mb-8" data-i18n="subtitle">Match all cards in the shortest time!</p>
+      <button id="start-btn" class="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+        <span data-i18n="startGame">Start Game</span>
+      </button>
 
-        <!-- 게임 방법 -->
-        <div class="bg-gray-50 rounded-2xl p-6 mb-8">
-          <h3 class="text-xl font-bold text-blue-600 mb-4" data-i18n="gameMethod">How to Play</h3>
-          <ol class="list-decimal list-inside space-y-2 text-gray-700">
-            <li data-i18n="memoryMethodDesc.0">Click cards to flip and reveal emojis</li>
-            <li data-i18n="memoryMethodDesc.1">Find matching pairs of emojis</li>
-            <li data-i18n="memoryMethodDesc.2">Match all pairs in the shortest time to win!</li>
-          </ol>
-        </div>
-
-        <!-- 난이도 선택 -->
-        <div class="mb-8">
-          <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDifficulty">Select Difficulty</h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-difficulty="easy">
-              <div class="text-4xl mb-2">🟢</div>
-              <div class="font-bold text-lg mb-1" data-i18n="easy">Easy</div>
-              <div class="text-sm text-gray-500">4x3 (6 pairs)</div>
-            </button>
-            <button class="difficulty-btn active border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
-              <div class="text-4xl mb-2">🟡</div>
-              <div class="font-bold text-lg mb-1" data-i18n="normal">Normal</div>
-              <div class="text-sm opacity-90">4x4 (8 pairs)</div>
-            </button>
-            <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-difficulty="hard">
-              <div class="text-4xl mb-2">🔴</div>
-              <div class="font-bold text-lg mb-1" data-i18n="hard">Hard</div>
-              <div class="text-sm text-gray-500">6x4 (12 pairs)</div>
-            </button>
-          </div>
-        </div>
-
-        <!-- 시작 버튼 -->
-        <button id="start-btn" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-xl md:text-2xl py-4 md:py-6 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-          <span data-i18n="startGame">Start Game</span>
-        </button>
-
-        <!-- 최고 기록 -->
-        <div class="mt-6 text-center text-gray-600">
-          <p>🏆 <span data-i18n="myBestRecord">My Best Record</span>: <span id="best-record" data-i18n="none">None</span></p>
-        </div>
-
-        <!-- 내 기록 TOP 10 -->
-        <div class="mt-8">
-          <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
-          <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
-            <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
-          </div>
-        </div>
-
-        <!-- 다른 게임 섹션 -->
-        <div class="mt-8 border-t border-gray-200 pt-8">
-          <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">🎯</div>
-              <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
-              <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
-            </a>
-
-            <a href="typing-speed.html" class="block bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">⚡</div>
-              <div class="font-bold text-lg mb-2" data-i18n="typingSpeed">Typing Speed</div>
-              <div class="text-sm opacity-90" data-i18n="typingSpeedDesc">Test your typing speed</div>
-            </a>
-
-            <a href="aim-trainer.html" class="block bg-gradient-to-br from-orange-500 to-red-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">🎯</div>
-              <div class="font-bold text-lg mb-2" data-i18n="aimTrainer">Aim Trainer</div>
-              <div class="text-sm opacity-90" data-i18n="aimTrainerDesc">Improve your aim precision</div>
-            </a>
-
-            <a href="math-challenge.html" class="block bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">🧮</div>
-              <div class="font-bold text-lg mb-2" data-i18n="mathChallenge">Math Challenge</div>
-              <div class="text-sm opacity-90" data-i18n="mathChallengeDesc">Quick math calculations</div>
-            </a>
-          </div>
-        </div>
+      <div class="mt-6 text-center text-gray-600">
+        <p>🏆 <span data-i18n="bestRecord">Best Record</span>: <span id="best-record">--</span></p>
       </div>
     </div>
   </div>
@@ -232,43 +172,12 @@
     </div>
   </div>
 
-  <!-- Schema.org 구조화 데이터 -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Memory Test Game",
-    "applicationCategory": "GameApplication",
-    "description": "Free Memory Test Game. Match all cards and test your memory skills.",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "1240"
-    },
-    "screenshot": "https://withjocoding.pages.dev/og-image.jpg",
-    "featureList": [
-      "Memory Test",
-      "3 Difficulty Levels",
-      "Top 10 Records",
-      "SNS Sharing",
-      "Free"
-    ],
-    "inLanguage": ["en", "ko", "ja", "zh", "es", "fr", "de", "pt", "ru", "ar"]
-  }
-  </script>
-
   <!-- Footer -->
-  <footer class="w-full py-4 text-center text-gray-500 text-sm">
-    <p class="mb-1">Made with ❤️ | Memory Test</p>
-    <p class="text-xs">
-      <a href="privacy.html" class="text-gray-500 hover:text-gray-700 mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
-      <a href="terms.html" class="text-gray-500 hover:text-gray-700 mx-2" data-i18n="termsOfService">Terms of Service</a>
+  <footer class="w-full py-6 text-center text-white bg-gray-900">
+    <p class="mb-2">Made with ❤️ | Memory Test</p>
+    <p class="text-sm">
+      <a href="privacy.html" class="text-white hover:underline mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
+      <a href="terms.html" class="text-white hover:underline mx-2" data-i18n="termsOfService">Terms of Service</a>
     </p>
   </footer>
 

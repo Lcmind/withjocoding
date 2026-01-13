@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free Math Challenge! Test your mental calculation speed. Perfect for brain training!">
+  <title>Math Challenge - Mental Calculation Speed Training</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#667eea',
+            secondary: '#764ba2',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1247545232353663"
+     crossorigin="anonymous"></script>
+
+  <style>
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    .shake {
+      animation: shake 0.3s ease-in-out;
+    }
+    @keyframes correct-flash {
+      0%, 100% { background-color: transparent; }
+      50% { background-color: rgba(34, 197, 94, 0.2); }
+    }
+    .correct-flash {
+      animation: correct-flash 0.5s ease-in-out;
+    }
+    /* 화면 전환 제어 (강력한 고정) */
+    .screen {
+      display: none !important;
+      width: 100%;
+      height: 100%;
+    }
+    .screen.active {
+      display: flex !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      overflow-y: auto;
+    }
+    #start-screen.active {
+      background: linear-gradient(to bottom right, #eab308, #f97316);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-yellow-500 to-orange-600 overflow-hidden">
+
+  <!-- 언어 선택 -->
+  <div class="fixed top-4 right-4 z-50">
+  <div id="start-screen" class="screen active min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- 상단 광고 -->
+    <div class="mb-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; max-height:90px;"
+           data-ad-format="horizontal"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-center text-yellow-600 mb-4">
+        🧮 <span data-i18n="title">Math Challenge</span>
+      </h1>
+      <p class="text-center text-gray-600 mb-8" data-i18n="subtitle">Test your mental calculation speed!</p>
+
+      <!-- 게임 방법 -->
+      <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+        <h3 class="text-xl font-bold text-yellow-600 mb-4" data-i18n="gameMethod">How to Play</h3>
+        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+          <li data-i18n="mathMethodDesc.0">Math problems appear on screen</li>
+          <li data-i18n="mathMethodDesc.1">Choose the correct answer quickly</li>
+          <li data-i18n="mathMethodDesc.2">Complete all problems to see your speed!</li>
+        </ol>
+      </div>
+
+      <!-- 난이도 선택 -->
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDifficulty">Select Difficulty</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-yellow-500 hover:shadow-lg transition-all" data-difficulty="easy">
+            <div class="text-3xl mb-2">😊</div>
+            <div class="font-bold text-lg" data-i18n="easy">Easy</div>
+            <div class="text-sm text-gray-500">1-10</div>
+          </button>
+          <button class="difficulty-btn active border-2 border-yellow-500 bg-gradient-to-br from-yellow-500 to-orange-600 text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
+            <div class="text-3xl mb-2">🧮</div>
+            <div class="font-bold text-lg" data-i18n="normal">Normal</div>
+            <div class="text-sm opacity-90">1-50</div>
+          </button>
+          <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-yellow-500 hover:shadow-lg transition-all" data-difficulty="hard">
+            <div class="text-3xl mb-2">🔥</div>
+            <div class="font-bold text-lg" data-i18n="hard">Hard</div>
+            <div class="text-sm text-gray-500">1-100</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 문제 수 선택 -->
+      <div class="mb-8">
+        <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectProblems">Number of Problems</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <button class="problems-btn border-2 border-gray-300 rounded-xl p-4 hover:border-yellow-500 hover:shadow-lg transition-all" data-problems="10">
+            <div class="font-bold text-lg">10</div>
+          </button>
+          <button class="problems-btn active border-2 border-yellow-500 bg-gradient-to-br from-yellow-500 to-orange-600 text-white rounded-xl p-4 shadow-lg" data-problems="20">
+            <div class="font-bold text-lg">20</div>
+          </button>
+          <button class="problems-btn border-2 border-gray-300 rounded-xl p-4 hover:border-yellow-500 hover:shadow-lg transition-all" data-problems="30">
+            <div class="font-bold text-lg">30</div>
+          </button>
+        </div>
+      </div>
+
+      <button id="start-btn" class="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+        <span data-i18n="startChallenge">Start Challenge</span>
+      </button>
+
+      <div class="mt-6 text-center text-gray-600">
+        <p>🏆 <span data-i18n="bestTime">Best Time</span>: <span id="best-record">--</span></p>
+      </div>
+
+      <!-- 내 기록 TOP 10 -->
+      <div class="mt-8">
+        <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
+        <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
+          <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
+        </div>
+      </div>
+
+      <!-- 다른 게임 섹션 -->
+      <div class="mt-8 border-t border-gray-200 pt-8">
+        <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">🎯</div>
+            <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
+            <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
+          </a>
+
+          <a href="memory-test.html" class="block bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">🧠</div>
+            <div class="font-bold text-lg mb-2" data-i18n="memoryTest">Memory Test</div>
+            <div class="text-sm opacity-90" data-i18n="memoryTestDesc">Test your memory skills</div>
+          </a>
+
+          <a href="typing-speed.html" class="block bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">⚡</div>
+            <div class="font-bold text-lg mb-2" data-i18n="typingSpeed">Typing Speed</div>
+            <div class="text-sm opacity-90" data-i18n="typingSpeedDesc">Test your typing speed</div>
+          </a>
+
+          <a href="aim-trainer.html" class="block bg-gradient-to-br from-orange-500 to-red-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">🎯</div>
+            <div class="font-bold text-lg mb-2" data-i18n="aimTrainer">Aim Trainer</div>
+            <div class="text-sm opacity-90" data-i18n="aimTrainerDesc">Improve your aim precision</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 게임 화면 -->
+  <div id="game-screen" class="screen hidden min-h-screen bg-gray-900 relative flex items-center justify-center">
+    <!-- 게임 정보 -->
+    <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-10">
+      <div class="flex gap-8 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full">
+        <div class="text-white text-lg">
+          <span class="opacity-80" data-i18n="problems">Problems</span>: <span id="problem-count" class="font-bold">0 / 20</span>
+        </div>
+        <div class="text-white text-lg">
+          <span class="opacity-80" data-i18n="time">Time</span>: <span id="time-display" class="font-bold">0.0s</span>
+        </div>
+        <div class="text-white text-lg">
+          <span class="opacity-80" data-i18n="accuracy">Accuracy</span>: <span id="accuracy-display" class="font-bold">100%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 문제 영역 -->
+    <div class="max-w-2xl w-full mx-4">
+      <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+        <div id="problem-display" class="text-5xl md:text-7xl font-bold text-center text-gray-800 mb-8">
+          2 + 3 = ?
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <button class="answer-btn bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold text-3xl py-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+            5
+          </button>
+          <button class="answer-btn bg-gradient-to-br from-green-500 to-teal-600 text-white font-bold text-3xl py-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+            6
+          </button>
+          <button class="answer-btn bg-gradient-to-br from-yellow-500 to-orange-600 text-white font-bold text-3xl py-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+            4
+          </button>
+          <button class="answer-btn bg-gradient-to-br from-red-500 to-pink-600 text-white font-bold text-3xl py-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+            7
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="result-screen" class="screen hidden min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+      <h1 class="text-4xl font-bold text-center text-yellow-600 mb-8">
+        🧮 <span data-i18n="results">Results</span>
+      </h1>
+
+      <div class="bg-gradient-to-br from-yellow-500 to-orange-600 text-white rounded-2xl p-8 mb-6">
+        <div class="text-center mb-6">
+          <div class="text-lg opacity-90 mb-2" data-i18n="totalTime">Total Time</div>
+          <div id="final-time" class="text-6xl font-bold mb-4">10.0s</div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div class="bg-white/20 rounded-xl p-4 text-center">
+            <div class="text-sm opacity-90" data-i18n="correct">Correct</div>
+            <div id="correct-count" class="text-2xl font-bold">0</div>
+          </div>
+          <div class="bg-white/20 rounded-xl p-4 text-center">
+            <div class="text-sm opacity-90" data-i18n="wrong">Wrong</div>
+            <div id="wrong-count" class="text-2xl font-bold">0</div>
+          </div>
+          <div class="bg-white/20 rounded-xl p-4 text-center">
+            <div class="text-sm opacity-90" data-i18n="accuracy">Accuracy</div>
+            <div id="final-accuracy" class="text-2xl font-bold">100%</div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <div class="text-sm opacity-90" data-i18n="avgTimePerProblem">Avg Time per Problem</div>
+          <div id="avg-time" class="text-3xl font-bold">0.5s</div>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <button id="retry-btn" class="flex-1 bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+          <span data-i18n="challengeAgain">Challenge Again</span>
+        </button>
+        <button id="home-btn" class="flex-1 bg-white text-yellow-600 border-2 border-yellow-600 font-bold text-xl py-4 rounded-full hover:bg-yellow-600 hover:text-white transition-all">
+          <span data-i18n="backHome">Home</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 하단 광고 -->
+    <div class="mt-6 flex justify-center">
+      <ins class="adsbygoogle block"
+           style="display:block; min-height:250px;"
+           data-ad-format="autorelaxed"
+           data-ad-client="ca-pub-1247545232353663"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full py-6 text-center text-white bg-gray-900">
+    <p class="mb-2">Made with ❤️ | Math Challenge</p>
+    <p class="text-sm">
+      <a href="privacy.html" class="text-white hover:underline mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
+      <a href="terms.html" class="text-white hover:underline mx-2" data-i18n="termsOfService">Terms of Service</a>
+    </p>
+  </footer>
+
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+  <script src="math-challenge.js"></script>
+</body>
+</html>

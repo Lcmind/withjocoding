@@ -290,13 +290,13 @@ function getRandomDelay(min, max) {
 }
 
 function showScreen(screen) {
-  screen.classList.remove('hidden');
-  screen.classList.add('active');
+  screen.classList.remove('opacity-0', 'pointer-events-none');
+  screen.classList.add('opacity-100', 'pointer-events-auto');
 }
 
 function hideScreen(screen) {
-  screen.classList.add('hidden');
-  screen.classList.remove('active');
+  screen.classList.remove('opacity-100', 'pointer-events-auto');
+  screen.classList.add('opacity-0', 'pointer-events-none');
 }
 
 function loadBestRecord() {

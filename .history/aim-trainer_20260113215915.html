@@ -128,42 +128,49 @@
           <p>🏆 <span data-i18n="myBestRecord">My Best Record</span>: <span id="best-record">-- %</span></p>
         </div>
 
-        <!-- 내 기록 TOP 10 -->
-        <div class="mt-8">
-          <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
-          <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
-            <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
-          </div>
+      <button id="start-btn" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold text-xl py-4 rounded-full shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all">
+        <span data-i18n="startTraining">Start Training</span>
+      </button>
+
+      <div class="mt-6 text-center text-gray-600">
+        <p>🏆 <span data-i18n="bestAccuracy">Best Accuracy</span>: <span id="best-record">--%</span></p>
+      </div>
+
+      <!-- 내 기록 TOP 10 -->
+      <div class="mt-8">
+        <h3 class="text-xl font-bold text-center mb-4">📊 <span data-i18n="myRecordsTop10">My Top 10 Records</span></h3>
+        <div id="history-list" class="bg-gray-50 rounded-2xl p-4 max-h-80 overflow-y-auto">
+          <p class="text-center text-gray-500 py-8" data-i18n="noRecordsYet">No records yet. Start now!</p>
         </div>
+      </div>
 
-        <!-- 다른 게임 섹션 -->
-        <div class="mt-8 border-t border-gray-200 pt-8">
-          <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">🎯</div>
-              <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
-              <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
-            </a>
+      <!-- 다른 게임 섹션 -->
+      <div class="mt-8 border-t border-gray-200 pt-8">
+        <h3 class="text-xl font-bold text-center mb-4">🎮 <span data-i18n="otherGames">Other Games</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <a href="index.html" class="block bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">🎯</div>
+            <div class="font-bold text-lg mb-2" data-i18n="fpsReactionTest">FPS Reaction Test</div>
+            <div class="text-sm opacity-90" data-i18n="fpsReactionDesc">Test your reaction speed</div>
+          </a>
 
-            <a href="memory-test.html" class="block bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">🧠</div>
-              <div class="font-bold text-lg mb-2" data-i18n="memoryTest">Memory Test</div>
-              <div class="text-sm opacity-90" data-i18n="memoryTestDesc">Test your memory skills</div>
-            </a>
+          <a href="memory-test.html" class="block bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">🧠</div>
+            <div class="font-bold text-lg mb-2" data-i18n="memoryTest">Memory Test</div>
+            <div class="text-sm opacity-90" data-i18n="memoryTestDesc">Test your memory skills</div>
+          </a>
 
-            <a href="typing-speed.html" class="block bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">⚡</div>
-              <div class="font-bold text-lg mb-2" data-i18n="typingSpeed">Typing Speed</div>
-              <div class="text-sm opacity-90" data-i18n="typingSpeedDesc">Test your typing speed</div>
-            </a>
+          <a href="typing-speed.html" class="block bg-gradient-to-br from-green-500 to-teal-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">⚡</div>
+            <div class="font-bold text-lg mb-2" data-i18n="typingSpeed">Typing Speed</div>
+            <div class="text-sm opacity-90" data-i18n="typingSpeedDesc">Test your typing speed</div>
+          </a>
 
-            <a href="math-challenge.html" class="block bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <div class="text-3xl mb-2">🧮</div>
-              <div class="font-bold text-lg mb-2" data-i18n="mathChallenge">Math Challenge</div>
-              <div class="text-sm opacity-90" data-i18n="mathChallengeDesc">Quick math calculations</div>
-            </a>
-          </div>
+          <a href="math-challenge.html" class="block bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="text-3xl mb-2">🔢</div>
+            <div class="font-bold text-lg mb-2" data-i18n="mathChallenge">Math Challenge</div>
+            <div class="text-sm opacity-90" data-i18n="mathChallengeDesc">Quick math calculations</div>
+          </a>
         </div>
       </div>
     </div>
@@ -242,43 +249,12 @@
     </div>
   </div>
 
-  <!-- Schema.org 구조화 데이터 -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Aim Trainer Game",
-    "applicationCategory": "GameApplication",
-    "description": "Free Aim Trainer Game. Practice your aiming accuracy and reaction time.",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "1240"
-    },
-    "screenshot": "https://withjocoding.pages.dev/og-image.jpg",
-    "featureList": [
-      "Aim Trainer",
-      "3 Difficulty Levels",
-      "Top 10 Records",
-      "SNS Sharing",
-      "Free"
-    ],
-    "inLanguage": ["en", "ko", "ja", "zh", "es", "fr", "de", "pt", "ru", "ar"]
-  }
-  </script>
-
   <!-- Footer -->
-  <footer class="w-full py-4 text-center text-gray-500 text-sm">
-    <p class="mb-1">Made with ❤️ | Aim Trainer</p>
-    <p class="text-xs">
-      <a href="privacy.html" class="text-gray-500 hover:text-gray-700 mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
-      <a href="terms.html" class="text-gray-500 hover:text-gray-700 mx-2" data-i18n="termsOfService">Terms of Service</a>
+  <footer class="w-full py-6 text-center text-white bg-gray-900">
+    <p class="mb-2">Made with ❤️ | Aim Trainer</p>
+    <p class="text-sm">
+      <a href="privacy.html" class="text-white hover:underline mx-2" data-i18n="privacyPolicy">Privacy Policy</a> |
+      <a href="terms.html" class="text-white hover:underline mx-2" data-i18n="termsOfService">Terms of Service</a>
     </p>
   </footer>
 
