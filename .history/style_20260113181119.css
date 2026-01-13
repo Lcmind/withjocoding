@@ -1,0 +1,532 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+  overflow-x: hidden;
+  cursor: crosshair; /* 과녁 커서 */
+}
+
+/* 화면 전환 */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* ensure z-index works and active screen sits above others */
+  z-index: 20;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* 시작 화면 */
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #667eea;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.info-box {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.info-box h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.info-box ol {
+  margin-left: 1.5rem;
+}
+
+.info-box li {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+/* 난이도 선택 */
+.mode-selection {
+  margin: 2rem 0;
+}
+
+.mode-selection h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.mode-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.mode-btn {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mode-btn:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.mode-btn.active {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.mode-emoji {
+  font-size: 2rem;
+}
+
+.mode-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.mode-desc {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* 버튼 */
+.primary-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 3rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 2rem 0;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.secondary-btn {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.secondary-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.stats-preview {
+  margin-top: 2rem;
+  color: #666;
+}
+
+/* 랭킹 히스토리 */
+.ranking-history {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.ranking-history h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.history-list {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.history-rank {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #667eea;
+  min-width: 40px;
+}
+
+.history-time {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.history-date {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.history-item.gold {
+  border-left-color: #ffd700;
+}
+
+.history-item.silver {
+  border-left-color: #c0c0c0;
+}
+
+.history-item.bronze {
+  border-left-color: #cd7f32;
+}
+
+.empty-history {
+  text-align: center;
+  color: #999;
+  padding: 2rem;
+}
+
+/* 게임 화면 */
+#game-screen {
+  background: #1a1a2e;
+  position: relative;
+}
+
+.game-info {
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  z-index: 10;
+}
+
+.info-item {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.label {
+  opacity: 0.8;
+  margin-right: 0.5rem;
+}
+
+#game-area {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+#instruction-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#instruction-text.show {
+  opacity: 1;
+}
+
+/* 타겟 (몬스터) */
+.target {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #ff4444, #cc0000);
+  border-radius: 50%;
+  cursor: crosshair;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s;
+  box-shadow: 0 0 30px rgba(255, 68, 68, 0.8),
+              inset 0 0 20px rgba(0,0,0,0.3);
+  border: 3px solid rgba(255,255,255,0.3);
+}
+
+.target.show {
+  opacity: 1;
+  transform: scale(1);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* 클릭 효과 */
+.click-effect {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #00ff00;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.click-effect.hit {
+  animation: hitEffect 0.5s ease-out;
+}
+
+@keyframes hitEffect {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* 결과 화면 */
+.result-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 3rem;
+  margin: 2rem 0;
+}
+
+.result-main {
+  margin-bottom: 2rem;
+}
+
+.result-label {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.result-value {
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.result-rating {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.result-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.detail-item {
+  background: rgba(255,255,255,0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  opacity: 0.9;
+  font-size: 0.9rem;
+}
+
+.detail-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.ranking {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 공유 팝업 */
+.share-popup {
+  display: none;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.share-popup.show {
+  display: block;
+}
+
+.share-popup h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.share-btn.twitter {
+  background: #1da1f2;
+  color: white;
+}
+
+.share-btn.facebook {
+  background: #4267B2;
+  color: white;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* 광고 */
+.ad-container {
+  margin: 2rem auto;
+  text-align: center;
+  min-height: 90px;
+  min-width: 300px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.2);
+  font-size: 0.9rem;
+  z-index: 1;
+  transition: opacity 0.3s;
+}
+
+/* 게임 화면에서 footer 숨기기 */
+#game-screen.active ~ footer {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 2rem;
+  }
+
+  .mode-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .game-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .result-value {
+    font-size: 3rem;
+  }
+
+  .target {
+    width: 100px;
+    height: 100px;
+  }
+}
