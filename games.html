@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games Hub - withjocoding</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { primary: '#667eea', secondary: '#764ba2' } } } };
+  </script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    .game-iframe { width: 100%; height: 100vh; border: 0; }
+    .hub-screen { min-height: 100vh; }
+    .iframe-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; z-index: 60; }
+    .iframe-overlay.active { display: block; }
+    .iframe-container { position: absolute; inset: 3rem 2rem 2rem 2rem; background: white; border-radius: 12px; overflow: hidden; }
+    .game-card { cursor: pointer; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-primary to-secondary text-white">
+
+  <div class="fixed top-4 right-4 z-50">
+    <select id="language-selector" class="px-4 py-2 rounded-lg bg-white/90 text-black">
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="en" selected>🇺🇸 English</option>
+    </select>
+  </div>
+
+  <div class="hub-screen p-8">
+    <div class="max-w-6xl mx-auto bg-white/10 rounded-3xl p-8 shadow-xl">
+      <h1 class="text-4xl font-bold mb-4">🎮 withjocoding - Games Hub</h1>
+      <p class="mb-6 text-gray-200">Select a game below to launch it in the unified layout. The FPS page is the main game.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="game-card bg-white/5 p-6 rounded-xl" data-src="index.html">
+          <div class="text-3xl mb-2">🎯 FPS Reaction Time</div>
+          <div class="font-bold">Main</div>
+          <div class="text-sm text-gray-300">Fast paced target clicking</div>
+        </div>
+        <div class="game-card bg-white/5 p-6 rounded-xl" data-src="memory-test.html">
+          <div class="text-3xl mb-2">🧠 Memory Test</div>
+          <div class="font-bold">Card Matching</div>
+          <div class="text-sm text-gray-300">Match emoji pairs</div>
+        </div>
+        <div class="game-card bg-white/5 p-6 rounded-xl" data-src="aim-trainer.html">
+          <div class="text-3xl mb-2">🎯 Aim Trainer</div>
+          <div class="font-bold">Precision Practice</div>
+          <div class="text-sm text-gray-300">Improve aim and accuracy</div>
+        </div>
+        <div class="game-card bg-white/5 p-6 rounded-xl" data-src="typing-speed.html">
+          <div class="text-3xl mb-2">⚡ Typing Speed</div>
+          <div class="font-bold">Typing Test</div>
+          <div class="text-sm text-gray-300">Measure WPM/CPM</div>
+        </div>
+        <div class="game-card bg-white/5 p-6 rounded-xl" data-src="math-challenge.html">
+          <div class="text-3xl mb-2">🔢 Math Challenge</div>
+          <div class="font-bold">Mental Math</div>
+          <div class="text-sm text-gray-300">Quick calculations</div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-right">
+        <button id="open-main" class="px-4 py-2 bg-white text-black rounded-lg mr-2">Open Main (FPS)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- iframe overlay -->
+  <div id="iframe-overlay" class="iframe-overlay">
+    <div class="iframe-container shadow-2xl">
+      <div class="flex items-center justify-between p-3 bg-gray-100 text-black">
+        <div id="iframe-title" class="font-bold">Game</div>
+        <div>
+          <button id="back-to-list" class="px-3 py-1 mr-2 bg-gray-200 rounded">Back</button>
+          <a id="open-new" class="px-3 py-1 bg-blue-500 text-white rounded" target="_blank">Open in New Tab</a>
+        </div>
+      </div>
+      <iframe id="game-iframe" class="game-iframe" src="index.html"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.game-card');
+    const overlay = document.getElementById('iframe-overlay');
+    const iframe = document.getElementById('game-iframe');
+    const title = document.getElementById('iframe-title');
+    const openNew = document.getElementById('open-new');
+
+    function openGame(src, label) {
+      iframe.src = src;
+      title.textContent = label;
+      openNew.href = src;
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    cards.forEach(c => c.addEventListener('click', () => {
+      const src = c.dataset.src;
+      const label = c.querySelector('.font-bold')?.textContent || 'Game';
+      openGame(src, label);
+    }));
+
+    document.getElementById('open-main').addEventListener('click', () => openGame('index.html','FPS Reaction Time'));
+    document.getElementById('back-to-list').addEventListener('click', () => { overlay.classList.remove('active'); document.body.style.overflow = ''; iframe.src = 'about:blank'; });
+
+    // Close overlay on ESC
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { overlay.classList.remove('active'); document.body.style.overflow = ''; iframe.src = 'about:blank'; } });
+  </script>
+</body>
+</html>
