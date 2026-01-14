@@ -115,17 +115,17 @@
             <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-difficulty="easy">
               <div class="text-4xl mb-2">🟢</div>
               <div class="font-bold text-lg mb-1" data-i18n="easy">Easy</div>
-              <div class="text-sm text-gray-500">4x3 (6 pairs)</div>
+              <div class="text-sm text-gray-500">4x4 (8 pairs)</div>
             </button>
             <button class="difficulty-btn active border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-xl p-6 shadow-lg" data-difficulty="normal">
               <div class="text-4xl mb-2">🟡</div>
               <div class="font-bold text-lg mb-1" data-i18n="normal">Normal</div>
-              <div class="text-sm opacity-90">4x4 (8 pairs)</div>
+              <div class="text-sm opacity-90">4x8 (16 pairs)</div>
             </button>
             <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-difficulty="hard">
               <div class="text-4xl mb-2">🔴</div>
               <div class="font-bold text-lg mb-1" data-i18n="hard">Hard</div>
-              <div class="text-sm text-gray-500">6x4 (12 pairs)</div>
+              <div class="text-sm text-gray-500">8x8 (32 pairs)</div>
             </button>
           </div>
         </div>
@@ -283,32 +283,352 @@
       ko: {
         title: '기억력 테스트',
         subtitle: '모든 카드를 최단 시간에 맞춰보세요!',
+        gameMethod: '게임 방법',
+        memoryMethodDesc: {
+          0: '카드를 클릭하여 이모지를 확인하세요',
+          1: '같은 이모지 쌍을 찾으세요',
+          2: '모든 쌍을 최단 시간에 맞춰 승리하세요!'
+        },
         selectDifficulty: '난이도 선택',
         easy: '쉬움',
         normal: '보통',
         hard: '어려움',
         startGame: '게임 시작',
-        bestRecord: '최고 기록',
+        myBestRecord: '내 최고 기록',
+        myRecordsTop10: '내 기록 TOP 10',
+        noRecordsYet: '아직 기록이 없습니다. 지금 시작하세요!',
+        none: '없음',
         moves: '이동',
         complete: '완료!',
         yourTime: '소요 시간',
         playAgain: '다시 하기',
-        backHome: '홈으로'
+        backHome: '홈으로',
+        otherGames: '다른 게임',
+        fpsReactionTest: 'FPS 반응 테스트',
+        fpsReactionDesc: '반응 속도를 테스트하세요',
+        typingSpeed: '타이핑 속도',
+        typingSpeedDesc: '타이핑 속도를 테스트하세요',
+        aimTrainer: '조준 트레이너',
+        aimTrainerDesc: '조준 정확도를 향상시키세요',
+        mathChallenge: '수학 챌린지',
+        mathChallengeDesc: '빠른 계산 능력 테스트',
+        privacyPolicy: '개인정보처리방침',
+        termsOfService: '이용약관'
       },
       en: {
         title: 'Memory Test',
         subtitle: 'Match all cards in the shortest time!',
+        gameMethod: 'How to Play',
+        memoryMethodDesc: {
+          0: 'Click cards to flip and reveal emojis',
+          1: 'Find matching pairs of emojis',
+          2: 'Match all pairs in the shortest time to win!'
+        },
         selectDifficulty: 'Select Difficulty',
         easy: 'Easy',
         normal: 'Normal',
         hard: 'Hard',
         startGame: 'Start Game',
-        bestRecord: 'Best Record',
+        myBestRecord: 'My Best Record',
+        myRecordsTop10: 'My Top 10 Records',
+        noRecordsYet: 'No records yet. Start now!',
+        none: 'None',
         moves: 'moves',
         complete: 'Complete!',
         yourTime: 'Your Time',
         playAgain: 'Play Again',
-        backHome: 'Home'
+        backHome: 'Home',
+        otherGames: 'Other Games',
+        fpsReactionTest: 'FPS Reaction Test',
+        fpsReactionDesc: 'Test your reaction speed',
+        typingSpeed: 'Typing Speed',
+        typingSpeedDesc: 'Test your typing speed',
+        aimTrainer: 'Aim Trainer',
+        aimTrainerDesc: 'Improve your aim precision',
+        mathChallenge: 'Math Challenge',
+        mathChallengeDesc: 'Quick math calculations',
+        privacyPolicy: 'Privacy Policy',
+        termsOfService: 'Terms of Service'
+      },
+      ja: {
+        title: '記憶力テスト',
+        subtitle: '最短時間ですべてのカードを合わせよう!',
+        gameMethod: '遊び方',
+        memoryMethodDesc: {
+          0: 'カードをクリックして絵文字を確認',
+          1: '同じ絵文字のペアを見つける',
+          2: '最短時間ですべてのペアを合わせて勝利!'
+        },
+        selectDifficulty: '難易度選択',
+        easy: '簡単',
+        normal: '普通',
+        hard: '難しい',
+        startGame: 'ゲーム開始',
+        myBestRecord: '自己ベスト',
+        myRecordsTop10: 'トップ10記録',
+        noRecordsYet: 'まだ記録がありません。今すぐ始めよう!',
+        none: 'なし',
+        moves: '手',
+        complete: '完了!',
+        yourTime: '所要時間',
+        playAgain: '再挑戦',
+        backHome: 'ホーム',
+        otherGames: '他のゲーム',
+        fpsReactionTest: 'FPS反応テスト',
+        fpsReactionDesc: '反応速度をテスト',
+        typingSpeed: 'タイピング速度',
+        typingSpeedDesc: 'タイピング速度をテスト',
+        aimTrainer: 'エイムトレーナー',
+        aimTrainerDesc: '照準精度を向上',
+        mathChallenge: '数学チャレンジ',
+        mathChallengeDesc: '素早い計算能力',
+        privacyPolicy: 'プライバシーポリシー',
+        termsOfService: '利用規約'
+      },
+      zh: {
+        title: '记忆力测试',
+        subtitle: '在最短时间内匹配所有卡片!',
+        gameMethod: '游戏方法',
+        memoryMethodDesc: {
+          0: '点击卡片翻转并显示表情符号',
+          1: '找到匹配的表情符号对',
+          2: '在最短时间内匹配所有对以获胜!'
+        },
+        selectDifficulty: '选择难度',
+        easy: '简单',
+        normal: '普通',
+        hard: '困难',
+        startGame: '开始游戏',
+        myBestRecord: '我的最佳记录',
+        myRecordsTop10: '我的前10记录',
+        noRecordsYet: '暂无记录。现在开始!',
+        none: '无',
+        moves: '移动',
+        complete: '完成!',
+        yourTime: '用时',
+        playAgain: '再玩一次',
+        backHome: '主页',
+        otherGames: '其他游戏',
+        fpsReactionTest: 'FPS反应测试',
+        fpsReactionDesc: '测试反应速度',
+        typingSpeed: '打字速度',
+        typingSpeedDesc: '测试打字速度',
+        aimTrainer: '瞄准训练',
+        aimTrainerDesc: '提高瞄准精度',
+        mathChallenge: '数学挑战',
+        mathChallengeDesc: '快速计算能力',
+        privacyPolicy: '隐私政策',
+        termsOfService: '服务条款'
+      },
+      es: {
+        title: 'Test de Memoria',
+        subtitle: '¡Empareja todas las cartas en el menor tiempo!',
+        gameMethod: 'Cómo Jugar',
+        memoryMethodDesc: {
+          0: 'Haz clic en las cartas para voltear y revelar emojis',
+          1: 'Encuentra pares de emojis coincidentes',
+          2: '¡Empareja todos los pares en el menor tiempo para ganar!'
+        },
+        selectDifficulty: 'Seleccionar Dificultad',
+        easy: 'Fácil',
+        normal: 'Normal',
+        hard: 'Difícil',
+        startGame: 'Comenzar Juego',
+        myBestRecord: 'Mi Mejor Récord',
+        myRecordsTop10: 'Mis 10 Mejores Récords',
+        noRecordsYet: 'Sin récords aún. ¡Empieza ahora!',
+        none: 'Ninguno',
+        moves: 'movimientos',
+        complete: '¡Completado!',
+        yourTime: 'Tu Tiempo',
+        playAgain: 'Jugar de Nuevo',
+        backHome: 'Inicio',
+        otherGames: 'Otros Juegos',
+        fpsReactionTest: 'Test de Reacción FPS',
+        fpsReactionDesc: 'Prueba tu velocidad de reacción',
+        typingSpeed: 'Velocidad de Escritura',
+        typingSpeedDesc: 'Prueba tu velocidad de escritura',
+        aimTrainer: 'Entrenador de Puntería',
+        aimTrainerDesc: 'Mejora tu precisión',
+        mathChallenge: 'Desafío Matemático',
+        mathChallengeDesc: 'Cálculos rápidos',
+        privacyPolicy: 'Política de Privacidad',
+        termsOfService: 'Términos de Servicio'
+      },
+      fr: {
+        title: 'Test de Mémoire',
+        subtitle: 'Associez toutes les cartes dans le temps le plus court!',
+        gameMethod: 'Comment Jouer',
+        memoryMethodDesc: {
+          0: 'Cliquez sur les cartes pour les retourner et révéler des emojis',
+          1: 'Trouvez des paires d\'emojis correspondantes',
+          2: 'Associez toutes les paires dans le temps le plus court pour gagner!'
+        },
+        selectDifficulty: 'Sélectionner la Difficulté',
+        easy: 'Facile',
+        normal: 'Normal',
+        hard: 'Difficile',
+        startGame: 'Commencer le Jeu',
+        myBestRecord: 'Mon Meilleur Score',
+        myRecordsTop10: 'Mes 10 Meilleurs Scores',
+        noRecordsYet: 'Pas encore de scores. Commencez maintenant!',
+        none: 'Aucun',
+        moves: 'coups',
+        complete: 'Terminé!',
+        yourTime: 'Votre Temps',
+        playAgain: 'Rejouer',
+        backHome: 'Accueil',
+        otherGames: 'Autres Jeux',
+        fpsReactionTest: 'Test de Réaction FPS',
+        fpsReactionDesc: 'Testez votre vitesse de réaction',
+        typingSpeed: 'Vitesse de Frappe',
+        typingSpeedDesc: 'Testez votre vitesse de frappe',
+        aimTrainer: 'Entraîneur de Visée',
+        aimTrainerDesc: 'Améliorez votre précision',
+        mathChallenge: 'Défi Mathématique',
+        mathChallengeDesc: 'Calculs rapides',
+        privacyPolicy: 'Politique de Confidentialité',
+        termsOfService: 'Conditions d\'Utilisation'
+      },
+      de: {
+        title: 'Gedächtnistest',
+        subtitle: 'Finde alle Kartenpaare in kürzester Zeit!',
+        gameMethod: 'Spielanleitung',
+        memoryMethodDesc: {
+          0: 'Klicke auf Karten um sie umzudrehen und Emojis zu enthüllen',
+          1: 'Finde passende Emoji-Paare',
+          2: 'Finde alle Paare in kürzester Zeit um zu gewinnen!'
+        },
+        selectDifficulty: 'Schwierigkeit Wählen',
+        easy: 'Einfach',
+        normal: 'Normal',
+        hard: 'Schwer',
+        startGame: 'Spiel Starten',
+        myBestRecord: 'Mein Bester Rekord',
+        myRecordsTop10: 'Meine Top 10 Rekorde',
+        noRecordsYet: 'Noch keine Rekorde. Jetzt starten!',
+        none: 'Keine',
+        moves: 'Züge',
+        complete: 'Abgeschlossen!',
+        yourTime: 'Deine Zeit',
+        playAgain: 'Nochmal Spielen',
+        backHome: 'Startseite',
+        otherGames: 'Andere Spiele',
+        fpsReactionTest: 'FPS Reaktionstest',
+        fpsReactionDesc: 'Teste deine Reaktionsgeschwindigkeit',
+        typingSpeed: 'Tippgeschwindigkeit',
+        typingSpeedDesc: 'Teste deine Tippgeschwindigkeit',
+        aimTrainer: 'Zieltrainer',
+        aimTrainerDesc: 'Verbessere deine Zielgenauigkeit',
+        mathChallenge: 'Mathe-Herausforderung',
+        mathChallengeDesc: 'Schnelle Berechnungen',
+        privacyPolicy: 'Datenschutzrichtlinie',
+        termsOfService: 'Nutzungsbedingungen'
+      },
+      pt: {
+        title: 'Teste de Memória',
+        subtitle: 'Combine todas as cartas no menor tempo!',
+        gameMethod: 'Como Jogar',
+        memoryMethodDesc: {
+          0: 'Clique nas cartas para virar e revelar emojis',
+          1: 'Encontre pares de emojis correspondentes',
+          2: 'Combine todos os pares no menor tempo para vencer!'
+        },
+        selectDifficulty: 'Selecionar Dificuldade',
+        easy: 'Fácil',
+        normal: 'Normal',
+        hard: 'Difícil',
+        startGame: 'Iniciar Jogo',
+        myBestRecord: 'Meu Melhor Recorde',
+        myRecordsTop10: 'Meus 10 Melhores Recordes',
+        noRecordsYet: 'Sem recordes ainda. Comece agora!',
+        none: 'Nenhum',
+        moves: 'movimentos',
+        complete: 'Completo!',
+        yourTime: 'Seu Tempo',
+        playAgain: 'Jogar Novamente',
+        backHome: 'Início',
+        otherGames: 'Outros Jogos',
+        fpsReactionTest: 'Teste de Reação FPS',
+        fpsReactionDesc: 'Teste sua velocidade de reação',
+        typingSpeed: 'Velocidade de Digitação',
+        typingSpeedDesc: 'Teste sua velocidade de digitação',
+        aimTrainer: 'Treinador de Mira',
+        aimTrainerDesc: 'Melhore sua precisão',
+        mathChallenge: 'Desafio Matemático',
+        mathChallengeDesc: 'Cálculos rápidos',
+        privacyPolicy: 'Política de Privacidade',
+        termsOfService: 'Termos de Serviço'
+      },
+      ru: {
+        title: 'Тест Памяти',
+        subtitle: 'Найдите все пары карт за кратчайшее время!',
+        gameMethod: 'Как Играть',
+        memoryMethodDesc: {
+          0: 'Нажмите на карты чтобы перевернуть и увидеть эмодзи',
+          1: 'Найдите совпадающие пары эмодзи',
+          2: 'Найдите все пары за кратчайшее время чтобы победить!'
+        },
+        selectDifficulty: 'Выбрать Сложность',
+        easy: 'Легкий',
+        normal: 'Нормальный',
+        hard: 'Сложный',
+        startGame: 'Начать Игру',
+        myBestRecord: 'Мой Лучший Результат',
+        myRecordsTop10: 'Мои 10 Лучших Результатов',
+        noRecordsYet: 'Пока нет результатов. Начните сейчас!',
+        none: 'Нет',
+        moves: 'ходов',
+        complete: 'Завершено!',
+        yourTime: 'Ваше Время',
+        playAgain: 'Играть Снова',
+        backHome: 'Главная',
+        otherGames: 'Другие Игры',
+        fpsReactionTest: 'Тест Реакции FPS',
+        fpsReactionDesc: 'Проверьте скорость реакции',
+        typingSpeed: 'Скорость Печати',
+        typingSpeedDesc: 'Проверьте скорость печати',
+        aimTrainer: 'Тренажер Прицеливания',
+        aimTrainerDesc: 'Улучшите точность',
+        mathChallenge: 'Математический Вызов',
+        mathChallengeDesc: 'Быстрые вычисления',
+        privacyPolicy: 'Политика Конфиденциальности',
+        termsOfService: 'Условия Использования'
+      },
+      ar: {
+        title: 'اختبار الذاكرة',
+        subtitle: 'قم بمطابقة جميع البطاقات في أقصر وقت!',
+        gameMethod: 'كيفية اللعب',
+        memoryMethodDesc: {
+          0: 'انقر على البطاقات لقلبها وكشف الرموز التعبيرية',
+          1: 'ابحث عن أزواج متطابقة من الرموز التعبيرية',
+          2: 'قم بمطابقة جميع الأزواج في أقصر وقت للفوز!'
+        },
+        selectDifficulty: 'اختر الصعوبة',
+        easy: 'سهل',
+        normal: 'عادي',
+        hard: 'صعب',
+        startGame: 'بدء اللعبة',
+        myBestRecord: 'أفضل رقم قياسي',
+        myRecordsTop10: 'أفضل 10 سجلات',
+        noRecordsYet: 'لا توجد سجلات بعد. ابدأ الآن!',
+        none: 'لا شيء',
+        moves: 'حركات',
+        complete: 'مكتمل!',
+        yourTime: 'وقتك',
+        playAgain: 'العب مرة أخرى',
+        backHome: 'الصفحة الرئيسية',
+        otherGames: 'ألعاب أخرى',
+        fpsReactionTest: 'اختبار رد الفعل FPS',
+        fpsReactionDesc: 'اختبر سرعة رد فعلك',
+        typingSpeed: 'سرعة الكتابة',
+        typingSpeedDesc: 'اختبر سرعة كتابتك',
+        aimTrainer: 'مدرب التصويب',
+        aimTrainerDesc: 'حسّن دقة التصويب',
+        mathChallenge: 'تحدي الرياضيات',
+        mathChallengeDesc: 'حسابات سريعة',
+        privacyPolicy: 'سياسة الخصوصية',
+        termsOfService: 'شروط الخدمة'
       }
     };
 
@@ -317,7 +637,12 @@
     languageSelector.value = currentLang;
 
     function t(key) {
-      return translations[currentLang][key] || key;
+      const keys = key.split('.');
+      let value = translations[currentLang];
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      return value || key;
     }
 
     function updateLanguage() {
@@ -348,9 +673,9 @@
     const emojiPool = ['🍎', '🍌', '🍇', '🍊', '🍓', '🍒', '🍑', '🥝', '🥑', '🍍', '🥥', '🍉', '🍈', '🍋', '🥭', '🫐', '🍏', '🍐', '🥕', '🌽', '🥦', '🥒', '🌶️', '🫑', '🥬', '🧄', '🧅', '🍄', '🥜', '🌰'];
 
     const difficultySettings = {
-      easy: { pairs: 6, cols: 4 },
-      normal: { pairs: 8, cols: 4 },
-      hard: { pairs: 12, cols: 6 }
+      easy: { pairs: 8, cols: 4 },
+      normal: { pairs: 16, cols: 4 },
+      hard: { pairs: 32, cols: 8 }
     };
 
     // 난이도 선택

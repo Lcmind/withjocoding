@@ -82,24 +82,24 @@
         </ol>
       </div>
 
-        <!-- 시간 선택 -->
+        <!-- 난이도 선택 (글자 수) -->
         <div class="mb-8">
-          <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDuration">Select Duration</h3>
+          <h3 class="text-xl font-bold text-center mb-4" data-i18n="selectDifficulty">Select Difficulty</h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button class="duration-btn border-2 border-gray-300 rounded-xl p-6 hover:border-green-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-duration="30">
-              <div class="text-4xl mb-2">🕵</div>
-              <div class="font-bold text-lg mb-1">30</div>
-              <div class="text-sm text-gray-500" data-i18n="seconds">seconds</div>
+            <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-green-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-length="short">
+              <div class="text-4xl mb-2">📝</div>
+              <div class="font-bold text-lg mb-1" data-i18n="short">Short</div>
+              <div class="text-sm text-gray-500">~50 <span data-i18n="characters">characters</span></div>
             </button>
-            <button class="duration-btn active border-2 border-green-500 bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-xl p-6 shadow-lg" data-duration="60">
-              <div class="text-4xl mb-2">🕑</div>
-              <div class="font-bold text-lg mb-1">60</div>
-              <div class="text-sm opacity-90" data-i18n="seconds">seconds</div>
+            <button class="difficulty-btn active border-2 border-green-500 bg-gradient-to-br from-green-500 to-teal-600 text-white rounded-xl p-6 shadow-lg" data-length="medium">
+              <div class="text-4xl mb-2">📄</div>
+              <div class="font-bold text-lg mb-1" data-i18n="medium">Medium</div>
+              <div class="text-sm opacity-90">~150 <span data-i18n="characters">characters</span></div>
             </button>
-            <button class="duration-btn border-2 border-gray-300 rounded-xl p-6 hover:border-green-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-duration="120">
-              <div class="text-4xl mb-2">⏱️</div>
-              <div class="font-bold text-lg mb-1">120</div>
-              <div class="text-sm text-gray-500" data-i18n="seconds">seconds</div>
+            <button class="difficulty-btn border-2 border-gray-300 rounded-xl p-6 hover:border-green-500 hover:shadow-lg transition-all duration-300 hover:-translate-y-1" data-length="long">
+              <div class="text-4xl mb-2">📜</div>
+              <div class="font-bold text-lg mb-1" data-i18n="long">Long</div>
+              <div class="text-sm text-gray-500">~300 <span data-i18n="characters">characters</span></div>
             </button>
           </div>
         </div>
@@ -160,8 +160,8 @@
     <div class="max-w-3xl w-full bg-white rounded-3xl shadow-2xl p-6 md:p-10">
       <!-- 타이머 -->
       <div class="text-center mb-6">
-        <div class="text-5xl font-bold text-green-600" id="timer-display">60</div>
-        <div class="text-gray-500" data-i18n="secondsLeft">seconds left</div>
+        <div class="text-5xl font-bold text-green-600" id="timer-display">0.0</div>
+        <div class="text-gray-500" data-i18n="timeElapsed">Time Elapsed (s)</div>
       </div>
 
       <!-- 텍스트 표시 -->
@@ -283,11 +283,22 @@
       ko: {
         title: '타이핑 속도 테스트',
         subtitle: '타이핑 속도와 정확도를 측정하세요!',
-        selectDuration: '시간 선택',
-        seconds: '초',
+        gameMethod: '게임 방법',
+        typingMethodDesc: {
+          0: '화면에 텍스트가 나타납니다',
+          1: '최대한 빠르고 정확하게 타이핑하세요',
+          2: 'WPM과 정확도가 계산됩니다!'
+        },
+        selectDifficulty: '난이도 선택',
+        short: '짧은 글',
+        medium: '보통 글',
+        long: '긴 글',
+        characters: '자',
         startTest: '테스트 시작',
-        bestRecord: '최고 기록',
-        secondsLeft: '초 남음',
+        myBestRecord: '내 최고 기록',
+        myRecordsTop10: '내 기록 TOP 10',
+        noRecordsYet: '아직 기록이 없습니다. 지금 시작하세요!',
+        timeElapsed: '경과 시간',
         wpm: '분당 타수',
         accuracy: '정확도',
         complete: '완료!',
@@ -295,17 +306,37 @@
         cpm: '분당 글자수',
         tryAgain: '다시 하기',
         backHome: '홈으로',
+        otherGames: '다른 게임',
+        fpsReactionTest: 'FPS 반응 테스트',
+        fpsReactionDesc: '반응 속도를 테스트하세요',
+        memoryTest: '기억력 테스트',
+        memoryTestDesc: '기억력을 테스트하세요',
+        aimTrainer: '조준 트레이너',
+        aimTrainerDesc: '조준 정확도를 향상시키세요',
+        mathChallenge: '수학 챌린지',
+        mathChallengeDesc: '빠른 계산 능력 테스트',
         privacyPolicy: '개인정보처리방침',
         termsOfService: '이용약관'
       },
       en: {
         title: 'Typing Speed Test',
         subtitle: 'Test your typing speed and accuracy!',
-        selectDuration: 'Select Duration',
-        seconds: 'seconds',
+        gameMethod: 'How to Play',
+        typingMethodDesc: {
+          0: 'Text appears on screen',
+          1: 'Type as fast and accurately as possible',
+          2: 'Your WPM and accuracy are calculated!'
+        },
+        selectDifficulty: 'Select Difficulty',
+        short: 'Short',
+        medium: 'Medium',
+        long: 'Long',
+        characters: 'characters',
         startTest: 'Start Test',
-        bestRecord: 'Best Record',
-        secondsLeft: 'seconds left',
+        myBestRecord: 'My Best Record',
+        myRecordsTop10: 'My Top 10 Records',
+        noRecordsYet: 'No records yet. Start now!',
+        timeElapsed: 'Time Elapsed',
         wpm: 'WPM',
         accuracy: 'Accuracy',
         complete: 'Complete!',
@@ -313,33 +344,602 @@
         cpm: 'CPM',
         tryAgain: 'Try Again',
         backHome: 'Home',
+        otherGames: 'Other Games',
+        fpsReactionTest: 'FPS Reaction Test',
+        fpsReactionDesc: 'Test your reaction speed',
+        memoryTest: 'Memory Test',
+        memoryTestDesc: 'Test your memory skills',
+        aimTrainer: 'Aim Trainer',
+        aimTrainerDesc: 'Improve your aim precision',
+        mathChallenge: 'Math Challenge',
+        mathChallengeDesc: 'Quick math calculations',
         privacyPolicy: 'Privacy Policy',
         termsOfService: 'Terms of Service'
+      },
+      ja: {
+        title: 'タイピング速度テスト',
+        subtitle: 'タイピング速度と正確性をテストしよう!',
+        gameMethod: '遊び方',
+        typingMethodDesc: {
+          0: '画面にテキストが表示されます',
+          1: 'できるだけ速く正確に入力してください',
+          2: 'WPMと正確性が計算されます!'
+        },
+        selectDifficulty: '難易度選択',
+        short: '短文',
+        medium: '中文',
+        long: '長文',
+        characters: '文字',
+        startTest: 'テスト開始',
+        myBestRecord: '自己ベスト',
+        myRecordsTop10: 'トップ10記録',
+        noRecordsYet: 'まだ記録がありません。今すぐ始めよう!',
+        timeElapsed: '経過時間',
+        wpm: 'WPM',
+        accuracy: '正確性',
+        complete: '完了!',
+        yourSpeed: 'タイピング速度',
+        cpm: 'CPM',
+        tryAgain: '再挑戦',
+        backHome: 'ホーム',
+        otherGames: '他のゲーム',
+        fpsReactionTest: 'FPS反応テスト',
+        fpsReactionDesc: '反応速度をテスト',
+        memoryTest: '記憶力テスト',
+        memoryTestDesc: '記憶力をテスト',
+        aimTrainer: 'エイムトレーナー',
+        aimTrainerDesc: '照準精度を向上',
+        mathChallenge: '数学チャレンジ',
+        mathChallengeDesc: '素早い計算能力',
+        privacyPolicy: 'プライバシーポリシー',
+        termsOfService: '利用規約'
+      },
+      zh: {
+        title: '打字速度测试',
+        subtitle: '测试您的打字速度和准确性！',
+        gameMethod: '游戏方法',
+        typingMethodDesc: {
+          0: '屏幕上显示文本',
+          1: '尽可能快速准确地打字',
+          2: '计算您的WPM和准确性！'
+        },
+        selectDifficulty: '选择难度',
+        short: '短文',
+        medium: '中文',
+        long: '长文',
+        characters: '字符',
+        startTest: '开始测试',
+        myBestRecord: '我的最佳记录',
+        myRecordsTop10: '我的前10记录',
+        noRecordsYet: '暂无记录。现在开始！',
+        timeElapsed: '经过时间',
+        wpm: 'WPM',
+        accuracy: '准确性',
+        complete: '完成！',
+        yourSpeed: '打字速度',
+        cpm: 'CPM',
+        tryAgain: '再试一次',
+        backHome: '主页',
+        otherGames: '其他游戏',
+        fpsReactionTest: 'FPS反应测试',
+        fpsReactionDesc: '测试反应速度',
+        memoryTest: '记忆力测试',
+        memoryTestDesc: '测试记忆能力',
+        aimTrainer: '瞄准训练',
+        aimTrainerDesc: '提高瞄准精度',
+        mathChallenge: '数学挑战',
+        mathChallengeDesc: '快速计算能力',
+        privacyPolicy: '隐私政策',
+        termsOfService: '服务条款'
+      },
+      es: {
+        title: 'Test de Velocidad de Escritura',
+        subtitle: '¡Prueba tu velocidad y precisión!',
+        gameMethod: 'Cómo Jugar',
+        typingMethodDesc: {
+          0: 'El texto aparece en pantalla',
+          1: 'Escribe lo más rápido y preciso posible',
+          2: '¡Se calculan tu WPM y precisión!'
+        },
+        selectDifficulty: 'Seleccionar Dificultad',
+        short: 'Corto',
+        medium: 'Medio',
+        long: 'Largo',
+        characters: 'caracteres',
+        startTest: 'Comenzar Test',
+        myBestRecord: 'Mi Mejor Récord',
+        myRecordsTop10: 'Mis 10 Mejores Récords',
+        noRecordsYet: 'Sin récords aún. ¡Empieza ahora!',
+        timeElapsed: 'Tiempo Transcurrido',
+        wpm: 'PPM',
+        accuracy: 'Precisión',
+        complete: '¡Completado!',
+        yourSpeed: 'Tu Velocidad',
+        cpm: 'CPM',
+        tryAgain: 'Intentar de Nuevo',
+        backHome: 'Inicio',
+        otherGames: 'Otros Juegos',
+        fpsReactionTest: 'Test de Reacción FPS',
+        fpsReactionDesc: 'Prueba tu velocidad de reacción',
+        memoryTest: 'Test de Memoria',
+        memoryTestDesc: 'Prueba tu memoria',
+        aimTrainer: 'Entrenador de Puntería',
+        aimTrainerDesc: 'Mejora tu precisión',
+        mathChallenge: 'Desafío Matemático',
+        mathChallengeDesc: 'Cálculos rápidos',
+        privacyPolicy: 'Política de Privacidad',
+        termsOfService: 'Términos de Servicio'
+      },
+      fr: {
+        title: 'Test de Vitesse de Frappe',
+        subtitle: 'Testez votre vitesse et précision!',
+        gameMethod: 'Comment Jouer',
+        typingMethodDesc: {
+          0: 'Le texte apparaît à l\'écran',
+          1: 'Tapez aussi vite et précisément que possible',
+          2: 'Votre MPM et précision sont calculés!'
+        },
+        selectDifficulty: 'Sélectionner la Difficulté',
+        short: 'Court',
+        medium: 'Moyen',
+        long: 'Long',
+        characters: 'caractères',
+        startTest: 'Commencer le Test',
+        myBestRecord: 'Mon Meilleur Score',
+        myRecordsTop10: 'Mes 10 Meilleurs Scores',
+        noRecordsYet: 'Pas encore de scores. Commencez maintenant!',
+        timeElapsed: 'Temps Écoulé',
+        wpm: 'MPM',
+        accuracy: 'Précision',
+        complete: 'Terminé!',
+        yourSpeed: 'Votre Vitesse',
+        cpm: 'CPM',
+        tryAgain: 'Réessayer',
+        backHome: 'Accueil',
+        otherGames: 'Autres Jeux',
+        fpsReactionTest: 'Test de Réaction FPS',
+        fpsReactionDesc: 'Testez votre vitesse de réaction',
+        memoryTest: 'Test de Mémoire',
+        memoryTestDesc: 'Testez votre mémoire',
+        aimTrainer: 'Entraîneur de Visée',
+        aimTrainerDesc: 'Améliorez votre précision',
+        mathChallenge: 'Défi Mathématique',
+        mathChallengeDesc: 'Calculs rapides',
+        privacyPolicy: 'Politique de Confidentialité',
+        termsOfService: 'Conditions d\'Utilisation'
+      },
+      de: {
+        title: 'Tippgeschwindigkeitstest',
+        subtitle: 'Teste deine Geschwindigkeit und Genauigkeit!',
+        gameMethod: 'Spielanleitung',
+        typingMethodDesc: {
+          0: 'Text erscheint auf dem Bildschirm',
+          1: 'Tippe so schnell und genau wie möglich',
+          2: 'Deine WPM und Genauigkeit werden berechnet!'
+        },
+        selectDifficulty: 'Schwierigkeit Wählen',
+        short: 'Kurz',
+        medium: 'Mittel',
+        long: 'Lang',
+        characters: 'Zeichen',
+        startTest: 'Test Starten',
+        myBestRecord: 'Mein Bester Rekord',
+        myRecordsTop10: 'Meine Top 10 Rekorde',
+        noRecordsYet: 'Noch keine Rekorde. Jetzt starten!',
+        timeElapsed: 'Verstrichene Zeit',
+        wpm: 'WPM',
+        accuracy: 'Genauigkeit',
+        complete: 'Abgeschlossen!',
+        yourSpeed: 'Deine Geschwindigkeit',
+        cpm: 'CPM',
+        tryAgain: 'Nochmal Versuchen',
+        backHome: 'Startseite',
+        otherGames: 'Andere Spiele',
+        fpsReactionTest: 'FPS Reaktionstest',
+        fpsReactionDesc: 'Teste deine Reaktionsgeschwindigkeit',
+        memoryTest: 'Gedächtnistest',
+        memoryTestDesc: 'Teste dein Gedächtnis',
+        aimTrainer: 'Zieltrainer',
+        aimTrainerDesc: 'Verbessere deine Zielgenauigkeit',
+        mathChallenge: 'Mathe-Herausforderung',
+        mathChallengeDesc: 'Schnelle Berechnungen',
+        privacyPolicy: 'Datenschutzrichtlinie',
+        termsOfService: 'Nutzungsbedingungen'
+      },
+      pt: {
+        title: 'Teste de Velocidade de Digitação',
+        subtitle: 'Teste sua velocidade e precisão!',
+        gameMethod: 'Como Jogar',
+        typingMethodDesc: {
+          0: 'O texto aparece na tela',
+          1: 'Digite o mais rápido e preciso possível',
+          2: 'Seu WPM e precisão são calculados!'
+        },
+        selectDifficulty: 'Selecionar Dificuldade',
+        short: 'Curto',
+        medium: 'Médio',
+        long: 'Longo',
+        characters: 'caracteres',
+        startTest: 'Iniciar Teste',
+        myBestRecord: 'Meu Melhor Recorde',
+        myRecordsTop10: 'Meus 10 Melhores Recordes',
+        noRecordsYet: 'Sem recordes ainda. Comece agora!',
+        timeElapsed: 'Tempo Decorrido',
+        wpm: 'PPM',
+        accuracy: 'Precisão',
+        complete: 'Completo!',
+        yourSpeed: 'Sua Velocidade',
+        cpm: 'CPM',
+        tryAgain: 'Tentar Novamente',
+        backHome: 'Início',
+        otherGames: 'Outros Jogos',
+        fpsReactionTest: 'Teste de Reação FPS',
+        fpsReactionDesc: 'Teste sua velocidade de reação',
+        memoryTest: 'Teste de Memória',
+        memoryTestDesc: 'Teste sua memória',
+        aimTrainer: 'Treinador de Mira',
+        aimTrainerDesc: 'Melhore sua precisão',
+        mathChallenge: 'Desafio Matemático',
+        mathChallengeDesc: 'Cálculos rápidos',
+        privacyPolicy: 'Política de Privacidade',
+        termsOfService: 'Termos de Serviço'
+      },
+      ru: {
+        title: 'Тест Скорости Печати',
+        subtitle: 'Проверьте вашу скорость и точность!',
+        gameMethod: 'Как Играть',
+        typingMethodDesc: {
+          0: 'Текст появляется на экране',
+          1: 'Печатайте как можно быстрее и точнее',
+          2: 'Ваша скорость и точность вычисляются!'
+        },
+        selectDifficulty: 'Выбрать Сложность',
+        short: 'Короткий',
+        medium: 'Средний',
+        long: 'Длинный',
+        characters: 'символов',
+        startTest: 'Начать Тест',
+        myBestRecord: 'Мой Лучший Результат',
+        myRecordsTop10: 'Мои 10 Лучших Результатов',
+        noRecordsYet: 'Пока нет результатов. Начните сейчас!',
+        timeElapsed: 'Прошло Времени',
+        wpm: 'СВМ',
+        accuracy: 'Точность',
+        complete: 'Завершено!',
+        yourSpeed: 'Ваша Скорость',
+        cpm: 'СПМ',
+        tryAgain: 'Попробовать Снова',
+        backHome: 'Главная',
+        otherGames: 'Другие Игры',
+        fpsReactionTest: 'Тест Реакции FPS',
+        fpsReactionDesc: 'Проверьте скорость реакции',
+        memoryTest: 'Тест Памяти',
+        memoryTestDesc: 'Проверьте вашу память',
+        aimTrainer: 'Тренажер Прицеливания',
+        aimTrainerDesc: 'Улучшите точность',
+        mathChallenge: 'Математический Вызов',
+        mathChallengeDesc: 'Быстрые вычисления',
+        privacyPolicy: 'Политика Конфиденциальности',
+        termsOfService: 'Условия Использования'
+      },
+      ar: {
+        title: 'اختبار سرعة الكتابة',
+        subtitle: 'اختبر سرعتك ودقتك!',
+        gameMethod: 'كيفية اللعب',
+        typingMethodDesc: {
+          0: 'يظهر النص على الشاشة',
+          1: 'اكتب بأسرع وأدق ما يمكن',
+          2: 'يتم حساب سرعتك ودقتك!'
+        },
+        selectDifficulty: 'اختر الصعوبة',
+        short: 'قصير',
+        medium: 'متوسط',
+        long: 'طويل',
+        characters: 'حرف',
+        startTest: 'بدء الاختبار',
+        myBestRecord: 'أفضل رقم قياسي',
+        myRecordsTop10: 'أفضل 10 سجلات',
+        noRecordsYet: 'لا توجد سجلات بعد. ابدأ الآن!',
+        timeElapsed: 'الوقت المنقضي',
+        wpm: 'كلمة/د',
+        accuracy: 'الدقة',
+        complete: 'مكتمل!',
+        yourSpeed: 'سرعة الكتابة',
+        cpm: 'حرف/د',
+        tryAgain: 'حاول مرة أخرى',
+        backHome: 'الصفحة الرئيسية',
+        otherGames: 'ألعاب أخرى',
+        fpsReactionTest: 'اختبار رد الفعل FPS',
+        fpsReactionDesc: 'اختبر سرعة رد فعلك',
+        memoryTest: 'اختبار الذاكرة',
+        memoryTestDesc: 'اختبر ذاكرتك',
+        aimTrainer: 'مدرب التصويب',
+        aimTrainerDesc: 'حسّن دقة التصويب',
+        mathChallenge: 'تحدي الرياضيات',
+        mathChallengeDesc: 'حسابات سريعة',
+        privacyPolicy: 'سياسة الخصوصية',
+        termsOfService: 'شروط الخدمة'
       }
     };
 
-    // 랜덤 텍스트 (언어별)
+    // 랜덤 텍스트 (난이도별, 언어별)
     const textPool = {
-      ko: [
-        '빠른 갈색 여우가 게으른 개를 뛰어넘습니다. 연습은 완벽을 만듭니다. 꾸준함이 중요합니다.',
-        '프로그래밍은 문제를 해결하는 예술입니다. 코드는 생각을 표현하는 언어입니다.',
-        '인생은 자전거를 타는 것과 같습니다. 균형을 유지하려면 계속 움직여야 합니다.',
-        '성공의 비결은 시작하는 것입니다. 완벽할 때까지 기다리지 마세요.',
-        '오늘의 나는 어제의 나보다 나아져야 합니다. 작은 진보라도 진보입니다.',
-        '독서는 마음의 양식입니다. 책은 우리를 새로운 세계로 안내합니다.',
-        '음악은 영혼의 언어입니다. 음악을 통해 우리는 하나가 됩니다.',
-        '여행은 새로운 경험을 쌓는 최고의 방법입니다. 세상은 넓고 아름답습니다.'
-      ],
-      en: [
-        'The quick brown fox jumps over the lazy dog. Practice makes perfect. Consistency is key to improvement.',
-        'Programming is the art of solving problems. Code is the language of thoughts and ideas.',
-        'Life is like riding a bicycle. To keep your balance you must keep moving forward.',
-        'The secret of getting ahead is getting started. Do not wait until everything is perfect.',
-        'Be better today than you were yesterday. Small progress is still progress and matters.',
-        'Reading is food for the mind. Books transport us to new worlds and perspectives.',
-        'Music is the language of the soul. Through music we connect and become one.',
-        'Travel is the best way to gain new experiences. The world is vast and beautiful.'
-      ]
+      short: {
+        ko: [
+          '빠른 갈색 여우가 게으른 개를 뛰어넘습니다. 연습은 완벽을 만듭니다.',
+          '프로그래밍은 문제를 해결하는 예술입니다. 코드는 생각을 표현합니다.',
+          '인생은 자전거를 타는 것과 같습니다. 균형을 유지하려면 움직여야 합니다.',
+          '성공의 비결은 시작하는 것입니다. 완벽할 때까지 기다리지 마세요.',
+          '독서는 마음의 양식입니다. 책은 우리를 새로운 세계로 안내합니다.',
+          '음악은 영혼의 언어입니다. 음악을 통해 우리는 하나가 됩니다.',
+          '여행은 새로운 경험을 쌓는 방법입니다. 세상은 넓고 아름답습니다.',
+          '창의성은 모든 혁신의 원천입니다. 상상력은 한계가 없습니다.',
+          '건강한 몸에 건강한 정신이 깃듭니다. 운동은 삶의 활력소입니다.',
+          '우정은 인생의 가장 큰 선물입니다. 친구는 소중한 존재입니다.'
+        ],
+        en: [
+          'The quick brown fox jumps over the lazy dog today.',
+          'Programming is the art of solving complex problems.',
+          'Life is like riding a bicycle through the mountains.',
+          'The secret of getting ahead is getting started now.',
+          'Reading is food for the mind and opens new worlds.',
+          'Music is the language of the soul connecting us all.',
+          'Travel broadens our horizons and enriches our lives.',
+          'Creativity is the source of all innovation and growth.',
+          'A healthy body houses a healthy mind and strong spirit.',
+          'Friendship is one of the greatest gifts in our lives.'
+        ],
+        ja: [
+          '素早い茶色のキツネが怠け者の犬を飛び越えます。',
+          'プログラミングは複雑な問題を解決する芸術です。',
+          '人生は山を登る自転車のようなものです。',
+          '成功の秘訣は今すぐ始めることです。',
+          '読書は心の栄養であり新しい世界を開きます。',
+          '音楽は魂の言語で私たちを結びつけます。',
+          '旅行は視野を広げ人生を豊かにします。',
+          '創造性はすべての革新の源です。',
+          '健康な体には健康な心が宿ります。',
+          '友情は人生で最も偉大な贈り物の一つです。'
+        ],
+        zh: [
+          '快速的棕色狐狸跳过了懒狗。',
+          '编程是解决复杂问题的艺术。',
+          '生活就像在山间骑自行车一样。',
+          '成功的秘诀是立即开始行动。',
+          '阅读是心灵的食粮并打开新世界。',
+          '音乐是连接我们所有人的灵魂语言。',
+          '旅行开阔我们的视野并丰富我们的生活。',
+          '创造力是所有创新和成长的源泉。',
+          '健康的身体孕育健康的心灵和精神。',
+          '友谊是我们生活中最伟大的礼物之一。'
+        ],
+        es: [
+          'El rápido zorro marrón salta sobre el perro perezoso.',
+          'La programación es el arte de resolver problemas complejos.',
+          'La vida es como andar en bicicleta por las montañas.',
+          'El secreto del éxito es empezar ahora mismo.',
+          'La lectura es alimento para la mente y abre mundos.',
+          'La música es el lenguaje del alma que nos une.',
+          'Viajar amplía nuestros horizontes y enriquece vidas.',
+          'La creatividad es la fuente de toda innovación.',
+          'Un cuerpo sano alberga una mente sana y fuerte.',
+          'La amistad es uno de los mayores regalos de la vida.'
+        ],
+        fr: [
+          'Le rapide renard brun saute par-dessus le chien paresseux.',
+          'La programmation est l\'art de résoudre des problèmes complexes.',
+          'La vie est comme faire du vélo dans les montagnes.',
+          'Le secret du succès est de commencer maintenant.',
+          'La lecture nourrit l\'esprit et ouvre de nouveaux mondes.',
+          'La musique est le langage de l\'âme qui nous unit.',
+          'Voyager élargit nos horizons et enrichit nos vies.',
+          'La créativité est la source de toute innovation.',
+          'Un corps sain abrite un esprit sain et fort.',
+          'L\'amitié est l\'un des plus grands cadeaux de la vie.'
+        ],
+        de: [
+          'Der schnelle braune Fuchs springt über den faulen Hund.',
+          'Programmieren ist die Kunst komplexe Probleme zu lösen.',
+          'Das Leben ist wie Fahrradfahren durch die Berge.',
+          'Das Geheimnis des Erfolgs ist jetzt zu beginnen.',
+          'Lesen ist Nahrung für den Geist und öffnet Welten.',
+          'Musik ist die Sprache der Seele die uns verbindet.',
+          'Reisen erweitert unseren Horizont und bereichert Leben.',
+          'Kreativität ist die Quelle aller Innovation.',
+          'Ein gesunder Körper beherbergt einen gesunden Geist.',
+          'Freundschaft ist eines der größten Geschenke im Leben.'
+        ],
+        pt: [
+          'A rápida raposa marrom pula sobre o cachorro preguiçoso.',
+          'Programação é a arte de resolver problemas complexos.',
+          'A vida é como andar de bicicleta pelas montanhas.',
+          'O segredo do sucesso é começar agora mesmo.',
+          'A leitura alimenta a mente e abre novos mundos.',
+          'A música é a linguagem da alma que nos une.',
+          'Viajar amplia nossos horizontes e enriquece vidas.',
+          'A criatividade é a fonte de toda inovação.',
+          'Um corpo saudável abriga uma mente saudável e forte.',
+          'A amizade é um dos maiores presentes da vida.'
+        ],
+        ru: [
+          'Быстрая коричневая лиса прыгает через ленивую собаку.',
+          'Программирование это искусство решения сложных задач.',
+          'Жизнь как езда на велосипеде по горам.',
+          'Секрет успеха начать прямо сейчас.',
+          'Чтение пища для ума и открывает новые миры.',
+          'Музыка язык души объединяющий всех нас.',
+          'Путешествия расширяют горизонты и обогащают жизнь.',
+          'Творчество источник всех инноваций и роста.',
+          'Здоровое тело вмещает здоровый дух и разум.',
+          'Дружба один из величайших даров в нашей жизни.'
+        ],
+        ar: [
+          'الثعلب البني السريع يقفز فوق الكلب الكسول اليوم.',
+          'البرمجة هي فن حل المشاكل المعقدة بطريقة ذكية.',
+          'الحياة مثل ركوب الدراجة عبر الجبال العالية.',
+          'سر النجاح هو أن تبدأ الآن فورا.',
+          'القراءة غذاء للعقل وتفتح عوالم جديدة لنا.',
+          'الموسيقى هي لغة الروح التي توحدنا جميعا.',
+          'السفر يوسع آفاقنا ويثري حياتنا بالتجارب.',
+          'الإبداع هو مصدر كل الابتكار والنمو الدائم.',
+          'الجسم السليم يحتوي على عقل سليم وروح قوية.',
+          'الصداقة هي أحد أعظم الهدايا في حياتنا.'
+        ]
+      },
+      medium: {
+        ko: [
+          '빠른 갈색 여우가 게으른 개를 뛰어넘습니다. 연습은 완벽을 만듭니다. 꾸준함이 중요합니다. 오늘의 나는 어제의 나보다 나아져야 합니다. 작은 진보라도 진보입니다. 성공의 비결은 시작하는 것입니다. 완벽할 때까지 기다리지 마세요. 지금 바로 시작하세요.',
+          '프로그래밍은 문제를 해결하는 예술입니다. 코드는 생각을 표현하는 언어입니다. 창의성이 핵심이며 논리적 사고가 필요합니다. 독서는 마음의 양식입니다. 책은 우리를 새로운 세계로 안내합니다. 음악은 영혼의 언어입니다. 음악을 통해 우리는 하나가 됩니다.',
+          '인생은 자전거를 타는 것과 같습니다. 균형을 유지하려면 계속 움직여야 합니다. 멈추면 넘어집니다. 여행은 새로운 경험을 쌓는 최고의 방법입니다. 세상은 넓고 아름답습니다. 우리는 끊임없이 배우고 성장합니다. 매일 새로운 도전이 우리를 기다립니다.',
+          '건강은 가장 소중한 자산입니다. 규칙적인 운동과 올바른 식습관이 중요합니다. 충분한 수면도 필수적입니다. 스트레스 관리는 현대인의 필수 과제입니다. 긍정적인 마음가짐이 삶의 질을 높입니다. 감사하는 마음을 가지세요.',
+          '기술의 발전은 우리 삶을 변화시키고 있습니다. 인공지능은 새로운 가능성을 열어줍니다. 하지만 기술은 도구일 뿐입니다. 인간의 창의성과 감성은 대체할 수 없습니다. 우리는 기술과 인간성의 균형을 찾아야 합니다. 미래는 우리가 만들어갑니다.',
+          '교육은 미래를 준비하는 가장 좋은 투자입니다. 배움에는 나이가 없습니다. 호기심을 잃지 마세요. 질문하는 것을 두려워하지 마세요. 실패는 성공의 어머니입니다. 끊임없이 도전하고 발전하세요. 지식은 나눌수록 커집니다.'
+        ],
+        en: [
+          'The quick brown fox jumps over the lazy dog. Practice makes perfect. Consistency is key to improvement. Be better today than you were yesterday. Small progress is still progress and matters greatly. The secret of getting ahead is getting started today. Do not wait for the perfect moment.',
+          'Programming is the art of solving problems. Code is the language of thoughts and ideas. Creativity is essential and logical thinking is required. Reading is food for the mind. Books transport us to new worlds and perspectives. Music is the language of the soul and connects us all together.',
+          'Life is like riding a bicycle through the mountains. To keep your balance you must keep moving forward. Travel is the best way to gain new experiences. The world is vast and beautiful. We constantly learn and grow every single day. New challenges await us with each sunrise.',
+          'Health is the most precious asset we have. Regular exercise and proper nutrition are essential. Adequate sleep is also crucial for our wellbeing. Stress management is a vital skill in modern life. A positive mindset improves the quality of our lives. Be grateful every day.',
+          'Technology is transforming our lives in countless ways. Artificial intelligence opens new possibilities for humanity. However technology is merely a tool. Human creativity and emotions cannot be replaced. We must find balance between technology and humanity. The future is ours to create.',
+          'Education is the best investment for preparing the future. Learning has no age limit whatsoever. Never lose your curiosity about the world. Do not be afraid to ask questions. Failure is the mother of success. Keep challenging yourself constantly. Knowledge grows when shared with others.'
+        ],
+        ja: [
+          '素早い茶色のキツネが怠け者の犬を飛び越えます。練習は完璧を作ります。継続が成長の鍵です。昨日の自分より今日の自分が良くなりましょう。小さな進歩も進歩です。成功の秘訣は今日始めることです。完璧な瞬間を待たないでください。',
+          'プログラミングは問題を解決する芸術です。コードは思考とアイデアの言語です。創造性が不可欠で論理的思考が必要です。読書は心の栄養です。本は私たちを新しい世界に連れて行きます。音楽は魂の言語で私たちを結びつけます。',
+          '人生は山を登る自転車のようなものです。バランスを保つには前進し続けなければなりません。旅行は新しい経験を得る最良の方法です。世界は広大で美しいです。私たちは毎日学び成長します。新しい挑戦が毎日待っています。',
+          '健康は最も貴重な資産です。定期的な運動と適切な栄養が不可欠です。十分な睡眠も健康に重要です。ストレス管理は現代生活の重要なスキルです。前向きな考え方が人生の質を向上させます。毎日感謝しましょう。',
+          'テクノロジーは私たちの生活を無数の方法で変えています。人工知能は人類に新しい可能性を開きます。しかしテクノロジーは単なる道具です。人間の創造性と感情は置き換えられません。テクノロジーと人間性のバランスを見つけなければなりません。未来は私たちが創るものです。',
+          '教育は未来を準備する最良の投資です。学習に年齢制限はありません。世界への好奇心を失わないでください。質問することを恐れないでください。失敗は成功の母です。常に自分自身に挑戦し続けてください。知識は共有することで成長します。'
+        ],
+        zh: [
+          '快速的棕色狐狸跳过了懒狗。熟能生巧。坚持是进步的关键。今天的你要比昨天的你更好。小进步也是进步非常重要。成功的秘诀是今天就开始。不要等待完美的时刻。',
+          '编程是解决问题的艺术。代码是思想和想法的语言。创造力是必不可少的需要逻辑思维。阅读是心灵的食粮。书籍带我们进入新世界和新视角。音乐是连接我们所有人的灵魂语言。',
+          '生活就像在山间骑自行车。要保持平衡你必须不断前进。旅行是获得新体验的最佳方式。世界是广阔而美丽的。我们每天都在不断学习和成长。每个日出都有新的挑战等待着我们。',
+          '健康是我们拥有的最宝贵的资产。定期锻炼和适当营养至关重要。充足的睡眠对我们的健康也很重要。压力管理是现代生活的重要技能。积极的心态提高我们的生活质量。每天都要心存感激。',
+          '技术正在以无数方式改变我们的生活。人工智能为人类开辟了新的可能性。然而技术只是一个工具。人类的创造力和情感无法被取代。我们必须在技术和人性之间找到平衡。未来是我们创造的。',
+          '教育是为未来做准备的最佳投资。学习没有年龄限制。永远不要失去对世界的好奇心。不要害怕提问。失败是成功之母。不断挑战自己。知识在分享时会增长。'
+        ],
+        es: [
+          'El rápido zorro marrón salta sobre el perro perezoso. La práctica hace al maestro. La constancia es clave para mejorar. Sé mejor hoy de lo que fuiste ayer. El pequeño progreso sigue siendo progreso e importa mucho. El secreto del éxito es empezar hoy. No esperes el momento perfecto.',
+          'La programación es el arte de resolver problemas. El código es el lenguaje de pensamientos e ideas. La creatividad es esencial y se requiere pensamiento lógico. La lectura alimenta la mente. Los libros nos transportan a nuevos mundos y perspectivas. La música es el lenguaje del alma y nos conecta a todos.',
+          'La vida es como andar en bicicleta por las montañas. Para mantener el equilibrio debes seguir avanzando. Viajar es la mejor manera de obtener nuevas experiencias. El mundo es vasto y hermoso. Constantemente aprendemos y crecemos cada día. Nuevos desafíos nos esperan con cada amanecer.',
+          'La salud es el activo más precioso que tenemos. El ejercicio regular y la nutrición adecuada son esenciales. El sueño adecuado también es crucial para nuestro bienestar. El manejo del estrés es una habilidad vital en la vida moderna. Una mentalidad positiva mejora la calidad de nuestras vidas. Sé agradecido cada día.',
+          'La tecnología está transformando nuestras vidas de innumerables maneras. La inteligencia artificial abre nuevas posibilidades para la humanidad. Sin embargo la tecnología es simplemente una herramienta. La creatividad y las emociones humanas no pueden ser reemplazadas. Debemos encontrar equilibrio entre tecnología y humanidad. El futuro es nuestro para crear.',
+          'La educación es la mejor inversión para preparar el futuro. El aprendizaje no tiene límite de edad. Nunca pierdas tu curiosidad sobre el mundo. No tengas miedo de hacer preguntas. El fracaso es la madre del éxito. Desafíate constantemente a ti mismo. El conocimiento crece cuando se comparte con otros.'
+        ],
+        fr: [
+          'Le rapide renard brun saute par-dessus le chien paresseux. La pratique rend parfait. La cohérence est la clé de l\'amélioration. Soyez meilleur aujourd\'hui qu\'hier. Les petits progrès comptent beaucoup. Le secret du succès est de commencer aujourd\'hui. N\'attendez pas le moment parfait.',
+          'La programmation est l\'art de résoudre des problèmes. Le code est le langage des pensées et des idées. La créativité est essentielle et la pensée logique est requise. La lecture nourrit l\'esprit. Les livres nous transportent vers de nouveaux mondes et perspectives. La musique est le langage de l\'âme qui nous unit tous.',
+          'La vie est comme faire du vélo dans les montagnes. Pour garder l\'équilibre vous devez continuer à avancer. Voyager est la meilleure façon d\'acquérir de nouvelles expériences. Le monde est vaste et magnifique. Nous apprenons et grandissons constamment chaque jour. De nouveaux défis nous attendent à chaque lever du soleil.',
+          'La santé est l\'actif le plus précieux que nous ayons. L\'exercice régulier et une nutrition appropriée sont essentiels. Un sommeil adéquat est également crucial pour notre bien-être. La gestion du stress est une compétence vitale dans la vie moderne. Un état d\'esprit positif améliore la qualité de nos vies. Soyez reconnaissant chaque jour.',
+          'La technologie transforme nos vies d\'innombrables façons. L\'intelligence artificielle ouvre de nouvelles possibilités pour l\'humanité. Cependant la technologie n\'est qu\'un outil. La créativité et les émotions humaines ne peuvent être remplacées. Nous devons trouver l\'équilibre entre technologie et humanité. L\'avenir est à nous de créer.',
+          'L\'éducation est le meilleur investissement pour préparer l\'avenir. L\'apprentissage n\'a aucune limite d\'âge. Ne perdez jamais votre curiosité pour le monde. N\'ayez pas peur de poser des questions. L\'échec est la mère du succès. Défiez-vous constamment. La connaissance grandit lorsqu\'elle est partagée avec les autres.'
+        ],
+        de: [
+          'Der schnelle braune Fuchs springt über den faulen Hund. Übung macht den Meister. Beständigkeit ist der Schlüssel zur Verbesserung. Sei heute besser als gestern. Kleiner Fortschritt ist immer noch Fortschritt und zählt sehr. Das Geheimnis des Erfolgs ist heute zu beginnen. Warte nicht auf den perfekten Moment.',
+          'Programmieren ist die Kunst Probleme zu lösen. Code ist die Sprache von Gedanken und Ideen. Kreativität ist wesentlich und logisches Denken ist erforderlich. Lesen ist Nahrung für den Geist. Bücher transportieren uns in neue Welten und Perspektiven. Musik ist die Sprache der Seele die uns alle verbindet.',
+          'Das Leben ist wie Fahrradfahren durch die Berge. Um das Gleichgewicht zu halten musst du dich weiter bewegen. Reisen ist der beste Weg neue Erfahrungen zu sammeln. Die Welt ist riesig und wunderschön. Wir lernen und wachsen jeden einzelnen Tag. Neue Herausforderungen erwarten uns mit jedem Sonnenaufgang.',
+          'Gesundheit ist das wertvollste Gut das wir haben. Regelmäßige Bewegung und richtige Ernährung sind wesentlich. Ausreichend Schlaf ist auch entscheidend für unser Wohlbefinden. Stressbewältigung ist eine wichtige Fähigkeit im modernen Leben. Eine positive Einstellung verbessert die Qualität unseres Lebens. Sei jeden Tag dankbar.',
+          'Technologie verändert unser Leben auf unzählige Arten. Künstliche Intelligenz eröffnet neue Möglichkeiten für die Menschheit. Technologie ist jedoch nur ein Werkzeug. Menschliche Kreativität und Emotionen können nicht ersetzt werden. Wir müssen eine Balance zwischen Technologie und Menschlichkeit finden. Die Zukunft liegt in unseren Händen.',
+          'Bildung ist die beste Investition für die Zukunft. Lernen hat keine Altersgrenze. Verliere niemals deine Neugier auf die Welt. Hab keine Angst Fragen zu stellen. Misserfolg ist die Mutter des Erfolgs. Fordere dich selbst ständig heraus. Wissen wächst wenn es mit anderen geteilt wird.'
+        ],
+        pt: [
+          'A rápida raposa marrom pula sobre o cachorro preguiçoso. A prática leva à perfeição. A consistência é a chave para o progresso. Seja melhor hoje do que foi ontem. Pequeno progresso ainda é progresso e importa muito. O segredo do sucesso é começar hoje. Não espere pelo momento perfeito.',
+          'Programação é a arte de resolver problemas. Código é a linguagem de pensamentos e ideias. Criatividade é essencial e pensamento lógico é necessário. A leitura alimenta a mente. Livros nos transportam para novos mundos e perspectivas. A música é a linguagem da alma que nos conecta a todos.',
+          'A vida é como andar de bicicleta pelas montanhas. Para manter o equilíbrio você deve continuar em frente. Viajar é a melhor maneira de ganhar novas experiências. O mundo é vasto e lindo. Constantemente aprendemos e crescemos todos os dias. Novos desafios nos aguardam a cada nascer do sol.',
+          'A saúde é o ativo mais precioso que temos. Exercício regular e nutrição adequada são essenciais. Sono adequado também é crucial para nosso bem-estar. Gerenciamento de estresse é uma habilidade vital na vida moderna. Uma mentalidade positiva melhora a qualidade de nossas vidas. Seja grato todos os dias.',
+          'A tecnologia está transformando nossas vidas de inúmeras maneiras. Inteligência artificial abre novas possibilidades para a humanidade. No entanto tecnologia é apenas uma ferramenta. Criatividade e emoções humanas não podem ser substituídas. Devemos encontrar equilíbrio entre tecnologia e humanidade. O futuro é nosso para criar.',
+          'Educação é o melhor investimento para preparar o futuro. Aprendizado não tem limite de idade. Nunca perca sua curiosidade sobre o mundo. Não tenha medo de fazer perguntas. Fracasso é a mãe do sucesso. Desafie-se constantemente. Conhecimento cresce quando compartilhado com outros.'
+        ],
+        ru: [
+          'Быстрая коричневая лиса прыгает через ленивую собаку. Практика делает совершенным. Последовательность ключ к улучшению. Будьте лучше сегодня чем были вчера. Небольшой прогресс это все еще прогресс и очень важен. Секрет успеха начать сегодня. Не ждите идеального момента.',
+          'Программирование это искусство решения проблем. Код это язык мыслей и идей. Творчество необходимо и требуется логическое мышление. Чтение пища для ума. Книги переносят нас в новые миры и перспективы. Музыка язык души который объединяет всех нас.',
+          'Жизнь как езда на велосипеде по горам. Чтобы сохранить равновесие вы должны продолжать движение вперед. Путешествия лучший способ получить новый опыт. Мир огромен и прекрасен. Мы постоянно учимся и растем каждый день. Новые вызовы ждут нас с каждым восходом солнца.',
+          'Здоровье самый ценный актив который у нас есть. Регулярные упражнения и правильное питание необходимы. Достаточный сон также важен для нашего благополучия. Управление стрессом жизненно важный навык в современной жизни. Позитивное мышление улучшает качество нашей жизни. Будьте благодарны каждый день.',
+          'Технологии преобразуют нашу жизнь бесчисленными способами. Искусственный интеллект открывает новые возможности для человечества. Однако технология это просто инструмент. Человеческое творчество и эмоции нельзя заменить. Мы должны найти баланс между технологией и человечностью. Будущее создаем мы.',
+          'Образование лучшая инвестиция для подготовки будущего. Обучение не имеет возрастных ограничений. Никогда не теряйте любопытство к миру. Не бойтесь задавать вопросы. Неудача мать успеха. Постоянно бросайте себе вызов. Знания растут когда делятся с другими.'
+        ],
+        ar: [
+          'الثعلب البني السريع يقفز فوق الكلب الكسول. الممارسة تصنع الإتقان. الاتساق هو مفتاح التحسين. كن أفضل اليوم مما كنت عليه بالأمس. التقدم الصغير لا يزال تقدما ومهم جدا. سر النجاح هو البدء اليوم. لا تنتظر اللحظة المثالية.',
+          'البرمجة هي فن حل المشكلات. الكود هو لغة الأفكار والأفكار. الإبداع ضروري والتفكير المنطقي مطلوب. القراءة غذاء للعقل. الكتب تنقلنا إلى عوالم جديدة ووجهات نظر جديدة. الموسيقى هي لغة الروح التي توحدنا جميعا.',
+          'الحياة مثل ركوب الدراجة عبر الجبال. للحفاظ على توازنك يجب أن تستمر في التحرك للأمام. السفر هو أفضل طريقة لاكتساب تجارب جديدة. العالم واسع وجميل. نتعلم وننمو باستمرار كل يوم. تنتظرنا تحديات جديدة مع كل شروق للشمس.',
+          'الصحة هي الأصل الأكثر قيمة لدينا. التمارين المنتظمة والتغذية السليمة ضرورية. النوم الكافي مهم أيضا لرفاهيتنا. إدارة التوتر مهارة حيوية في الحياة الحديثة. العقلية الإيجابية تحسن نوعية حياتنا. كن ممتنا كل يوم.',
+          'التكنولوجيا تحول حياتنا بطرق لا تحصى. الذكاء الاصطناعي يفتح إمكانيات جديدة للبشرية. ومع ذلك التكنولوجيا مجرد أداة. الإبداع والعواطف البشرية لا يمكن استبدالها. يجب أن نجد التوازن بين التكنولوجيا والإنسانية. المستقبل لنا لنصنعه.',
+          'التعليم هو أفضل استثمار لإعداد المستقبل. التعلم ليس له حد للعمر على الإطلاق. لا تفقد فضولك أبدا تجاه العالم. لا تخف من طرح الأسئلة. الفشل هو أم النجاح. تحدى نفسك باستمرار. المعرفة تنمو عند مشاركتها مع الآخرين.'
+        ]
+      },
+      long: {
+        ko: [
+          '빠른 갈색 여우가 게으른 개를 뛰어넘습니다. 연습은 완벽을 만듭니다. 꾸준함이 중요합니다. 오늘의 나는 어제의 나보다 나아져야 합니다. 작은 진보라도 진보입니다. 성공의 비결은 시작하는 것입니다. 완벽할 때까지 기다리지 마세요. 프로그래밍은 문제를 해결하는 예술입니다. 코드는 생각을 표현하는 언어입니다. 창의성이 핵심이며 논리적 사고가 필요합니다. 독서는 마음의 양식입니다. 책은 우리를 새로운 세계로 안내합니다. 음악은 영혼의 언어입니다. 음악을 통해 우리는 하나가 됩니다. 인생은 자전거를 타는 것과 같습니다. 균형을 유지하려면 계속 움직여야 합니다. 멈추면 넘어집니다. 여행은 새로운 경험을 쌓는 최고의 방법입니다. 세상은 넓고 아름답습니다.',
+          '인공지능 기술이 빠르게 발전하고 있습니다. 머신러닝과 딥러닝은 미래 산업의 핵심입니다. 데이터는 21세기의 석유라고 불립니다. 우리는 정보의 홍수 속에서 살아가고 있습니다. 비판적 사고력이 그 어느 때보다 중요해졌습니다. 교육 시스템도 변화가 필요합니다. 창의성과 문제 해결 능력을 키워야 합니다. 협업과 소통 능력도 필수적입니다. 글로벌 시대에 언어 능력은 매우 중요합니다. 다양한 문화를 이해하고 존중해야 합니다. 기술은 도구일 뿐 인간이 주인입니다. 우리는 더 나은 미래를 만들어갈 책임이 있습니다.',
+          '환경 보호는 우리 세대의 가장 중요한 과제입니다. 기후 변화는 더 이상 먼 미래의 이야기가 아닙니다. 지속 가능한 발전이 필수적입니다. 재생 에너지로의 전환이 시급합니다. 플라스틱 사용을 줄여야 합니다. 분리수거를 철저히 해야 합니다. 대중교통을 이용하는 것도 도움이 됩니다. 일회용품 사용을 자제해야 합니다. 지역 농산물을 소비하는 것이 좋습니다. 나무를 심고 숲을 보호해야 합니다. 작은 실천이 모여 큰 변화를 만듭니다. 우리의 선택이 미래를 결정합니다.',
+          '건강한 생활 습관은 장수의 비결입니다. 규칙적인 운동은 신체와 정신 건강에 필수적입니다. 균형 잡힌 식사가 중요합니다. 충분한 물을 마셔야 합니다. 적절한 수면은 회복의 시간입니다. 스트레스 관리가 매우 중요합니다. 명상과 요가가 도움이 됩니다. 긍정적인 사고방식을 유지하세요. 정기적인 건강 검진을 받으세요. 금연과 절주가 필요합니다. 사회적 관계를 유지하세요. 취미 생활을 즐기세요. 건강은 행복의 기본입니다.',
+          '디지털 시대의 정보 활용 능력은 필수입니다. 인터넷은 무한한 지식의 보고입니다. 하지만 모든 정보가 정확한 것은 아닙니다. 출처를 확인하는 습관이 중요합니다. 가짜 뉴스를 분별할 줄 알아야 합니다. 개인정보 보호에 신경 써야 합니다. 비밀번호를 주기적으로 변경하세요. 이중 인증을 사용하는 것이 안전합니다. 소셜 미디어 사용 시간을 조절하세요. 디지털 기기에서 벗어나는 시간도 필요합니다. 균형 잡힌 디지털 생활이 중요합니다.'
+        ],
+        en: [
+          'The quick brown fox jumps over the lazy dog. Practice makes perfect. Consistency is key to improvement. Be better today than you were yesterday. Small progress is still progress and matters greatly. The secret of getting ahead is getting started today. Programming is the art of solving problems. Code is the language of thoughts and ideas. Creativity is essential and logical thinking is required. Reading is food for the mind. Books transport us to new worlds and perspectives. Music is the language of the soul and connects us together. Life is like riding a bicycle. To keep your balance you must keep moving forward. Travel is the best way to gain experiences. The world is vast and beautiful beyond imagination.',
+          'Artificial intelligence technology is rapidly advancing every day. Machine learning and deep learning are core to future industries worldwide. Data is called the oil of the twenty-first century. We live in an era of information overload constantly. Critical thinking skills are more important than ever before. The education system also needs significant changes. We must develop creativity and problem-solving abilities. Collaboration and communication skills are essential too. Language proficiency is very important in the global era. We must understand and respect diverse cultures. Technology is just a tool and humans are the masters. We have a responsibility to create a better future for all.',
+          'Environmental protection is the most critical challenge of our generation today. Climate change is no longer a distant future story anymore. Sustainable development is absolutely essential for survival. The transition to renewable energy sources is urgent and necessary. We must reduce plastic usage significantly. Recycling should be done thoroughly and consistently. Using public transportation also helps the environment greatly. We should refrain from using disposable products whenever possible. Consuming local agricultural products is beneficial. We must plant trees and protect forests diligently. Small actions accumulate to create massive changes. Our choices today determine the future of tomorrow.',
+          'Healthy lifestyle habits are the secret to longevity and happiness. Regular exercise is essential for both physical and mental health. A balanced diet is crucially important for wellbeing. Drinking sufficient water throughout the day is necessary. Adequate sleep provides time for recovery and rejuvenation. Stress management is extremely important in modern life. Meditation and yoga can be very helpful practices. Maintain a positive mindset in all situations. Get regular health checkups and screenings done. Quit smoking and moderate alcohol consumption is needed. Maintain social relationships and connections with others. Enjoy hobbies and leisure activities regularly. Health is the foundation of all happiness.',
+          'Information literacy in the digital age is absolutely essential today. The internet is an infinite repository of human knowledge. However not all information available online is accurate. The habit of verifying sources is critically important. We must be able to distinguish fake news from truth. Personal information protection requires constant attention and care. Change your passwords regularly for better security. Using two-factor authentication is much safer for accounts. Control your social media usage time wisely. Time away from digital devices is also necessary. Balanced digital life is the key to modern wellness.'
+        ],
+        ja: [
+          '素早い茶色のキツネが怠け者の犬を飛び越えます。練習は完璧を作ります。継続が成長の鍵です。昨日の自分より今日の自分が良くなりましょう。小さな進歩も進歩です。成功の秘訣は今日始めることです。完璧な瞬間を待たないでください。プログラミングは問題を解決する芸術です。コードは思考とアイデアの言語です。創造性が不可欠で論理的思考が必要です。読書は心の栄養です。本は私たちを新しい世界に連れて行きます。音楽は魂の言語で私たちを結びつけます。人生は自転車に乗るようなものです。バランスを保つには前進し続けなければなりません。旅行は経験を得る最良の方法です。世界は広大で美しいです。',
+          '人工知能技術は毎日急速に進歩しています。機械学習とディープラーニングは世界の未来産業の中核です。データは21世紀の石油と呼ばれています。私たちは常に情報過多の時代に生きています。批判的思考スキルはこれまで以上に重要です。教育システムも大きな変更が必要です。創造性と問題解決能力を開発しなければなりません。協力とコミュニケーションスキルも不可欠です。グローバル時代において言語能力は非常に重要です。多様な文化を理解し尊重しなければなりません。テクノロジーは単なる道具であり人間が主人です。私たちはすべての人のためにより良い未来を創る責任があります。',
+          '環境保護は今日私たちの世代の最も重要な課題です。気候変動はもはや遠い未来の話ではありません。持続可能な開発は生存に絶対に不可欠です。再生可能エネルギー源への移行は緊急かつ必要です。プラスチックの使用を大幅に削減しなければなりません。リサイクルは徹底的かつ一貫して行う必要があります。公共交通機関の利用も環境に大いに役立ちます。可能な限り使い捨て製品の使用を控えるべきです。地元の農産物を消費することは有益です。木を植え森を保護しなければなりません。小さな行動が積み重なって大きな変化を生み出します。今日の私たちの選択が明日の未来を決定します。',
+          '健康的な生活習慣は長寿と幸福の秘訣です。定期的な運動は身体的および精神的健康の両方に不可欠です。バランスの取れた食事は健康に非常に重要です。一日を通して十分な水を飲むことが必要です。適切な睡眠は回復と若返りの時間を提供します。ストレス管理は現代生活において非常に重要です。瞑想とヨガは非常に役立つ実践です。あらゆる状況で前向きな考え方を維持してください。定期的な健康診断と検査を受けてください。喫煙をやめ適度な飲酒が必要です。他の人との社会的関係とつながりを維持してください。趣味や余暇活動を定期的に楽しんでください。健康はすべての幸福の基盤です。',
+          'デジタル時代の情報リテラシーは今日絶対に不可欠です。インターネットは人間の知識の無限の宝庫です。しかしオンラインで利用可能なすべての情報が正確であるわけではありません。情報源を検証する習慣は非常に重要です。フェイクニュースと真実を区別できなければなりません。個人情報保護には常に注意とケアが必要です。セキュリティを向上させるためにパスワードを定期的に変更してください。二要素認証を使用する方がアカウントにとってはるかに安全です。ソーシャルメディアの使用時間を賢く管理してください。デジタルデバイスから離れる時間も必要です。バランスの取れたデジタル生活が現代のウェルネスの鍵です。'
+        ],
+        zh: [
+          '快速的棕色狐狸跳过了懒狗。熟能生巧。坚持是进步的关键。今天的你要比昨天的你更好。小进步也是进步非常重要。成功的秘诀是今天就开始。不要等待完美的时刻。编程是解决问题的艺术。代码是思想和想法的语言。创造力是必不可少的需要逻辑思维。阅读是心灵的食粮。书籍带我们进入新世界和新视角。音乐是灵魂的语言将我们联系在一起。生活就像骑自行车。要保持平衡你必须不断前进。旅行是获得经验的最佳方式。世界广阔而美丽超乎想象。',
+          '人工智能技术每天都在快速发展。机器学习和深度学习是全球未来产业的核心。数据被称为二十一世纪的石油。我们生活在一个信息过载的时代。批判性思维技能比以往任何时候都更重要。教育系统也需要重大变革。我们必须发展创造力和解决问题的能力。协作和沟通技能也是必不可少的。在全球化时代语言能力非常重要。我们必须理解和尊重多元文化。技术只是一个工具人类才是主人。我们有责任为所有人创造更美好的未来。',
+          '环境保护是我们这一代人今天面临的最关键挑战。气候变化不再是一个遥远的未来故事。可持续发展对生存绝对至关重要。向可再生能源的过渡是紧迫而必要的。我们必须大幅减少塑料使用。回收应该彻底持续地进行。使用公共交通也对环境有很大帮助。我们应该尽可能避免使用一次性产品。消费本地农产品是有益的。我们必须种树并保护森林。小行动积累起来会产生巨大变化。我们今天的选择决定了明天的未来。',
+          '健康的生活习惯是长寿和幸福的秘诀。定期锻炼对身心健康都至关重要。均衡饮食对健康至关重要。全天喝足够的水是必要的。充足的睡眠提供恢复和rejuvenation的时间。压力管理在现代生活中极其重要。冥想和瑜伽可以是非常有帮助的实践。在所有情况下保持积极的心态。定期进行健康检查和筛查。戒烟和适度饮酒是必要的。与他人保持社交关系和联系。定期享受爱好和休闲活动。健康是所有幸福的基础。',
+          '数字时代的信息素养在今天绝对至关重要。互联网是人类知识的无限宝库。然而并非所有在线信息都是准确的。验证来源的习惯至关重要。我们必须能够区分假新闻和真相。个人信息保护需要持续关注和照顾。定期更改密码以提高安全性。使用双因素身份验证对帐户更安全得多。明智地控制社交媒体使用时间。远离数字设备的时间也是必要的。平衡的数字生活是现代健康的关键。'
+        ],
+        es: [
+          'El rápido zorro marrón salta sobre el perro perezoso. La práctica hace al maestro. La constancia es clave para mejorar. Sé mejor hoy de lo que fuiste ayer. El pequeño progreso sigue siendo progreso e importa mucho. El secreto del éxito es empezar hoy. No esperes el momento perfecto. La programación es el arte de resolver problemas. El código es el lenguaje de pensamientos e ideas. La creatividad es esencial y se requiere pensamiento lógico. La lectura alimenta la mente. Los libros nos transportan a nuevos mundos y perspectivas. La música es el lenguaje del alma y nos conecta. La vida es como andar en bicicleta. Para mantener el equilibrio debes seguir avanzando. Viajar es la mejor manera de obtener experiencias. El mundo es vasto y hermoso más allá de la imaginación.',
+          'La tecnología de inteligencia artificial avanza rápidamente cada día. El aprendizaje automático y el aprendizaje profundo son fundamentales para las industrias futuras en todo el mundo. Los datos se llaman el petróleo del siglo XXI. Vivimos en una era de sobrecarga de información constantemente. Las habilidades de pensamiento crítico son más importantes que nunca. El sistema educativo también necesita cambios significativos. Debemos desarrollar creatividad y habilidades para resolver problemas. La colaboración y las habilidades de comunicación también son esenciales. La competencia lingüística es muy importante en la era global. Debemos entender y respetar diversas culturas. La tecnología es solo una herramienta y los humanos son los maestros. Tenemos la responsabilidad de crear un futuro mejor para todos.',
+          'La protección ambiental es el desafío más crítico de nuestra generación hoy. El cambio climático ya no es una historia de futuro lejano. El desarrollo sostenible es absolutamente esencial para la supervivencia. La transición a fuentes de energía renovable es urgente y necesaria. Debemos reducir significativamente el uso de plástico. El reciclaje debe hacerse de manera exhaustiva y consistente. Usar el transporte público también ayuda mucho al medio ambiente. Debemos abstenernos de usar productos desechables siempre que sea posible. Consumir productos agrícolas locales es beneficioso. Debemos plantar árboles y proteger los bosques diligentemente. Las pequeñas acciones se acumulan para crear cambios masivos. Nuestras elecciones de hoy determinan el futuro de mañana.',
+          'Los hábitos de vida saludables son el secreto de la longevidad y la felicidad. El ejercicio regular es esencial tanto para la salud física como mental. Una dieta equilibrada es de vital importancia para el bienestar. Beber suficiente agua durante todo el día es necesario. El sueño adecuado proporciona tiempo para la recuperación y el rejuvenecimiento. El manejo del estrés es extremadamente importante en la vida moderna. La meditación y el yoga pueden ser prácticas muy útiles. Mantén una mentalidad positiva en todas las situaciones. Hazte chequeos y exámenes de salud regulares. Dejar de fumar y moderar el consumo de alcohol es necesario. Mantén relaciones sociales y conexiones con otros. Disfruta de pasatiempos y actividades de ocio regularmente. La salud es la base de toda felicidad.',
+          'La alfabetización informacional en la era digital es absolutamente esencial hoy. Internet es un repositorio infinito del conocimiento humano. Sin embargo no toda la información disponible en línea es precisa. El hábito de verificar fuentes es de vital importancia. Debemos poder distinguir las noticias falsas de la verdad. La protección de la información personal requiere atención y cuidado constantes. Cambia tus contraseñas regularmente para mayor seguridad. Usar autenticación de dos factores es mucho más seguro para las cuentas. Controla el tiempo de uso de redes sociales sabiamente. El tiempo lejos de los dispositivos digitales también es necesario. La vida digital equilibrada es la clave del bienestar moderno.'
+        ],
+        fr: [
+          'Le rapide renard brun saute par-dessus le chien paresseux. La pratique rend parfait. La cohérence est la clé de l\'amélioration. Soyez meilleur aujourd\'hui qu\'hier. Les petits progrès comptent beaucoup. Le secret du succès est de commencer aujourd\'hui. N\'attendez pas le moment parfait. La programmation est l\'art de résoudre des problèmes. Le code est le langage des pensées et des idées. La créativité est essentielle et la pensée logique est requise. La lecture nourrit l\'esprit. Les livres nous transportent vers de nouveaux mondes et perspectives. La musique est le langage de l\'âme qui nous unit. La vie est comme faire du vélo. Pour garder l\'équilibre vous devez continuer à avancer. Voyager est la meilleure façon d\'acquérir des expériences. Le monde est vaste et magnifique au-delà de l\'imagination.',
+          'La technologie de l\'intelligence artificielle progresse rapidement chaque jour. L\'apprentissage automatique et l\'apprentissage profond sont au cœur des industries futures dans le monde entier. Les données sont appelées le pétrole du vingt et unième siècle. Nous vivons à une époque de surcharge d\'informations constamment. Les compétences de pensée critique sont plus importantes que jamais. Le système éducatif a également besoin de changements importants. Nous devons développer la créativité et les capacités de résolution de problèmes. La collaboration et les compétences en communication sont également essentielles. La maîtrise des langues est très importante à l\'ère mondiale. Nous devons comprendre et respecter les cultures diverses. La technologie n\'est qu\'un outil et les humains sont les maîtres. Nous avons la responsabilité de créer un avenir meilleur pour tous.',
+          'La protection de l\'environnement est le défi le plus critique de notre génération aujourd\'hui. Le changement climatique n\'est plus une histoire de futur lointain. Le développement durable est absolument essentiel pour la survie. La transition vers les sources d\'énergie renouvelables est urgente et nécessaire. Nous devons réduire considérablement l\'utilisation du plastique. Le recyclage doit être fait de manière approfondie et cohérente. L\'utilisation des transports en commun aide également grandement l\'environnement. Nous devrions nous abstenir d\'utiliser des produits jetables autant que possible. Consommer des produits agricoles locaux est bénéfique. Nous devons planter des arbres et protéger les forêts avec diligence. Les petites actions s\'accumulent pour créer des changements massifs. Nos choix d\'aujourd\'hui déterminent l\'avenir de demain.',
+          'Les habitudes de vie saines sont le secret de la longévité et du bonheur. L\'exercice régulier est essentiel pour la santé physique et mentale. Une alimentation équilibrée est d\'une importance cruciale pour le bien-être. Boire suffisamment d\'eau tout au long de la journée est nécessaire. Un sommeil adéquat fournit du temps pour la récupération et le rajeunissement. La gestion du stress est extrêmement importante dans la vie moderne. La méditation et le yoga peuvent être des pratiques très utiles. Maintenez un état d\'esprit positif dans toutes les situations. Faites des bilans de santé et des dépistages réguliers. Arrêter de fumer et modérer la consommation d\'alcool est nécessaire. Maintenez des relations sociales et des connexions avec les autres. Profitez de passe-temps et d\'activités de loisirs régulièrement. La santé est le fondement de tout bonheur.',
+          'La littératie informationnelle à l\'ère numérique est absolument essentielle aujourd\'hui. Internet est un dépôt infini de connaissances humaines. Cependant toutes les informations disponibles en ligne ne sont pas exactes. L\'habitude de vérifier les sources est d\'une importance critique. Nous devons pouvoir distinguer les fausses nouvelles de la vérité. La protection des informations personnelles nécessite une attention et des soins constants. Changez vos mots de passe régulièrement pour une meilleure sécurité. L\'utilisation de l\'authentification à deux facteurs est beaucoup plus sûre pour les comptes. Contrôlez judicieusement votre temps d\'utilisation des médias sociaux. Le temps loin des appareils numériques est également nécessaire. Une vie numérique équilibrée est la clé du bien-être moderne.'
+        ],
+        de: [
+          'Der schnelle braune Fuchs springt über den faulen Hund. Übung macht den Meister. Beständigkeit ist der Schlüssel zur Verbesserung. Sei heute besser als gestern. Kleiner Fortschritt ist immer noch Fortschritt und zählt sehr. Das Geheimnis des Erfolgs ist heute zu beginnen. Warte nicht auf den perfekten Moment. Programmieren ist die Kunst Probleme zu lösen. Code ist die Sprache von Gedanken und Ideen. Kreativität ist wesentlich und logisches Denken ist erforderlich. Lesen ist Nahrung für den Geist. Bücher transportieren uns in neue Welten und Perspektiven. Musik ist die Sprache der Seele die uns verbindet. Das Leben ist wie Fahrradfahren. Um das Gleichgewicht zu halten musst du dich weiter bewegen. Reisen ist der beste Weg Erfahrungen zu sammeln. Die Welt ist riesig und wunderschön jenseits der Vorstellungskraft.',
+          'Künstliche Intelligenz Technologie entwickelt sich jeden Tag rasant weiter. Maschinelles Lernen und Deep Learning sind weltweit Kern zukünftiger Industrien. Daten werden das Öl des einundzwanzigsten Jahrhunderts genannt. Wir leben ständig in einer Ära der Informationsüberflutung. Kritisches Denkvermögen ist wichtiger als je zuvor. Das Bildungssystem braucht auch bedeutende Veränderungen. Wir müssen Kreativität und Problemlösungsfähigkeiten entwickeln. Zusammenarbeit und Kommunikationsfähigkeiten sind ebenfalls wesentlich. Sprachkenntnisse sind im globalen Zeitalter sehr wichtig. Wir müssen verschiedene Kulturen verstehen und respektieren. Technologie ist nur ein Werkzeug und Menschen sind die Meister. Wir haben die Verantwortung eine bessere Zukunft für alle zu schaffen.',
+          'Umweltschutz ist die kritischste Herausforderung unserer Generation heute. Der Klimawandel ist keine ferne Zukunftsgeschichte mehr. Nachhaltige Entwicklung ist absolut überlebenswichtig. Der Übergang zu erneuerbaren Energiequellen ist dringend und notwendig. Wir müssen die Plastiknutzung erheblich reduzieren. Recycling sollte gründlich und konsequent durchgeführt werden. Die Nutzung öffentlicher Verkehrsmittel hilft der Umwelt auch sehr. Wir sollten wann immer möglich auf Einwegprodukte verzichten. Der Konsum lokaler Agrarprodukte ist vorteilhaft. Wir müssen Bäume pflanzen und Wälder sorgfältig schützen. Kleine Aktionen sammeln sich an um massive Veränderungen zu schaffen. Unsere heutigen Entscheidungen bestimmen die Zukunft von morgen.',
+          'Gesunde Lebensgewohnheiten sind das Geheimnis von Langlebigkeit und Glück. Regelmäßige Bewegung ist sowohl für die körperliche als auch die geistige Gesundheit unerlässlich. Eine ausgewogene Ernährung ist für das Wohlbefinden von entscheidender Bedeutung. Den ganzen Tag über ausreichend Wasser zu trinken ist notwendig. Ausreichend Schlaf bietet Zeit für Erholung und Verjüngung. Stressbewältigung ist im modernen Leben äußerst wichtig. Meditation und Yoga können sehr hilfreiche Praktiken sein. Bewahren Sie in allen Situationen eine positive Einstellung. Lassen Sie sich regelmäßig ärztlich untersuchen und screenen. Mit dem Rauchen aufhören und moderater Alkoholkonsum ist notwendig. Pflegen Sie soziale Beziehungen und Verbindungen zu anderen. Genießen Sie regelmäßig Hobbys und Freizeitaktivitäten. Gesundheit ist die Grundlage allen Glücks.',
+          'Informationskompetenz im digitalen Zeitalter ist heute absolut unerlässlich. Das Internet ist ein unendliches Archiv menschlichen Wissens. Allerdings sind nicht alle online verfügbaren Informationen korrekt. Die Gewohnheit Quellen zu überprüfen ist von entscheidender Bedeutung. Wir müssen in der Lage sein Fake News von Wahrheit zu unterscheiden. Der Schutz persönlicher Informationen erfordert ständige Aufmerksamkeit und Sorgfalt. Ändern Sie Ihre Passwörter regelmäßig für bessere Sicherheit. Die Verwendung der Zwei-Faktor-Authentifizierung ist viel sicherer für Konten. Kontrollieren Sie Ihre Social-Media-Nutzungszeit klug. Zeit abseits von digitalen Geräten ist auch notwendig. Ein ausgeglichenes digitales Leben ist der Schlüssel zum modernen Wohlbefinden.'
+        ],
+        pt: [
+          'A rápida raposa marrom pula sobre o cachorro preguiçoso. A prática leva à perfeição. A consistência é a chave para o progresso. Seja melhor hoje do que foi ontem. Pequeno progresso ainda é progresso e importa muito. O segredo do sucesso é começar hoje. Não espere pelo momento perfeito. Programação é a arte de resolver problemas. Código é a linguagem de pensamentos e ideias. Criatividade é essencial e pensamento lógico é necessário. A leitura alimenta a mente. Livros nos transportam para novos mundos e perspectivas. A música é a linguagem da alma que nos conecta. A vida é como andar de bicicleta. Para manter o equilíbrio você deve continuar em frente. Viajar é a melhor maneira de ganhar experiências. O mundo é vasto e lindo além da imaginação.',
+          'A tecnologia de inteligência artificial está avançando rapidamente todos os dias. Aprendizado de máquina e aprendizado profundo são centrais para indústrias futuras em todo o mundo. Os dados são chamados de petróleo do século XXI. Vivemos em uma era de sobrecarga de informações constantemente. Habilidades de pensamento crítico são mais importantes do que nunca. O sistema educacional também precisa de mudanças significativas. Devemos desenvolver criatividade e habilidades de resolução de problemas. Habilidades de colaboração e comunicação também são essenciais. Proficiência em idiomas é muito importante na era global. Devemos entender e respeitar culturas diversas. A tecnologia é apenas uma ferramenta e os humanos são os mestres. Temos a responsabilidade de criar um futuro melhor para todos.',
+          'A proteção ambiental é o desafio mais crítico da nossa geração hoje. A mudança climática não é mais uma história de futuro distante. O desenvolvimento sustentável é absolutamente essencial para a sobrevivência. A transição para fontes de energia renováveis é urgente e necessária. Devemos reduzir significativamente o uso de plástico. A reciclagem deve ser feita de forma completa e consistente. Usar transporte público também ajuda muito o meio ambiente. Devemos nos abster de usar produtos descartáveis sempre que possível. Consumir produtos agrícolas locais é benéfico. Devemos plantar árvores e proteger florestas diligentemente. Pequenas ações se acumulam para criar mudanças massivas. Nossas escolhas de hoje determinam o futuro de amanhã.',
+          'Hábitos de vida saudáveis são o segredo da longevidade e felicidade. Exercício regular é essencial para a saúde física e mental. Uma dieta equilibrada é de crucial importância para o bem-estar. Beber água suficiente ao longo do dia é necessário. Sono adequado fornece tempo para recuperação e rejuvenescimento. O gerenciamento de estresse é extremamente importante na vida moderna. Meditação e yoga podem ser práticas muito úteis. Mantenha uma mentalidade positiva em todas as situações. Faça exames de saúde e triagens regulares. Parar de fumar e consumo moderado de álcool é necessário. Mantenha relacionamentos sociais e conexões com outros. Desfrute de hobbies e atividades de lazer regularmente. A saúde é a base de toda felicidade.',
+          'A alfabetização informacional na era digital é absolutamente essencial hoje. A internet é um repositório infinito do conhecimento humano. No entanto nem todas as informações disponíveis online são precisas. O hábito de verificar fontes é de importância crítica. Devemos ser capazes de distinguir notícias falsas da verdade. A proteção de informações pessoais requer atenção e cuidado constantes. Mude suas senhas regularmente para melhor segurança. Usar autenticação de dois fatores é muito mais seguro para contas. Controle seu tempo de uso de mídia social com sabedoria. Tempo longe de dispositivos digitais também é necessário. Vida digital equilibrada é a chave para o bem-estar moderno.'
+        ],
+        ru: [
+          'Быстрая коричневая лиса прыгает через ленивую собаку. Практика делает совершенным. Последовательность ключ к улучшению. Будьте лучше сегодня чем были вчера. Небольшой прогресс это все еще прогресс и очень важен. Секрет успеха начать сегодня. Не ждите идеального момента. Программирование это искусство решения проблем. Код это язык мыслей и идей. Творчество необходимо и требуется логическое мышление. Чтение пища для ума. Книги переносят нас в новые миры и перспективы. Музыка язык души который объединяет нас. Жизнь как езда на велосипеде. Чтобы сохранить равновесие вы должны продолжать движение вперед. Путешествия лучший способ получить опыт. Мир огромен и прекрасен за пределами воображения.',
+          'Технология искусственного интеллекта быстро развивается каждый день. Машинное обучение и глубокое обучение являются ядром будущих отраслей по всему миру. Данные называют нефтью двадцать первого века. Мы живем в эпоху постоянной информационной перегрузки. Навыки критического мышления важнее чем когда-либо прежде. Система образования также нуждается в значительных изменениях. Мы должны развивать творчество и способности решать проблемы. Навыки сотрудничества и общения также необходимы. Знание языков очень важно в глобальную эпоху. Мы должны понимать и уважать разные культуры. Технология это просто инструмент а люди хозяева. У нас есть ответственность создать лучшее будущее для всех.',
+          'Защита окружающей среды самая критическая задача нашего поколения сегодня. Изменение климата больше не история далекого будущего. Устойчивое развитие абсолютно необходимо для выживания. Переход на возобновляемые источники энергии срочен и необходим. Мы должны значительно сократить использование пластика. Переработка должна проводиться тщательно и последовательно. Использование общественного транспорта также сильно помогает окружающей среде. Мы должны воздерживаться от использования одноразовых продуктов когда это возможно. Потребление местных сельскохозяйственных продуктов полезно. Мы должны сажать деревья и усердно защищать леса. Небольшие действия накапливаются создавая массивные изменения. Наш выбор сегодня определяет будущее завтра.',
+          'Здоровые привычки образа жизни секрет долголетия и счастья. Регулярные упражнения необходимы как для физического так и для психического здоровья. Сбалансированная диета имеет решающее значение для благополучия. Пить достаточно воды в течение дня необходимо. Достаточный сон обеспечивает время для восстановления и омоложения. Управление стрессом чрезвычайно важно в современной жизни. Медитация и йога могут быть очень полезными практиками. Поддерживайте позитивное мышление во всех ситуациях. Проходите регулярные медицинские осмотры и обследования. Бросить курить и умеренное потребление алкоголя необходимо. Поддерживайте социальные отношения и связи с другими. Регулярно наслаждайтесь хобби и досугом. Здоровье основа всего счастья.',
+          'Информационная грамотность в цифровую эпоху абсолютно необходима сегодня. Интернет бесконечное хранилище человеческих знаний. Однако не вся информация доступная в Интернете точна. Привычка проверять источники критически важна. Мы должны уметь отличать фейковые новости от правды. Защита личной информации требует постоянного внимания и заботы. Регулярно меняйте пароли для лучшей безопасности. Использование двухфакторной аутентификации намного безопаснее для учетных записей. Мудро контролируйте время использования социальных сетей. Время вдали от цифровых устройств также необходимо. Сбалансированная цифровая жизнь ключ к современному благополучию.'
+        ],
+        ar: [
+          'الثعلب البني السريع يقفز فوق الكلب الكسول. الممارسة تصنع الإتقان. الاتساق هو مفتاح التحسين. كن أفضل اليوم مما كنت عليه بالأمس. التقدم الصغير لا يزال تقدما ومهم جدا. سر النجاح هو البدء اليوم. لا تنتظر اللحظة المثالية. البرمجة هي فن حل المشكلات. الكود هو لغة الأفكار والأفكار. الإبداع ضروري والتفكير المنطقي مطلوب. القراءة غذاء للعقل. الكتب تنقلنا إلى عوالم جديدة ووجهات نظر جديدة. الموسيقى هي لغة الروح التي توحدنا. الحياة مثل ركوب الدراجة. للحفاظ على توازنك يجب أن تستمر في التحرك للأمام. السفر هو أفضل طريقة لاكتساب الخبرات. العالم واسع وجميل يفوق الخيال.',
+          'تقنية الذكاء الاصطناعي تتقدم بسرعة كل يوم. التعلم الآلي والتعلم العميق هما جوهر الصناعات المستقبلية في جميع أنحاء العالم. تسمى البيانات نفط القرن الحادي والعشرين. نعيش في عصر من الحمل الزائد للمعلومات باستمرار. مهارات التفكير النقدي أكثر أهمية من أي وقت مضى. يحتاج نظام التعليم أيضا إلى تغييرات كبيرة. يجب علينا تطوير الإبداع وقدرات حل المشكلات. مهارات التعاون والتواصل ضرورية أيضا. إتقان اللغة مهم جدا في العصر العالمي. يجب أن نفهم ونحترم الثقافات المتنوعة. التكنولوجيا مجرد أداة والبشر هم السادة. لدينا مسؤولية خلق مستقبل أفضل للجميع.',
+          'حماية البيئة هي التحدي الأكثر أهمية لجيلنا اليوم. تغير المناخ لم يعد قصة مستقبل بعيد بعد الآن. التنمية المستدامة ضرورية تماما للبقاء. الانتقال إلى مصادر الطاقة المتجددة عاجل وضروري. يجب علينا تقليل استخدام البلاستيك بشكل كبير. يجب إجراء إعادة التدوير بشكل شامل ومتسق. استخدام وسائل النقل العام يساعد البيئة أيضا بشكل كبير. يجب علينا الامتناع عن استخدام المنتجات ذات الاستخدام الواحد كلما أمكن ذلك. استهلاك المنتجات الزراعية المحلية مفيد. يجب علينا زراعة الأشجار وحماية الغابات بجد. تتراكم الإجراءات الصغيرة لخلق تغييرات هائلة. اختياراتنا اليوم تحدد مستقبل الغد.',
+          'عادات نمط الحياة الصحية هي سر طول العمر والسعادة. التمرين المنتظم ضروري لكل من الصحة الجسدية والعقلية. النظام الغذائي المتوازن مهم للغاية للرفاهية. شرب كمية كافية من الماء طوال اليوم ضروري. النوم الكافي يوفر وقتا للتعافي والتجديد. إدارة التوتر مهمة للغاية في الحياة الحديثة. التأمل واليوغا يمكن أن تكون ممارسات مفيدة جدا. حافظ على عقلية إيجابية في جميع المواقف. احصل على فحوصات صحية وفحوصات منتظمة. الإقلاع عن التدخين والاعتدال في تناول الكحول ضروري. حافظ على العلاقات الاجتماعية والاتصالات مع الآخرين. استمتع بالهوايات وأنشطة الترفيه بانتظام. الصحة هي أساس كل السعادة.',
+          'محو الأمية المعلوماتية في العصر الرقمي ضرورية تماما اليوم. الإنترنت مستودع لا نهائي للمعرفة البشرية. ومع ذلك ليست كل المعلومات المتاحة على الإنترنت دقيقة. عادة التحقق من المصادر مهمة بشكل حاسم. يجب أن نكون قادرين على التمييز بين الأخبار المزيفة والحقيقة. حماية المعلومات الشخصية تتطلب اهتماما ورعاية مستمرين. قم بتغيير كلمات المرور الخاصة بك بانتظام لأمان أفضل. استخدام المصادقة ذات العاملين أكثر أمانا بكثير للحسابات. تحكم في وقت استخدام وسائل التواصل الاجتماعي بحكمة. الوقت بعيدا عن الأجهزة الرقمية ضروري أيضا. الحياة الرقمية المتوازنة هي مفتاح العافية الحديثة.'
+        ]
+      }
     };
 
     let currentLang = localStorage.getItem('preferredLanguage') || 'en';
@@ -347,7 +947,12 @@
     languageSelector.value = currentLang;
 
     function t(key) {
-      return translations[currentLang][key] || key;
+      const keys = key.split('.');
+      let value = translations[currentLang];
+      for (const k of keys) {
+        value = value?.[k];
+      }
+      return value || key;
     }
 
     function updateLanguage() {
@@ -366,25 +971,26 @@
     updateLanguage();
 
     // 게임 변수
-    let duration = 60;
-    let timeLeft = 60;
-    let timerInterval = null;
+    let difficulty = 'medium';
     let targetText = '';
     let typedText = '';
     let correctChars = 0;
     let totalChars = 0;
     let startTime = 0;
+    let elapsedTime = 0;
+    let timerInterval = null;
 
     // 버튼 이벤트
-    document.querySelectorAll('.duration-btn').forEach(btn => {
+    document.querySelectorAll('.difficulty-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.duration-btn').forEach(b => {
+        document.querySelectorAll('.difficulty-btn').forEach(b => {
           b.classList.remove('active', 'border-green-500', 'bg-gradient-to-br', 'from-green-500', 'to-teal-600', 'text-white', 'shadow-lg');
           b.classList.add('border-gray-300');
         });
         btn.classList.remove('border-gray-300');
         btn.classList.add('active', 'border-green-500', 'bg-gradient-to-br', 'from-green-500', 'to-teal-600', 'text-white', 'shadow-lg');
-        duration = parseInt(btn.dataset.duration);
+        difficulty = btn.dataset.length;
+        loadBestRecord();
       });
     });
 
@@ -405,33 +1011,29 @@
     }
 
     function initGame() {
-      // 랜덤 텍스트 선택
-      const texts = textPool[currentLang];
+      // 난이도별 랜덤 텍스트 선택
+      const texts = textPool[difficulty][currentLang];
       targetText = texts[Math.floor(Math.random() * texts.length)];
 
-      timeLeft = duration;
       typedText = '';
       correctChars = 0;
       totalChars = 0;
+      elapsedTime = 0;
 
       // 텍스트 표시
       renderText();
 
-      // 타이머 시작
-      document.getElementById('timer-display').textContent = timeLeft;
+      // 타이머 표시 시작
+      document.getElementById('timer-display').textContent = '0.0';
       document.getElementById('typing-input').value = '';
       document.getElementById('typing-input').disabled = false;
       document.getElementById('typing-input').focus();
 
       startTime = Date.now();
       timerInterval = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer-display').textContent = timeLeft;
-
-        if (timeLeft <= 0) {
-          endGame();
-        }
-      }, 1000);
+        elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
+        document.getElementById('timer-display').textContent = elapsedTime;
+      }, 100);
 
       // 입력 이벤트
       const input = document.getElementById('typing-input');
@@ -505,7 +1107,7 @@
       document.getElementById('final-accuracy').textContent = accuracy + '%';
 
       // 최고 기록 저장
-      const key = `typingBest_${duration}`;
+      const key = `typingBest_${difficulty}`;
       const best = localStorage.getItem(key);
       if (!best || wpm > parseInt(best)) {
         localStorage.setItem(key, wpm);
@@ -526,7 +1128,7 @@
     }
 
     function loadBestRecord() {
-      const key = `typingBest_${duration}`;
+      const key = `typingBest_${difficulty}`;
       const best = localStorage.getItem(key);
       document.getElementById('best-record').textContent = best ? `${best} WPM` : '-- WPM';
     }

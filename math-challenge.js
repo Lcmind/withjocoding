@@ -46,6 +46,190 @@ document.addEventListener('DOMContentLoaded', () => {
       backHome: 'Home',
       privacyPolicy: 'Privacy Policy',
       termsOfService: 'Terms of Service'
+    },
+    ja: {
+      title: '数学チャレンジ',
+      subtitle: '暗算の速さをテストしよう！',
+      selectDifficulty: '難易度選択',
+      easy: '簡単',
+      normal: '普通',
+      hard: '難しい',
+      selectProblems: '問題数選択',
+      startChallenge: 'チャレンジ開始',
+      bestTime: '最短時間',
+      problems: '問題',
+      time: '時間',
+      accuracy: '正確度',
+      results: '結果',
+      totalTime: '合計時間',
+      correct: '正解',
+      wrong: '不正解',
+      avgTimePerProblem: '問題あたりの平均時間',
+      challengeAgain: '再挑戦',
+      backHome: 'ホーム',
+      privacyPolicy: 'プライバシーポリシー',
+      termsOfService: '利用規約'
+    },
+    zh: {
+      title: '数学挑战',
+      subtitle: '测试你的心算速度！',
+      selectDifficulty: '选择难度',
+      easy: '简单',
+      normal: '普通',
+      hard: '困难',
+      selectProblems: '问题数量',
+      startChallenge: '开始挑战',
+      bestTime: '最佳时间',
+      problems: '问题',
+      time: '时间',
+      accuracy: '准确度',
+      results: '结果',
+      totalTime: '总时间',
+      correct: '正确',
+      wrong: '错误',
+      avgTimePerProblem: '每题平均时间',
+      challengeAgain: '再次挑战',
+      backHome: '主页',
+      privacyPolicy: '隐私政策',
+      termsOfService: '服务条款'
+    },
+    es: {
+      title: 'Desafío Matemático',
+      subtitle: '¡Prueba tu velocidad de cálculo mental!',
+      selectDifficulty: 'Seleccionar Dificultad',
+      easy: 'Fácil',
+      normal: 'Normal',
+      hard: 'Difícil',
+      selectProblems: 'Número de Problemas',
+      startChallenge: 'Comenzar Desafío',
+      bestTime: 'Mejor Tiempo',
+      problems: 'Problemas',
+      time: 'Tiempo',
+      accuracy: 'Precisión',
+      results: 'Resultados',
+      totalTime: 'Tiempo Total',
+      correct: 'Correcto',
+      wrong: 'Incorrecto',
+      avgTimePerProblem: 'Tiempo Promedio por Problema',
+      challengeAgain: 'Desafiar de Nuevo',
+      backHome: 'Inicio',
+      privacyPolicy: 'Política de Privacidad',
+      termsOfService: 'Términos de Servicio'
+    },
+    fr: {
+      title: 'Défi Mathématique',
+      subtitle: 'Testez votre vitesse de calcul mental !',
+      selectDifficulty: 'Sélectionner la Difficulté',
+      easy: 'Facile',
+      normal: 'Normal',
+      hard: 'Difficile',
+      selectProblems: 'Nombre de Problèmes',
+      startChallenge: 'Commencer le Défi',
+      bestTime: 'Meilleur Temps',
+      problems: 'Problèmes',
+      time: 'Temps',
+      accuracy: 'Précision',
+      results: 'Résultats',
+      totalTime: 'Temps Total',
+      correct: 'Correct',
+      wrong: 'Incorrect',
+      avgTimePerProblem: 'Temps Moyen par Problème',
+      challengeAgain: 'Réessayer',
+      backHome: 'Accueil',
+      privacyPolicy: 'Politique de Confidentialité',
+      termsOfService: 'Conditions d\'Utilisation'
+    },
+    de: {
+      title: 'Mathe-Herausforderung',
+      subtitle: 'Teste deine Kopfrechengeschwindigkeit!',
+      selectDifficulty: 'Schwierigkeit Wählen',
+      easy: 'Einfach',
+      normal: 'Normal',
+      hard: 'Schwer',
+      selectProblems: 'Anzahl der Aufgaben',
+      startChallenge: 'Herausforderung Starten',
+      bestTime: 'Beste Zeit',
+      problems: 'Aufgaben',
+      time: 'Zeit',
+      accuracy: 'Genauigkeit',
+      results: 'Ergebnisse',
+      totalTime: 'Gesamtzeit',
+      correct: 'Richtig',
+      wrong: 'Falsch',
+      avgTimePerProblem: 'Durchschnittliche Zeit pro Aufgabe',
+      challengeAgain: 'Erneut Herausfordern',
+      backHome: 'Startseite',
+      privacyPolicy: 'Datenschutzrichtlinie',
+      termsOfService: 'Nutzungsbedingungen'
+    },
+    pt: {
+      title: 'Desafio Matemático',
+      subtitle: 'Teste sua velocidade de cálculo mental!',
+      selectDifficulty: 'Selecionar Dificuldade',
+      easy: 'Fácil',
+      normal: 'Normal',
+      hard: 'Difícil',
+      selectProblems: 'Número de Problemas',
+      startChallenge: 'Começar Desafio',
+      bestTime: 'Melhor Tempo',
+      problems: 'Problemas',
+      time: 'Tempo',
+      accuracy: 'Precisão',
+      results: 'Resultados',
+      totalTime: 'Tempo Total',
+      correct: 'Correto',
+      wrong: 'Errado',
+      avgTimePerProblem: 'Tempo Médio por Problema',
+      challengeAgain: 'Desafiar Novamente',
+      backHome: 'Início',
+      privacyPolicy: 'Política de Privacidade',
+      termsOfService: 'Termos de Serviço'
+    },
+    ru: {
+      title: 'Математический Вызов',
+      subtitle: 'Проверь скорость своего устного счета!',
+      selectDifficulty: 'Выбрать Сложность',
+      easy: 'Легко',
+      normal: 'Нормально',
+      hard: 'Сложно',
+      selectProblems: 'Количество Задач',
+      startChallenge: 'Начать Вызов',
+      bestTime: 'Лучшее Время',
+      problems: 'Задачи',
+      time: 'Время',
+      accuracy: 'Точность',
+      results: 'Результаты',
+      totalTime: 'Общее Время',
+      correct: 'Правильно',
+      wrong: 'Неправильно',
+      avgTimePerProblem: 'Среднее Время на Задачу',
+      challengeAgain: 'Попробовать Снова',
+      backHome: 'Главная',
+      privacyPolicy: 'Политика Конфиденциальности',
+      termsOfService: 'Условия Использования'
+    },
+    ar: {
+      title: 'تحدي الرياضيات',
+      subtitle: 'اختبر سرعة حسابك الذهني!',
+      selectDifficulty: 'اختر الصعوبة',
+      easy: 'سهل',
+      normal: 'عادي',
+      hard: 'صعب',
+      selectProblems: 'عدد المسائل',
+      startChallenge: 'ابدأ التحدي',
+      bestTime: 'أفضل وقت',
+      problems: 'المسائل',
+      time: 'الوقت',
+      accuracy: 'الدقة',
+      results: 'النتائج',
+      totalTime: 'الوقت الإجمالي',
+      correct: 'صحيح',
+      wrong: 'خطأ',
+      avgTimePerProblem: 'متوسط الوقت لكل مسألة',
+      challengeAgain: 'تحدى مجدداً',
+      backHome: 'الصفحة الرئيسية',
+      privacyPolicy: 'سياسة الخصوصية',
+      termsOfService: 'شروط الخدمة'
     }
   };
 
@@ -96,12 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 변수 선언 제거 (상단으로 이동됨)
   const difficultySettings = {
-    easy: { min: 1, max: 10 },
-    normal: { min: 1, max: 50 },
-    hard: { min: 1, max: 100 }
+    easy: { min: 1, max: 50, operations: ['+', '-'] },
+    normal: { min: 10, max: 99, operations: ['+', '-', '×', '÷'] },
+    hard: { min: 10, max: 999, operations: ['+', '-', '×', '÷'] }
   };
-
-  const operations = ['+', '-', '×', '÷'];
 
   // 난이도 선택
   document.querySelectorAll('.difficulty-btn').forEach(btn => {
@@ -187,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const settings = difficultySettings[difficulty];
-    const operation = operations[Math.floor(Math.random() * operations.length)];
+    const operation = settings.operations[Math.floor(Math.random() * settings.operations.length)];
 
     let num1, num2, answer;
 
@@ -204,16 +386,27 @@ document.addEventListener('DOMContentLoaded', () => {
         answer = num1 - num2;
         break;
       case '×':
-        // 곱셈은 숫자를 작게
-        const maxMul = Math.floor(Math.sqrt(settings.max));
-        num1 = randomInt(settings.min, maxMul);
-        num2 = randomInt(settings.min, maxMul);
+        // 곱셈은 숫자를 조정
+        if (difficulty === 'easy') {
+          num1 = randomInt(settings.min, settings.max);
+          num2 = randomInt(settings.min, settings.max);
+        } else {
+          // 중간, 어려움은 곱셈 결과가 너무 크지 않게
+          const maxMul = Math.min(99, Math.floor(Math.sqrt(settings.max * 100)));
+          num1 = randomInt(settings.min, maxMul);
+          num2 = randomInt(2, 12);
+        }
         answer = num1 * num2;
         break;
       case '÷':
         // 나눗셈은 정확히 떨어지게
-        num2 = randomInt(settings.min, Math.floor(settings.max / 10));
-        answer = randomInt(settings.min, Math.floor(settings.max / num2));
+        if (difficulty === 'easy') {
+          num2 = randomInt(2, settings.max);
+          answer = randomInt(1, settings.max);
+        } else {
+          num2 = randomInt(2, 12);
+          answer = randomInt(settings.min, Math.floor(settings.max / num2));
+        }
         num1 = answer * num2;
         break;
     }
