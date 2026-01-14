@@ -253,7 +253,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let correctAnswer = 0;
 
   function t(key) {
-    return translations[currentLang][key] || key;
+    const keys = key.split('.');
+    let value = translations[currentLang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
   }
 
   function updateLanguage() {
