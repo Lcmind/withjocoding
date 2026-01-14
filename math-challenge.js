@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ko: {
       title: '수학 챌린지',
       subtitle: '빠른 암산 능력을 테스트하세요!',
+      gameMethod: '게임 방법',
+      mathMethodDesc: {
+        0: '수학 문제가 화면에 나타납니다',
+        1: '빠르게 정답을 선택하세요',
+        2: '모든 문제를 완료하여 속도를 확인하세요!'
+      },
       selectDifficulty: '난이도 선택',
       easy: '쉬움',
       normal: '보통',
@@ -27,6 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     en: {
       title: 'Math Challenge',
       subtitle: 'Test your mental calculation speed!',
+      gameMethod: 'How to Play',
+      mathMethodDesc: {
+        0: 'Math problems appear on screen',
+        1: 'Choose the correct answer quickly',
+        2: 'Complete all problems to see your speed!'
+      },
       selectDifficulty: 'Select Difficulty',
       easy: 'Easy',
       normal: 'Normal',
@@ -50,6 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ja: {
       title: '数学チャレンジ',
       subtitle: '暗算の速さをテストしよう！',
+      gameMethod: '遊び方',
+      mathMethodDesc: {
+        0: '数学の問題が画面に表示されます',
+        1: '素早く正しい答えを選んでください',
+        2: 'すべての問題を完了して速度を確認!'
+      },
       selectDifficulty: '難易度選択',
       easy: '簡単',
       normal: '普通',
@@ -73,6 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
     zh: {
       title: '数学挑战',
       subtitle: '测试你的心算速度！',
+      gameMethod: '游戏方法',
+      mathMethodDesc: {
+        0: '数学题出现在屏幕上',
+        1: '快速选择正确答案',
+        2: '完成所有问题查看你的速度!'
+      },
       selectDifficulty: '选择难度',
       easy: '简单',
       normal: '普通',
@@ -96,6 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
     es: {
       title: 'Desafío Matemático',
       subtitle: '¡Prueba tu velocidad de cálculo mental!',
+      gameMethod: 'Cómo Jugar',
+      mathMethodDesc: {
+        0: 'Problemas matemáticos aparecen en pantalla',
+        1: 'Elige la respuesta correcta rápidamente',
+        2: '¡Completa todos los problemas para ver tu velocidad!'
+      },
       selectDifficulty: 'Seleccionar Dificultad',
       easy: 'Fácil',
       normal: 'Normal',
@@ -119,6 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
     fr: {
       title: 'Défi Mathématique',
       subtitle: 'Testez votre vitesse de calcul mental !',
+      gameMethod: 'Comment Jouer',
+      mathMethodDesc: {
+        0: 'Des problèmes mathématiques apparaissent à l écran',
+        1: 'Choisissez la bonne réponse rapidement',
+        2: 'Complétez tous les problèmes pour voir votre vitesse!'
+      },
       selectDifficulty: 'Sélectionner la Difficulté',
       easy: 'Facile',
       normal: 'Normal',
@@ -142,6 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
     de: {
       title: 'Mathe-Herausforderung',
       subtitle: 'Teste deine Kopfrechengeschwindigkeit!',
+      gameMethod: 'Spielanleitung',
+      mathMethodDesc: {
+        0: 'Mathematikaufgaben erscheinen auf dem Bildschirm',
+        1: 'Wähle schnell die richtige Antwort',
+        2: 'Löse alle Aufgaben um deine Geschwindigkeit zu sehen!'
+      },
       selectDifficulty: 'Schwierigkeit Wählen',
       easy: 'Einfach',
       normal: 'Normal',
@@ -165,6 +207,12 @@ document.addEventListener('DOMContentLoaded', () => {
     pt: {
       title: 'Desafio Matemático',
       subtitle: 'Teste sua velocidade de cálculo mental!',
+      gameMethod: 'Como Jogar',
+      mathMethodDesc: {
+        0: 'Problemas matemáticos aparecem na tela',
+        1: 'Escolha a resposta correta rapidamente',
+        2: 'Complete todos os problemas para ver sua velocidade!'
+      },
       selectDifficulty: 'Selecionar Dificuldade',
       easy: 'Fácil',
       normal: 'Normal',
@@ -188,6 +236,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ru: {
       title: 'Математический Вызов',
       subtitle: 'Проверь скорость своего устного счета!',
+      gameMethod: 'Как Играть',
+      mathMethodDesc: {
+        0: 'Математические задачи появляются на экране',
+        1: 'Быстро выбирайте правильный ответ',
+        2: 'Решите все задачи чтобы увидеть свою скорость!'
+      },
       selectDifficulty: 'Выбрать Сложность',
       easy: 'Легко',
       normal: 'Нормально',
@@ -211,6 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ar: {
       title: 'تحدي الرياضيات',
       subtitle: 'اختبر سرعة حسابك الذهني!',
+      gameMethod: 'كيفية اللعب',
+      mathMethodDesc: {
+        0: 'تظهر المسائل الرياضية على الشاشة',
+        1: 'اختر الإجابة الصحيحة بسرعة',
+        2: 'أكمل جميع المسائل لرؤية سرعتك!'
+      },
       selectDifficulty: 'اختر الصعوبة',
       easy: 'سهل',
       normal: 'عادي',
