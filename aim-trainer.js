@@ -1,8 +1,15 @@
-// 번역
-const translations = {
+document.addEventListener('DOMContentLoaded', () => {
+  // 번역
+  const translations = {
   ko: {
     title: '조준 트레이너',
     subtitle: '조준 정확도와 속도를 향상시키세요!',
+    gameMethod: '게임 방법',
+    aimMethodDesc: {
+      0: '타겟이 화면에 무작위로 나타납니다',
+      1: '최대한 빠르게 클릭하세요',
+      2: '정확도와 속도를 향상시키세요!'
+    },
     selectDifficulty: '난이도 선택',
     easy: '쉬움',
     normal: '보통',
@@ -25,6 +32,12 @@ const translations = {
   en: {
     title: 'Aim Trainer',
     subtitle: 'Improve your aim precision and speed!',
+    gameMethod: 'How to Play',
+    aimMethodDesc: {
+      0: 'Targets appear randomly on screen',
+      1: 'Click them as fast as possible',
+      2: 'Improve your accuracy and speed!'
+    },
     selectDifficulty: 'Select Difficulty',
     easy: 'Easy',
     normal: 'Normal',
@@ -47,6 +60,12 @@ const translations = {
   ja: {
     title: 'エイムトレーナー',
     subtitle: 'エイムの精度とスピードを向上させよう！',
+    gameMethod: '遊び方',
+    aimMethodDesc: {
+      0: 'ターゲットが画面にランダムに表示されます',
+      1: 'できるだけ速くクリックしてください',
+      2: '精度とスピードを向上させよう!'
+    },
     selectDifficulty: '難易度選択',
     easy: '簡単',
     normal: '普通',
@@ -69,6 +88,12 @@ const translations = {
   zh: {
     title: '瞄准训练器',
     subtitle: '提高你的瞄准精度和速度！',
+    gameMethod: '游戏方法',
+    aimMethodDesc: {
+      0: '目标随机出现在屏幕上',
+      1: '尽可能快地点击它们',
+      2: '提高你的精度和速度！'
+    },
     selectDifficulty: '选择难度',
     easy: '简单',
     normal: '普通',
@@ -91,6 +116,12 @@ const translations = {
   es: {
     title: 'Entrenador de Puntería',
     subtitle: '¡Mejora tu precisión y velocidad de puntería!',
+    gameMethod: 'Cómo Jugar',
+    aimMethodDesc: {
+      0: 'Los objetivos aparecen aleatoriamente en la pantalla',
+      1: 'Haz clic en ellos lo más rápido posible',
+      2: '¡Mejora tu precisión y velocidad!'
+    },
     selectDifficulty: 'Seleccionar Dificultad',
     easy: 'Fácil',
     normal: 'Normal',
@@ -113,6 +144,12 @@ const translations = {
   fr: {
     title: 'Entraîneur de Visée',
     subtitle: 'Améliorez votre précision et vitesse de visée !',
+    gameMethod: 'Comment Jouer',
+    aimMethodDesc: {
+      0: 'Les cibles apparaissent aléatoirement à l\'écran',
+      1: 'Cliquez dessus aussi vite que possible',
+      2: 'Améliorez votre précision et vitesse!'
+    },
     selectDifficulty: 'Sélectionner la Difficulté',
     easy: 'Facile',
     normal: 'Normal',
@@ -135,6 +172,12 @@ const translations = {
   de: {
     title: 'Ziel-Trainer',
     subtitle: 'Verbessere deine Zielpräzision und Geschwindigkeit!',
+    gameMethod: 'Spielanleitung',
+    aimMethodDesc: {
+      0: 'Ziele erscheinen zufällig auf dem Bildschirm',
+      1: 'Klicke sie so schnell wie möglich',
+      2: 'Verbessere deine Genauigkeit und Geschwindigkeit!'
+    },
     selectDifficulty: 'Schwierigkeit Wählen',
     easy: 'Einfach',
     normal: 'Normal',
@@ -157,6 +200,12 @@ const translations = {
   pt: {
     title: 'Treinador de Mira',
     subtitle: 'Melhore sua precisão e velocidade de mira!',
+    gameMethod: 'Como Jogar',
+    aimMethodDesc: {
+      0: 'Alvos aparecem aleatoriamente na tela',
+      1: 'Clique neles o mais rápido possível',
+      2: 'Melhore sua precisão e velocidade!'
+    },
     selectDifficulty: 'Selecionar Dificuldade',
     easy: 'Fácil',
     normal: 'Normal',
@@ -179,6 +228,12 @@ const translations = {
   ru: {
     title: 'Тренажер Прицеливания',
     subtitle: 'Улучши свою точность и скорость прицеливания!',
+    gameMethod: 'Как Играть',
+    aimMethodDesc: {
+      0: 'Цели появляются случайно на экране',
+      1: 'Нажимайте на них как можно быстрее',
+      2: 'Улучшите свою точность и скорость!'
+    },
     selectDifficulty: 'Выбрать Сложность',
     easy: 'Легко',
     normal: 'Нормально',
@@ -201,6 +256,12 @@ const translations = {
   ar: {
     title: 'مدرب التصويب',
     subtitle: 'حسّن دقتك وسرعتك في التصويب!',
+    gameMethod: 'كيفية اللعب',
+    aimMethodDesc: {
+      0: 'تظهر الأهداف بشكل عشوائي على الشاشة',
+      1: 'انقر عليها بأسرع ما يمكن',
+      2: 'حسّن دقتك وسرعتك!'
+    },
     selectDifficulty: 'اختر الصعوبة',
     easy: 'سهل',
     normal: 'عادي',
@@ -222,7 +283,13 @@ const translations = {
   }
 };
 
-let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+let currentLang = 'en';
+try {
+  currentLang = localStorage.getItem('preferredLanguage') || 'en';
+} catch (e) {
+  console.warn('LocalStorage access failed:', e);
+}
+
 const languageSelector = document.getElementById('language-selector');
 if (languageSelector) {
   languageSelector.value = currentLang;
@@ -247,7 +314,11 @@ function updateLanguage() {
 if (languageSelector) {
   languageSelector.addEventListener('change', (e) => {
     currentLang = e.target.value;
-    localStorage.setItem('preferredLanguage', currentLang);
+    try {
+      localStorage.setItem('preferredLanguage', currentLang);
+    } catch (e) {
+      console.warn('LocalStorage save failed:', e);
+    }
     updateLanguage();
   });
 }
@@ -457,9 +528,13 @@ function endGame() {
 
   // 최고 기록 저장
   const key = `aimBest_${difficulty}`;
-  const best = localStorage.getItem(key);
-  if (!best || accuracy > parseInt(best)) {
-    localStorage.setItem(key, accuracy);
+  try {
+    const best = localStorage.getItem(key);
+    if (!best || accuracy > parseInt(best)) {
+      localStorage.setItem(key, accuracy);
+    }
+  } catch (e) {
+    console.warn('LocalStorage save failed:', e);
   }
 
   hideScreen(document.getElementById('game-screen'));
@@ -482,8 +557,14 @@ function hideScreen(screen) {
 
 function loadBestRecord() {
   const key = `aimBest_${difficulty}`;
-  const best = localStorage.getItem(key);
-  document.getElementById('best-record').textContent = best ? `${best}%` : '--%';
+  try {
+    const best = localStorage.getItem(key);
+    const bestRecordEl = document.getElementById('best-record');
+    if (bestRecordEl) bestRecordEl.textContent = best ? `${best}%` : '--%';
+  } catch (e) {
+    console.warn('LocalStorage access failed:', e);
+  }
 }
 
 loadBestRecord();
+});
