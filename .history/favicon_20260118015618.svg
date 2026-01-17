@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#grad)" stroke="#fff" stroke-width="2"/>
+  
+  <!-- Game icons arranged in a circle -->
+  <!-- Target (FPS) -->
+  <circle cx="50" cy="20" r="8" fill="#fff" opacity="0.9"/>
+  <circle cx="50" cy="20" r="5" fill="#ff4444"/>
+  
+  <!-- Brain (Memory) -->
+  <text x="75" y="35" font-size="14" fill="#fff" opacity="0.9">🧠</text>
+  
+  <!-- Keyboard (Typing) -->
+  <text x="75" y="70" font-size="14" fill="#fff" opacity="0.9">⌨️</text>
+  
+  <!-- Numbers (Math) -->
+  <text x="25" y="70" font-size="14" fill="#fff" opacity="0.9">123</text>
+  
+  <!-- Crosshair (Aim) -->
+  <circle cx="25" cy="35" r="6" fill="none" stroke="#fff" stroke-width="2" opacity="0.9"/>
+  <line x1="25" y1="29" x2="25" y2="41" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+  <line x1="19" y1="35" x2="31" y2="35" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+  
+  <!-- Center W letter -->
+  <text x="50" y="60" font-size="28" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">W</text>
+</svg>

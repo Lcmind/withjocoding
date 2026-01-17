@@ -56,9 +56,7 @@
   <link rel="preconnect" href="https://www.googletagmanager.com">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   
   <!-- PWA Manifest -->
@@ -114,12 +112,12 @@
   </script>
   
   <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XR0JJFHWGG"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XR0JJFHWGG', {
+    gtag('config', 'G-XXXXXXXXXX', {
       'anonymize_ip': true,
       'cookie_flags': 'SameSite=None;Secure'
     });
@@ -441,19 +439,9 @@
     </p>
   </footer>
 
-  <!-- AdSense 자동 초기화 -->
+  <!-- AdSense 초기화 -->
   <script>
-    // 모든 광고 유닛 로드
     (adsbygoogle = window.adsbygoogle || []).push({});
-    // 페이지 로드 후 추가 광고 로드
-    window.addEventListener('load', function() {
-      const ads = document.querySelectorAll('.adsbygoogle');
-      ads.forEach(ad => {
-        if (!ad.getAttribute('data-ad-status')) {
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        }
-      });
-    });
   </script>
 
   <!-- 번역 시스템 -->

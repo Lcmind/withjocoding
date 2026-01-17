@@ -1,0 +1,49 @@
+# robots.txt for withjocoding.pages.dev
+# SEO & GEO (AI Crawling) Optimized
+
+# User-agent: * (All search engines and AI crawlers)
+User-agent: *
+Allow: /
+Disallow: /backup/
+Disallow: /*.backup$
+Disallow: /*.old$
+
+# Sitemap location
+Sitemap: https://withjocoding.pages.dev/sitemap.xml
+
+# AI Crawlers - Allow for GEO (Generative Engine Optimization)
+# ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# Google Bard/Gemini
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+# Common Crawl (used by many AI models)
+User-agent: CCBot
+Allow: /
+
+# Bing AI
+User-agent: Bingbot
+Allow: /
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Special directives for premium content
+User-agent: *
+Allow: /aim-trainer.html
+Allow: /math-challenge.html
+Allow: /typing-speed.html
+Allow: /memory-test.html
+Allow: /index.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.json$
